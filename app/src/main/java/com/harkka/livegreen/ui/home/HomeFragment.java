@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,8 +15,18 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.harkka.livegreen.R;
+import com.harkka.livegreen.user.UserManager;
+
+import static com.harkka.livegreen.user.UserManager.*;
 
 public class HomeFragment extends Fragment {
+
+    // Variables for user management
+    UserManager uManager = UserManager.getInstance(); // Singleton for User class usage
+
+    // Variables for test purposes Todo: Remove these when not needed anymore (jka)
+    Button testButton;
+    int testInt = 0;
 
     private HomeViewModel homeViewModel;
 
@@ -24,12 +36,37 @@ public class HomeFragment extends Fragment {
                 new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        homeViewModel.getText().observe(getViewLifecycleOwner(),
+                new Observer<String>() {
+                    @Override
+                    public void onChanged(@Nullable String s) {
+                        textView.setText(s);
+                    }
+                });
+
+        // Todo: remove after test use
+        Button testButton = (Button) root.findViewById(R.id.buttonTest);
+        testButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+                public void onClick(View root){
+                    pushTestButton(root);
+                }
+            });
+
         return root;
     }
+
+    // Todo: remove after test use
+    public void pushTestButton(View v) {
+        testButton = v.findViewById(R.id.buttonTest);
+        testInt++;
+        if (testInt % 2 == 0) {
+            testButton.setText("Test Button");
+        } else
+            testButton.setText("Clicked");
+
+        uManager.createUser("user.name@gmail.com");
+
+    }
+
 }
