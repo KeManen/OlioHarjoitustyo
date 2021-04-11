@@ -4,12 +4,12 @@ import java.util.UUID;
 
 public class User {
 
-    private UUID userId;
+    public UUID userId;
 
     // For prototyping before sub class UserProfile is implemented
-    private String userName;
-    private String userFirstName;
-    private String userLastName;
+    public String userName = "testU";
+    public String userFirstName= "testF";
+    public String userLastName= "testL";
     // For prototyping before sub class UserProfile is implemented
 
 
@@ -17,30 +17,23 @@ public class User {
 
     public User() {
         userId =  getGuid();
-        userName = "TestUser";
-        userFirstName = "TestFirst";
-        userLastName = "TestLast";
+        //UserProfile uProfile = new UserProfile();
     }
-
+/*
     public User(String uName) {
-        userId = getGuid();
-        userName = uName;
-        // userProfile.setUserName(uName);
-        userFirstName = "TestFirst";
-        userLastName = "TestLast";
+        UserProfile uProfile = new UserProfile();
+        uProfile.setUserProfileUName(uName);
+        System.out.println("User()/uName: " + uProfile.userName);
     }
 
     public User(String firstName, String lastName) {
-        userId = getGuid();
-        String userName = "TestUser";
-        // userProfile.setFirstName(firstName);
-        userFirstName = firstName;
-        System.out.println(userFirstName);
-        // userProfile.setLastName(lastName);
-        userLastName = lastName;
-        System.out.println(userLastName);
+        UserProfile uProfile = new UserProfile();
+        uProfile.setUserProfileFName(firstName);
+        System.out.println(firstName);
+        uProfile.setUserProfileLName(lastName);
+        System.out.println(lastName);
     }
-
+*/
     public User getUser(UUID guid) {
 
         User user = new User(); // Todo: Implement fetch from UserDB/file
@@ -53,6 +46,33 @@ public class User {
         return user;
     }
 
+    public UUID getUserId() { return userId; }
+
+    public String getUserName(){
+        return userName;
+    }
+
+    public String getUserFirstName(){
+        return userFirstName;
+    }
+
+    public String getUserLastName(){
+        return userLastName;
+    }
+
+    public void setUserName( String uName) {
+        userName = uName;
+    }
+
+    public void setUserFirstName( String fName) {
+        userName = fName;
+    }
+
+    public void setUserLastName( String lName) {
+        userName = lName;
+    }
+
+
    // Internal auxiliary methods
 
    // Guid generation
@@ -60,7 +80,7 @@ public class User {
     private UUID getGuid() {
 
         UUID guid = UUID.randomUUID();
-        System.out.println("Guid: " + guid);
+        System.out.println("GetGuid()/Guid: " + guid);
 
         return guid;
     }

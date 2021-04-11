@@ -17,6 +17,8 @@ import androidx.lifecycle.ViewModelProvider;
 import com.harkka.livegreen.R;
 import com.harkka.livegreen.user.UserManager;
 
+import java.util.UUID;
+
 import static com.harkka.livegreen.user.UserManager.*;
 
 public class HomeFragment extends Fragment {
@@ -58,6 +60,8 @@ public class HomeFragment extends Fragment {
 
     // Todo: remove after test use
     public void pushTestButton(View v) {
+        UUID uGuid;
+
         testButton = v.findViewById(R.id.buttonTest);
         testInt++;
         if (testInt % 2 == 0) {
@@ -65,7 +69,16 @@ public class HomeFragment extends Fragment {
         } else
             testButton.setText("Clicked");
 
-        uManager.createUser("user.name@gmail.com");
+        uGuid = uManager.createUser(); // New user creation
+        System.out.println("Home F: " + uGuid);
+
+        uManager.getUser(uGuid); // To be used for fetching existing user by guid
+
+        uManager.setUserProfile(uGuid, "TestUname", "testFname", "testLname"); // Set user profile data by guid
+
+        uManager.createUserProfile(uGuid); // Empty
+
+        uManager.getUserProfile(uGuid);
 
     }
 
