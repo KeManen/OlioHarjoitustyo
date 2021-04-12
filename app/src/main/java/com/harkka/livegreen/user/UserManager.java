@@ -57,11 +57,12 @@ public class UserManager {
         //User user = new User();
         //user = user.getUser(guid);
 
-        System.out.println("UserManager/getUser(): " + user.userId);
-        System.out.println("UserManager/getUser(): " + user.userName);
-        System.out.println("UserManager/getUser(): " + user.userLastName);
-        System.out.println("UserManager/getUser(): " + user.userFirstName);
-        System.out.println("UserManager/getUser(): " + users.get(0).userName);
+        System.out.println("UserManager/getUser()Guid: " + user.userId);
+        System.out.println("UserManager/getUser()Email: " + user.getUserEmail());
+        System.out.println("UserManager/getUser()Uname: " + user.userName);
+        //System.out.println("UserManager/getUser(): " + user.userLastName);
+        //System.out.println("UserManager/getUser(): " + user.userFirstName);
+        System.out.println("UserManager/getUser()Uname2: " + users.get(0).userName);
 
 
     }
@@ -71,10 +72,11 @@ public class UserManager {
         //Todo: Implement fetch form ArrayList
         //UserProfile uProfile = new UserProfile();
 
-        System.out.println("UserManager/getUserProfile(): " + uProfile.userGuid);
-        System.out.println("UserManager/getUserProfile(): " + uProfile.userName);
-        System.out.println("UserManager/getUserProfile(): " + uProfile.userLastName);
-        System.out.println("UserManager/getUserProfile(): " + uProfile.userFirstName);
+        System.out.println("UserManager/getUserProfile()Guid: " + uProfile.userGuid);
+        System.out.println("UserManager/getUserProfile()Lname: " + uProfile.userLastName);
+        System.out.println("UserManager/getUserProfile()Fname: " + uProfile.userFirstName);
+        System.out.println("UserManager/getUserProfile()Age: " + uProfile.userAge);
+        System.out.println("UserManager/getUserProfile()Loc: " + uProfile.userLocation);
 
         return uProfile;
     }
@@ -82,20 +84,19 @@ public class UserManager {
     // Todo: Proto using user, not userprofile
 
 
-    public void setUserProfile(UUID uGuid, String uName, String fName, String lName) {
+    public void setUserProfile(UUID uGuid, String fName, String lName, int age, String location) {
         user.userId = uGuid;
-        if (!uName.isEmpty())
-            user.userName = uName;
         if (!fName.isEmpty())
             user.userFirstName = fName;
         if (!lName.isEmpty())
             user.userLastName = lName;
 
-        System.out.println("UserManager/setUserProfile: " + user.userName);
-        System.out.println("UserManager/setUserProfile: " + user.userFirstName);
-        System.out.println("UserManager/setUserProfile: " + user.userLastName);
+        System.out.println("UserManager/setUserProfile/Fname: " + user.userFirstName);
+        System.out.println("UserManager/setUserProfile/Lname: " + user.userLastName);
+        System.out.println("UserManager/setUserProfile/Age: " + age);
+        System.out.println("UserManager/setUserProfile/Loc: " + location);
 
-        UserProfile userProfile = new UserProfile(uGuid, uName, fName, lName);
+        UserProfile userProfile = new UserProfile(uGuid, fName, lName, age, location);
 
         // Todo: update ArrayList / DB
     }

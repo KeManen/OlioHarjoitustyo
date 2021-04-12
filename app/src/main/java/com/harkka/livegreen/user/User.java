@@ -7,6 +7,7 @@ public class User {
     public UUID userId;
 
     // For prototyping before sub class UserProfile is implemented
+    private String userEmail = "user.email@email.com";
     public String userName = "testU";
     public String userFirstName= "testF";
     public String userLastName= "testL";
@@ -39,14 +40,19 @@ public class User {
         User user = new User(); // Todo: Implement fetch from UserDB/file
 
         user.userId = userId;
+        user.userEmail = userEmail;
         user.userName = userName;
-        user.userFirstName = userFirstName;
-        user.userLastName = userLastName;
+        //user.userFirstName = userFirstName;
+        //user.userLastName = userLastName;
 
         return user;
     }
 
     public UUID getUserId() { return userId; }
+
+    public String getUserEmail(){
+        return userEmail;
+    }
 
     public String getUserName(){
         return userName;
@@ -60,16 +66,20 @@ public class User {
         return userLastName;
     }
 
+    public void setUserEmail( String uEmail) {
+        userEmail = uEmail;
+    }
+
     public void setUserName( String uName) {
         userName = uName;
     }
 
     public void setUserFirstName( String fName) {
-        userName = fName;
+        userFirstName = fName;
     }
 
     public void setUserLastName( String lName) {
-        userName = lName;
+        userLastName = lName;
     }
 
 

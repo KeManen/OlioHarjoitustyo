@@ -74,7 +74,7 @@ public class HomeFragment extends Fragment {
 
         uManager.getUser(uGuid); // To be used for fetching existing user by guid
 
-        uManager.setUserProfile(uGuid, "TestUname", "testFname", "testLname"); // Set user profile data by guid
+        uManager.setUserProfile(uGuid, "TestFname", "testLname", testInt, "Stadi"); // Set user profile data by guid
 
         uManager.createUserProfile(uGuid); // Empty
 
