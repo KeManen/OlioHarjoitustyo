@@ -8,15 +8,23 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/Theme.LiveGreen.AppBarOverlay">
+        android:layout_height="wrap_content">
+        <!-- android:theme="@style/Theme.LiveGreen.AppBarOverlay"> -->
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/Theme.LiveGreen.PopupOverlay" />
+            android:background="@color/background_black"
+            app:popupTheme="@style/Theme.LiveGreen.PopupOverlay"
+            android:theme="@style/Theme.LiveGreen.AppBarOverlay"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/green_dark" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
