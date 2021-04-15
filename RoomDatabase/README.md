@@ -14,6 +14,11 @@ CreateUser1.java + activity_create_user2.xml
 CreateUser2.java + activity_create_user2.xml
 = Toinen käyttäjänluonti
 
+HomeScreen.java + activity_home_screen.xml
+= Testi Home screen
+
+**** Databasen luonti ja komennot ****
+
 UserDatabase.java
 = Kannan luonti nimelle "userEntity"
 
