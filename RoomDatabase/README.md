@@ -27,3 +27,5 @@ UserEntity.java
 
 UserDao.java
 = Kannan lisäys/etsimis/poisto toiminnot
+
+Manifestissä oikea käynnistysjärjestys
