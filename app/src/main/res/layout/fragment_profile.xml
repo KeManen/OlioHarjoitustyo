@@ -15,8 +15,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:textAlignment="center"
-        android:textSize="20sp"
         android:textColor="@color/white"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,10 +24,10 @@
         app:layout_constraintVertical_bias="0.89" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonProfileViewLogout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Log out"
+        android:text="@string/log_out"
         app:backgroundTint="@color/red"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,13 +58,14 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/profileCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         app:cardBackgroundColor="@color/foreground_black"
         app:cardCornerRadius="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/buttonProfileViewLogout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,6 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -86,17 +88,17 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:layout_weight="100"
-                    android:textColor="@color/white"
-                    android:text="@string/height" />
+                    android:text="@string/height"
+                    android:textColor="@color/white" />
 
                 <EditText
                     android:id="@+id/editTextHeight"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textColor="@color/white"
                     android:ems="10"
-                    android:inputType="numberDecimal" />
+                    android:inputType="numberDecimal"
+                    android:textColor="@color/white" />
             </LinearLayout>
 
             <LinearLayout
@@ -109,18 +111,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    android:textColor="@color/white"
                     android:layout_weight="100"
-                    android:text="@string/weight" />
+                    android:text="@string/weight"
+                    android:textColor="@color/white" />
 
                 <EditText
                     android:id="@+id/editTextWeight"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textColor="@color/white"
                     android:ems="10"
-                    android:inputType="numberDecimal" />
+                    android:inputType="numberDecimal"
+                    android:textColor="@color/white" />
             </LinearLayout>
 
             <LinearLayout
@@ -132,19 +134,19 @@
                     android:id="@+id/textViewAge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
                     android:layout_margin="8dp"
                     android:layout_weight="100"
-                    android:text="@string/birthdate" />
+                    android:text="@string/birthdate"
+                    android:textColor="@color/white" />
 
                 <EditText
                     android:id="@+id/editTextAge"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textColor="@color/white"
                     android:ems="10"
-                    android:inputType="date" />
+                    android:inputType="date"
+                    android:textColor="@color/white" />
             </LinearLayout>
 
             <LinearLayout
@@ -156,19 +158,19 @@
                     android:id="@+id/textViewLocation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
                     android:layout_margin="8dp"
                     android:layout_weight="100"
-                    android:text="@string/location" />
+                    android:text="@string/location"
+                    android:textColor="@color/white" />
 
                 <EditText
                     android:id="@+id/editTextLocation"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textColor="@color/white"
                     android:ems="10"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:textColor="@color/white" />
             </LinearLayout>
 
         </LinearLayout>
@@ -179,8 +181,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:textColor="@color/white"
         android:text="PROFILENAME"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="@+id/imageButtonProfile"
         app:layout_constraintTop_toBottomOf="@+id/imageButtonProfile" />
 
