@@ -11,6 +11,9 @@ public class User {
     public String userName = "testU";
     public String userFirstName= "testF";
     public String userLastName= "testL";
+
+    boolean userLogged = false;
+
     // For prototyping before sub class UserProfile is implemented
 
 
@@ -18,6 +21,8 @@ public class User {
 
     public User() {
         userId =  getGuid();
+        userLogged = true;
+        System.out.println(userLogged);
         //UserProfile uProfile = new UserProfile();
     }
 /*
@@ -66,6 +71,8 @@ public class User {
         return userLastName;
     }
 
+    public boolean getUserLogged() { return userLogged; }
+
     public void setUserEmail( String uEmail) {
         userEmail = uEmail;
     }
@@ -80,6 +87,10 @@ public class User {
 
     public void setUserLastName( String lName) {
         userLastName = lName;
+    }
+
+    public void setUserLogged(boolean logged) {
+        userLogged = logged;
     }
 
 
