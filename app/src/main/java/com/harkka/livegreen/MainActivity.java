@@ -2,7 +2,6 @@ package com.harkka.livegreen;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.UserManager;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Toast;
@@ -11,6 +10,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.harkka.livegreen.roomdb.LoginActivity;
+import com.harkka.livegreen.user.User;
+import com.harkka.livegreen.user.UserManager;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -28,7 +29,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.Theme_LiveGreen_NoActionBar);
 
-        //handle_loginprompt();
+        UserManager um = UserManager.getInstance();
+
+        handle_loginprompt();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -63,10 +66,11 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void handle_loginprompt(){
-        // TODO complete with islogged
-        //if(!UserManager.islogged()){
+
+        UserManager um = UserManager.getInstance();
+        if(!um.isAnyoneLogged()){
         startActivity(new Intent(getBaseContext(), LoginActivity.class));
-        //}
+        }
 
         Toast.makeText(getApplicationContext(), "Welcome back !", Toast.LENGTH_SHORT).show();
     }

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.UserManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -62,8 +63,12 @@ public class LoginActivity extends AppCompatActivity {
                             } else {
                                 // move to mainactivity fragment here and send username
                                 String name = userEntity.userId;
-                                //Toast.makeText(getApplicationContext(), "Welcome "+name+"!", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getBaseContext(), MainActivity.class).putExtra("name", name));
+                                //TODO REMOVE <temp>
+                                com.harkka.livegreen.user.UserManager um = com.harkka.livegreen.user.UserManager.getInstance();
+                                um.createUser();
+                                // </temp>
+                                //Toast.makeText(getApplicationContext(), "Welcome "+name+"!", Toast.LENGTH_SHORT).show(); crashes
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class).putExtra("name", name));
 
                             }
                         }

@@ -12,7 +12,7 @@ public class User {
     public String userFirstName= "testF";
     public String userLastName= "testL";
 
-    boolean userLogged = false;
+    boolean userLogged = true;
 
     // For prototyping before sub class UserProfile is implemented
 

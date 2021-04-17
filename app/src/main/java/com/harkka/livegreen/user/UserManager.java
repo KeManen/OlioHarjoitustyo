@@ -1,5 +1,9 @@
 package com.harkka.livegreen.user;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -99,6 +103,18 @@ public class UserManager {
         UserProfile userProfile = new UserProfile(uGuid, fName, lName, age, location);
 
         // Todo: update ArrayList / DB
+    }
+
+    public boolean isAnyoneLogged(){
+        for(User user : users){
+            System.out.println("NAME: "+ user.getUserFirstName() + "  Login status: "+ user.getUserIsLogged());
+            if(user.getUserIsLogged()){
+                System.out.println("##########################  SOMEONE IS LOGGED ########################");
+                return true;
+            }
+        }
+        System.out.println("##########################  NO ONE IS LOGGED ########################");
+        return false;
     }
 
 }

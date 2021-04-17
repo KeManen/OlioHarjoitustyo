@@ -19,6 +19,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.harkka.livegreen.MainActivity;
 import com.harkka.livegreen.R;
 import com.harkka.livegreen.roomdb.LoginActivity;
+import com.harkka.livegreen.user.UserManager;
 
 public class ProfileFragment extends Fragment {
 
@@ -59,8 +60,9 @@ public class ProfileFragment extends Fragment {
         //login_button = v.findViewById(R.id.buttonProfileViewLogout);
         //card = v.findViewById(R.id.profileCardView);
         Context context = getContext();
+        UserManager um = UserManager.getInstance();
 
-        if(is_logged){
+        if(um.isAnyoneLogged()){
             login_button.setText(getText(R.string.log_out));
             login_button.setBackgroundColor(login_button.getContext().getResources().getColor(R.color.red));
 
