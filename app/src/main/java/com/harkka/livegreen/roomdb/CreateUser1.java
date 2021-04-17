@@ -10,8 +10,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.harkka.livegreen.R;
+import com.harkka.livegreen.user.UserManager;
 
 public class CreateUser1 extends AppCompatActivity {
+
+    // Variables for user management
+    UserManager uManager = UserManager.getInstance(); // Singleton for User class usage
 
     // Integrate components
     EditText userId, password, email, password2;
@@ -41,6 +45,9 @@ public class CreateUser1 extends AppCompatActivity {
                 // remove from .xml --> android:inputType="textPassword" to remove hidden password
 
                 if (passwordCheck.equals(passwordCheck2)) {
+
+                    // Create user
+                    //uManager.createUser();
 
                     // Initialize the user Entity
                     UserEntity userEntity = new UserEntity();

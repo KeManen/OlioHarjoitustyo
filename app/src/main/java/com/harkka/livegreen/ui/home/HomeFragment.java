@@ -23,13 +23,6 @@ import static com.harkka.livegreen.user.UserManager.*;
 
 public class HomeFragment extends Fragment {
 
-    // Variables for user management
-    UserManager uManager = UserManager.getInstance(); // Singleton for User class usage
-
-    // Variables for test purposes Todo: Remove these when not needed anymore (jka)
-    Button testButton;
-    int testInt = 0;
-
     private HomeViewModel homeViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -45,41 +38,7 @@ public class HomeFragment extends Fragment {
                         textView.setText(s);
                     }
                 });
-
-        // Todo: remove after test use
-        Button testButton = (Button) root.findViewById(R.id.buttonTest);
-        testButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-                public void onClick(View root){
-                    pushTestButton(root);
-                }
-            });
-
         return root;
-    }
-
-    // Todo: remove after test use
-    public void pushTestButton(View v) {
-        UUID uGuid;
-
-        testButton = v.findViewById(R.id.buttonTest);
-        testInt++;
-        if (testInt % 2 == 0) {
-            testButton.setText("Test Button");
-        } else
-            testButton.setText("Clicked");
-
-        uGuid = uManager.createUser(); // New user creation
-        System.out.println("Home F: " + uGuid);
-
-        uManager.getUser(uGuid); // To be used for fetching existing user by guid
-
-        uManager.setUserProfile(uGuid, "TestFname", "testLname", testInt, "Stadi"); // Set user profile data by guid
-
-        uManager.createUserProfile(uGuid); // Empty
-
-        uManager.getUserProfile(uGuid);
-
     }
 
 }
