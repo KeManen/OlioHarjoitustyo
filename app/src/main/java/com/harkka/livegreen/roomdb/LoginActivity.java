@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
                                 // move to mainactivity fragment here and send username
                                 String name = userEntity.userId;
                                 Toast.makeText(getApplicationContext(), "Welcome "+name+"!", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getBaseContext(), MainActivity.class).putExtra("name", name));
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class).putExtra("name", name));
 
                             }
                         }
