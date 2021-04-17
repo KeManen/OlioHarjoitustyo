@@ -1,4 +1,4 @@
-package com.example.barchart;
+package com.harkka.livegreen.barchart;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -13,6 +13,8 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import com.harkka.livegreen.R;
 
 
 public class BarChartActivity extends AppCompatActivity {
