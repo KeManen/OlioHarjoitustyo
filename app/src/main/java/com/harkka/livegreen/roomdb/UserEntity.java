@@ -1,4 +1,4 @@
-package com.example.authhandler;
+package com.harkka.livegreen.roomdb;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

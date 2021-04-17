@@ -1,4 +1,4 @@
-package com.example.authhandler;
+package com.harkka.livegreen.roomdb;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.harkka.livegreen.R;
 
 import java.util.concurrent.TimeUnit;
 
@@ -85,7 +87,7 @@ public class CreateUser2 extends AppCompatActivity {
                                 }
 
                                 // User is created. Move to Login fragment here and close current fragment
-                                startActivity(new Intent(CreateUser2.this, MainActivity.class));
+                                startActivity(new Intent(CreateUser2.this, LoginActivity.class));
                             }
                         }
                     }).start();

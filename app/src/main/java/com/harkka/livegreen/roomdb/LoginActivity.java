@@ -1,4 +1,4 @@
-package com.example.authhandler;
+package com.harkka.livegreen.roomdb;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,7 +9,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import com.harkka.livegreen.MainActivity;
+import com.harkka.livegreen.R;
+
+public class LoginActivity extends AppCompatActivity {
 
     // Integrate components
     EditText userId, password;
@@ -18,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.login_activity_main);
 
         // Integrate components
         login = findViewById(R.id.login);
@@ -57,9 +60,10 @@ public class MainActivity extends AppCompatActivity {
                                     }
                                 });
                             } else {
-                                // move to homescreen fragment here and send username
+                                // move to mainactivity fragment here and send username
                                 String name = userEntity.userId;
-                                startActivity(new Intent(MainActivity.this, HomeScreen.class).putExtra("name", name));
+                                Toast.makeText(getApplicationContext(), "Welcome "+name+"!", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getBaseContext(), MainActivity.class).putExtra("name", name));
 
                             }
                         }
@@ -72,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         notYetUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, CreateUser1.class));
+                startActivity(new Intent(LoginActivity.this, CreateUser1.class));
             }
         });
     }

@@ -1,5 +1,7 @@
 package com.harkka.livegreen.ui.profile;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +16,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.harkka.livegreen.MainActivity;
 import com.harkka.livegreen.R;
+import com.harkka.livegreen.roomdb.LoginActivity;
 
 public class ProfileFragment extends Fragment {
 
@@ -54,12 +58,19 @@ public class ProfileFragment extends Fragment {
     public void handle_profileview_login_state(boolean is_logged){
         //login_button = v.findViewById(R.id.buttonProfileViewLogout);
         //card = v.findViewById(R.id.profileCardView);
+        Context context = getContext();
 
         if(is_logged){
             login_button.setText(getText(R.string.log_out));
             login_button.setBackgroundColor(login_button.getContext().getResources().getColor(R.color.red));
 
             card.setVisibility(View.VISIBLE);
+            login_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
 
             //TODO change rank, profile picture and profile name with stockvalues
 
@@ -68,6 +79,12 @@ public class ProfileFragment extends Fragment {
             login_button.setBackgroundColor(login_button.getContext().getResources().getColor(R.color.green_dark));
 
             card.setVisibility(View.GONE);
+            login_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(context, LoginActivity.class));
+                }
+            });
 
             //TODO change rank, profile picture and profile name with stockvalues
         }

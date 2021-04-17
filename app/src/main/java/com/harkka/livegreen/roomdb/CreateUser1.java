@@ -1,4 +1,4 @@
-package com.example.authhandler;
+package com.harkka.livegreen.roomdb;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.harkka.livegreen.R;
 
 public class CreateUser1 extends AppCompatActivity {
 
@@ -85,7 +87,7 @@ public class CreateUser1 extends AppCompatActivity {
         toLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CreateUser1.this, MainActivity.class));
+                startActivity(new Intent(CreateUser1.this, LoginActivity.class));
             }
         });
     }

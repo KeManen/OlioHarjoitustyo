@@ -1,4 +1,4 @@
-package com.example.authhandler;
+package com.harkka.livegreen.roomdb;
 
 import androidx.room.Dao;
 import androidx.room.Insert;

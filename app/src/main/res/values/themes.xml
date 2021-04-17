@@ -23,8 +23,8 @@
 
     <style name="Theme.LiveGreen.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="Theme.LiveGreen.Launcher">
+    <!--<style name="Theme.LiveGreen.Launcher">
         <item name="android:windowBackground">@drawable/launch_screen</item>
         <item name="colorPrimaryDark">@android:color/holo_green_dark</item>
-    </style>
+    </style> -->
 </resources>
