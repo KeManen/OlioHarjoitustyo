@@ -43,4 +43,19 @@
     <string name="location">Location</string>
     <string name="log_out">Log out</string>
     <string name="log_in">Log in</string>
+    <string name="create_new_account">Create new account</string>
+    <string name="create_account">Create account</string>
+    <string name="return_hint">Return</string>
+    <string name="enter_firstname_hint">Enter firstname</string>
+    <string name="enter_surname_hint">Enter surname</string>
+    <string name="enter_age_hint">Enter age</string>
+    <string name="enter_location_hint">Enter location</string>
+    <string name="continue_hint">Continue</string>
+    <string name="back_to_login">Back to login</string>
+    <string name="enter_email_hint">Enter email</string>
+    <string name="enter_username_hint">Enter username</string>
+    <string name="enter_password_hint">Enter password</string>
+    <string name="retype_password_hint">Retype password</string>
+    <string name="login">Login</string>
+    <string name="login_user">Login user</string>
 </resources>

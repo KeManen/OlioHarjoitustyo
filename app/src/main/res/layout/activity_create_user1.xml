@@ -4,100 +4,104 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_green_dark"
+    android:background="@color/green_dark"
     tools:context="com.harkka.livegreen.roomdb.CreateUser1">
 
-    <TextView
-        android:layout_width="403dp"
-        android:layout_height="64dp"
-        android:gravity="center"
-        android:text="Create new account"
-        android:textAlignment="center"
-        android:textSize="25dp"
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.043" />
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@mipmap/ic_launcher_foreground" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:gravity="center"
+        android:text="@string/create_new_account"
+        android:textAlignment="center"
+        android:textSize="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <Button
         android:id="@+id/register"
-        android:layout_width="154dp"
-        android:layout_height="61dp"
-        android:text="Continue"
+        android:layout_width="155dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/continue_hint"
+        app:backgroundTint="@color/green"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.454"
+        app:layout_constraintEnd_toEndOf="@+id/password2"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.58" />
+        app:layout_constraintTop_toBottomOf="@+id/password2" />
 
     <Button
         android:id="@+id/toLogin"
-        android:layout_width="152dp"
+        android:layout_width="150dp"
         android:layout_height="60dp"
-        android:text="Back to login"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.456"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.685" />
+        android:text="@string/back_to_login"
+        app:backgroundTint="@color/red"
+        app:layout_constraintBottom_toBottomOf="@+id/register"
+        app:layout_constraintEnd_toStartOf="@+id/register"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/password2"
+        app:layout_constraintTop_toTopOf="@+id/register" />
 
     <EditText
         android:id="@+id/email"
-        android:layout_width="166dp"
-        android:layout_height="48dp"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
         android:layout_margin="20dp"
-        android:hint="Enter email"
+        android:hint="@string/enter_email_hint"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.187" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintVertical_bias="0.0" />
 
 
     <EditText
         android:id="@+id/userId"
-        android:layout_width="163dp"
-        android:layout_height="44dp"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
         android:layout_margin="20dp"
-        android:hint="Enter username"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.452"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.274" />
+        android:hint="@string/enter_username_hint"
+        app:layout_constraintEnd_toEndOf="@+id/email"
+        app:layout_constraintStart_toStartOf="@+id/email"
+        app:layout_constraintTop_toBottomOf="@+id/email" />
 
     <EditText
         android:id="@+id/password"
-        android:layout_width="160dp"
-        android:layout_height="43dp"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
         android:layout_margin="20dp"
-        android:hint="Enter password"
+        android:hint="@string/enter_password_hint"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.457"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.367" />
+        app:layout_constraintEnd_toEndOf="@+id/userId"
+        app:layout_constraintStart_toStartOf="@+id/userId"
+        app:layout_constraintTop_toBottomOf="@+id/userId" />
 
     <EditText
         android:id="@+id/password2"
-        android:layout_width="171dp"
-        android:layout_height="42dp"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
         android:layout_margin="20dp"
-        android:hint="Retype password"
+        android:hint="@string/retype_password_hint"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.457"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.457" />
+        app:layout_constraintEnd_toEndOf="@+id/password"
+        app:layout_constraintStart_toStartOf="@+id/password"
+        app:layout_constraintTop_toBottomOf="@+id/password" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

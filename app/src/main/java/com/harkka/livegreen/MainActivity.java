@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.UserManager;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -66,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
         //if(!UserManager.islogged()){
         startActivity(new Intent(getBaseContext(), LoginActivity.class));
         //}
+
+        Toast.makeText(getApplicationContext(), "Welcome back !", Toast.LENGTH_SHORT).show();
     }
 
 }
