@@ -71,7 +71,7 @@ public class User {
         return userLastName;
     }
 
-    public boolean getUserLogged() { return userLogged; }
+    public boolean getUserIsLogged() { return userLogged; }
 
     public void setUserEmail( String uEmail) {
         userEmail = uEmail;
@@ -89,7 +89,7 @@ public class User {
         userLastName = lName;
     }
 
-    public void setUserLogged(boolean logged) {
+    public void setUserIsLogged(boolean logged) {
         userLogged = logged;
     }
 
