@@ -21,11 +21,14 @@ import com.harkka.livegreen.user.UserManager;
 import java.util.UUID;
 
 public class TestFragment extends Fragment {
+    //Todo: remove if not really needed
+    enum EntryType {WEIGHT, HEIGHT, DAIRY, MEAT, VEGE, OTHER};
+
     // Variables for user management
     UserManager uManager = UserManager.getInstance(); // Singleton for User class usage
 
     // Todo: Entrymanager test code 1
-    // Variables for user management
+    // Variables for entry management
     EntryManager entryManager = EntryManager.getInstance(); // Singleton for Entry class usage
 
 
@@ -79,17 +82,21 @@ public class TestFragment extends Fragment {
         System.out.println("Home F: " + uGuid);
 
         if (uManager.user.getUserIsLogged()) {
-            uManager.getUser(uGuid); // To be used for fetching existing user by guid
+            // To be used for fetching existing user by guid
+            //uManager.getUser(uGuid);
 
-            uManager.setUserProfile(uGuid, "TestFname", "testLname", testInt, "Stadi"); // Set user profile data by guid
+            //uManager.setUserProfile(uGuid, "TestFname", "testLname", testInt, "Stadi"); // Set user profile data by guid
 
-            uManager.createUserProfile(uGuid); // Empty
+            //uManager.createUserProfile(uGuid); // Empty
 
-            uManager.getUserProfile(uGuid);
+            //uManager.getUserProfile(uGuid);
  // // Todo: Entrymanager test code 2
             Entry entry = entryManager.createEntry(uGuid);
+            System.out.println("In Test Fragment: " + entry.toString() + " " + entryManager.entry.getEntryDateTime());
 
-            System.out.println("In Test Fragment: " + entry.toString() + " " + entryManager.entry.toString());
+            float value = (float).34566;
+            for (int i = 0; i < 5; i++)
+                entryManager.setEntryValue(i, value);
 
         }
     }
