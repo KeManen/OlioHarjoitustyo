@@ -30,7 +30,7 @@ public class UserProfile{
     public void setUserProfile(UUID uGuid, String fName, String lName, int age, String location) {
         UUID guid = uGuid;
 
-        // Todo: save in Arraylist/permanent DB
+        // Todo: save in permanent DB
 
         userFirstName = fName;
         userLastName = lName;

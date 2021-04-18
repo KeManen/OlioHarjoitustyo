@@ -4,6 +4,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.UUID;
+
 @Entity(tableName = "users")
 public class UserEntity {
 
@@ -11,12 +13,16 @@ public class UserEntity {
     // getters + setters
 
     // login and create new user fragment 1
+    // Todo: updated to version 2, to be fixed in UserDatabase
 
     @PrimaryKey(autoGenerate = true)
     Integer id;
 
     @ColumnInfo(name = "userId")
     String userId;
+
+    @ColumnInfo(name = "userName")
+    String userName;
 
     @ColumnInfo(name = "password")
     String password;
@@ -32,12 +38,21 @@ public class UserEntity {
         this.id = id;
     }
 
-    public String getUserId() {
-        return userId;
+    // Room cannot handle UUID -> conversions to String and back
+    public UUID getUserId() {
+        return UUID.fromString(userId);
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUserId(UUID userId) {
+        this.userId = userId.toString();
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userId = userName;
     }
 
     public String getPassword() {

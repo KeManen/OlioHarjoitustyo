@@ -6,12 +6,16 @@ public class User {
 
     public UUID userId;
 
-    // For prototyping before sub class UserProfile is implemented
+    // Todo: For prototyping before sub class UserProfile is fully implemented
     private String userEmail = "user.email@email.com";
     public String userName = "testU";
+    public String userPasswd = "12345";
+
+
+    /*
     public String userFirstName= "testF";
     public String userLastName= "testL";
-
+*/
     boolean userLogged = true;
 
     // For prototyping before sub class UserProfile is implemented
@@ -42,11 +46,12 @@ public class User {
 */
     public User getUser(UUID guid) {
 
-        User user = new User(); // Todo: Implement fetch from UserDB/file
+        User user = new User(); // Todo: Implement fetch from UserDB
 
         user.userId = userId;
         user.userEmail = userEmail;
         user.userName = userName;
+        user.userPasswd = userPasswd;
         //user.userFirstName = userFirstName;
         //user.userLastName = userLastName;
 
@@ -63,14 +68,19 @@ public class User {
         return userName;
     }
 
-    public String getUserFirstName(){
-        return userFirstName;
+    public String getUserPasswd(){
+        return userPasswd;
     }
+
+    /*
+
+    public String getUserFirstName(){ return userFirstName; }
 
     public String getUserLastName(){
         return userLastName;
     }
 
+     */
     public boolean getUserIsLogged() { return userLogged; }
 
     public void setUserEmail( String uEmail) {
@@ -81,6 +91,11 @@ public class User {
         userName = uName;
     }
 
+    public void setUserPasswd( String uPasswd ) {
+        userPasswd = uPasswd;
+    }
+
+    /*
     public void setUserFirstName( String fName) {
         userFirstName = fName;
     }
@@ -88,7 +103,7 @@ public class User {
     public void setUserLastName( String lName) {
         userLastName = lName;
     }
-
+*/
     public void setUserIsLogged(boolean logged) {
         userLogged = logged;
     }

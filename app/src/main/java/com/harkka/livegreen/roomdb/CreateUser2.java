@@ -9,7 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.harkka.livegreen.MainActivity;
 import com.harkka.livegreen.R;
+import com.harkka.livegreen.ui.home.HomeViewModel;
 
 import java.util.concurrent.TimeUnit;
 
@@ -34,8 +36,8 @@ public class CreateUser2 extends AppCompatActivity {
 
         // userId comes from first CreateUser screen
         // used to store both credentials to same ID/username
-        String userId = getIntent().getStringExtra("key");
-     //   System.out.println("On the other side:   " + userId);
+        String userName = getIntent().getStringExtra("key");
+        System.out.println("On the other side:   " + userName);
 
         create.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,7 +45,7 @@ public class CreateUser2 extends AppCompatActivity {
 
                 // Initialize new database object and insert info to the object as strings
                 UserEntity userEntity = new UserEntity();
-                userEntity.setUserId(userId);
+                userEntity.setUserName(userName);
                 userEntity.setFirstName(firstName.getText().toString());
                 userEntity.setLastName(lastName.getText().toString());
                 userEntity.setAge(age.getText().toString());
@@ -87,7 +89,7 @@ public class CreateUser2 extends AppCompatActivity {
                                 }
 
                                 // User is created. Move to Login fragment here and close current fragment
-                                startActivity(new Intent(CreateUser2.this, LoginActivity.class));
+                                startActivity(new Intent(CreateUser2.this, MainActivity.class)); // Was LoginActivity
                             }
                         }
                     }).start();
@@ -108,15 +110,38 @@ public class CreateUser2 extends AppCompatActivity {
 
     }
 
-
+/*
     // check given information --> is the input empty?
     private Boolean validateInput(UserEntity userEntity) {
 
         // add the needed components with -->  || userEntity.get_____().isEmpty())
-        if (userEntity.getUserId().isEmpty() ||userEntity.getFirstName().isEmpty() || userEntity.getLastName()
+        if (userEntity.getUserName().isEmpty() ||userEntity.getFirstName().isEmpty() || userEntity.getLastName()
                 .isEmpty() || userEntity.getAge().isEmpty() || userEntity.getLocation().isEmpty()) {
             return false;
         }
         return true;
     }
+  */
+    // For testing
+
+    private Boolean validateInput(UserEntity userEntity) {
+        String userName = getIntent().getStringExtra("key");
+        firstName = findViewById(R.id.firstName);
+        System.out.println(firstName.getText());
+        lastName = findViewById(R.id.lastName);
+        System.out.println(lastName.getText());
+        age = findViewById(R.id.age);
+        System.out.println(age.getText());
+        location = findViewById(R.id.location);
+        System.out.println(location.getText());
+        // add the needed components with -->  || userEntity.get_____().isEmpty())
+        if (userName.toString().isEmpty() ||firstName.getText().toString().isEmpty() || lastName.getText().toString().isEmpty() || age.getText().toString().isEmpty() || location.getText().toString().isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
+
+
+
 }

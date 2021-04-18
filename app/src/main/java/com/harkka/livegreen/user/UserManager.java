@@ -4,6 +4,8 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import com.harkka.livegreen.roomdb.UserEntity;
+
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -13,6 +15,7 @@ public class UserManager {
     public ArrayList<User> users = new ArrayList<>();
     public User user;
     public UserProfile uProfile;
+    public UserEntity uEntity;
 
     public static UserManager userManager = new UserManager(); // Singleton!!!
 
@@ -34,6 +37,15 @@ public class UserManager {
 
         return user.userId;
     }
+
+    public UserEntity createUserEntity() {
+
+        uEntity = new UserEntity();
+        System.out.println("UserManager/User Created: " + uEntity.toString());
+
+        return uEntity;
+    }
+
 
 /*
     public UUID createUser( String userName ) {
@@ -90,24 +102,21 @@ public class UserManager {
 
     public void setUserProfile(UUID uGuid, String fName, String lName, int age, String location) {
         user.userId = uGuid;
-        if (!fName.isEmpty())
-            user.userFirstName = fName;
-        if (!lName.isEmpty())
-            user.userLastName = lName;
+        if (!fName.isEmpty() && !lName.isEmpty()) {
 
-        System.out.println("UserManager/setUserProfile/Fname: " + user.userFirstName);
-        System.out.println("UserManager/setUserProfile/Lname: " + user.userLastName);
-        System.out.println("UserManager/setUserProfile/Age: " + age);
-        System.out.println("UserManager/setUserProfile/Loc: " + location);
+            System.out.println("UserManager/setUserProfile/Fname: " + fName);
+            System.out.println("UserManager/setUserProfile/Lname: " + lName);
+            System.out.println("UserManager/setUserProfile/Age: " + age);
+            System.out.println("UserManager/setUserProfile/Loc: " + location);
 
-        UserProfile userProfile = new UserProfile(uGuid, fName, lName, age, location);
-
+            UserProfile userProfile = new UserProfile(uGuid, fName, lName, age, location);
+        }
         // Todo: update ArrayList / DB
     }
 
     public boolean isAnyoneLogged(){
         for(User user : users){
-            System.out.println("NAME: "+ user.getUserFirstName() + "  Login status: "+ user.getUserIsLogged());
+            System.out.println("NAME: "+ user.getUserName() + "  Login status: "+ user.getUserIsLogged());
             if(user.getUserIsLogged()){
                 System.out.println("##########################  SOMEONE IS LOGGED ########################");
                 return true;
