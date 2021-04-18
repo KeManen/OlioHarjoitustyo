@@ -4,6 +4,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.UUID;
+
 @Entity(tableName = "data")
 public class DataEntity {
 
@@ -13,7 +15,13 @@ public class DataEntity {
 
     // add needed data components to store with the uid
     // daily data inputs
+/*
+    @ColumnInfo(name = "userId")
+    String userId;
 
+    @ColumnInfo(name = "entryId")
+    String entryId;
+*/
     @ColumnInfo(name = "weight")
     String weight;
 
@@ -35,6 +43,26 @@ public class DataEntity {
 
     public void setId(Integer id) { this.id = id; }
 
+    /*
+    // Room cannot handle UUID -> conversions to String and back
+    public UUID getUserId() {
+        return UUID.fromString(userId);
+    }
+
+    public void setUserId(UUID userId) {
+        this.userId = userId.toString();
+    }
+
+    // Room cannot handle UUID -> conversions to String and back
+    public UUID getEntryId() {
+        return UUID.fromString(entryId);
+    }
+
+    public void setEntryId(UUID entryId) {
+        this.entryId = entryId.toString();
+    }
+
+ */
     public String getWeight() { return weight; }
 
     public void setWeight(String weight) { this.weight = weight; }

@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.harkka.livegreen.R;
+import com.harkka.livegreen.entry.Entry;
+import com.harkka.livegreen.entry.EntryManager;
 import com.harkka.livegreen.user.UserManager;
 
 import java.util.UUID;
@@ -21,6 +23,11 @@ import java.util.UUID;
 public class TestFragment extends Fragment {
     // Variables for user management
     UserManager uManager = UserManager.getInstance(); // Singleton for User class usage
+
+    // Todo: Entrymanager test code 1
+    // Variables for user management
+    EntryManager entryManager = EntryManager.getInstance(); // Singleton for Entry class usage
+
 
     // Variables for test purposes Todo: Remove these when not needed anymore (jka)
     Button testButton;
@@ -79,6 +86,11 @@ public class TestFragment extends Fragment {
             uManager.createUserProfile(uGuid); // Empty
 
             uManager.getUserProfile(uGuid);
+ // // Todo: Entrymanager test code 2
+            Entry entry = entryManager.createEntry(uGuid);
+
+            System.out.println("In Test Fragment: " + entry.toString() + " " + entryManager.entry.toString());
+
         }
     }
 }
