@@ -1,5 +1,7 @@
 package com.harkka.livegreen.entry;
 
+import com.harkka.livegreen.roomdb.DataEntity;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -86,9 +88,11 @@ public class Entry {
     // TODO: This is db interface method
     // Makes db insert of current entry set by EntryManager.setEntryValue()
     public void insertEntry(int entryType) {
+        DataEntity dataEntity = new DataEntity();
         // Todo: in here entry type switch using ENUM
         switch(entryType){
             case 0:
+                dataEntity.setWeight(String.valueOf(weightEntry));
                 System.out.println(classString + "Weight " + weightEntry + "with guid " + entryGuid + " inserted in database!");
                 break;
             case 1:
