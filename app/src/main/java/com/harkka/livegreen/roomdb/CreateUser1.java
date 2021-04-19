@@ -13,13 +13,13 @@ import com.harkka.livegreen.R;
 import com.harkka.livegreen.user.UserManager;
 
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CreateUser1 extends AppCompatActivity {
 
     // Variables for user management
     UserManager uManager = UserManager.getInstance(); // Singleton for User class usage
-    // Todo: remove userEntity after right way to do this is found
-    UserEntity userEntity;
 
     // Integrate components
     EditText userName, password, email, password2;
@@ -44,64 +44,23 @@ public class CreateUser1 extends AppCompatActivity {
             public void onClick(View v) {
 
                 // Check whether the passwords match
-                String passwordCheck = password.getText().toString();
-                String passwordCheck2 = password2.getText().toString();
-                // remove from .xml --> android:inputType="textPassword" to remove hidden password
+                if (password.getText().toString().equals(password2.getText().toString())) {
 
-                if (passwordCheck.equals(passwordCheck2)) {
+                    // check for empty inputs
+                    if (validateInput()) {
 
-                    // Create User and UserEntity
-                    UUID uGuid = uManager.createUser();
-
-                    if (!uGuid.toString().isEmpty()) {
-                        // Create UserEntity
-                       userEntity = uManager.createUserEntity();
-
-                        // Initialize the UserProfile entity and UserEntity for database
-                        uManager.createUserProfile(uGuid);
-
-                        // Todo these values should be handled using User/UserProfile entities, userEntity to be created and database insert in the end of creation process
-                        //userEntity = new UserEntity();
-                        userEntity.setUserId(uGuid);
-                        userEntity.setUserName(userName.getText().toString());
-
-                        System.out.println(userName.getText().toString());
-
-                        userEntity.setPassword(password.getText().toString());
-                        userEntity.setEmail(email.getText().toString());
-
-
-                        // check for empty inputs
-                        if (validateInput(userEntity)) {
-                            //Insert userEntity to database
-                            UserDatabase userDatabase = UserDatabase.getUserDatabase(getApplicationContext());
-                            UserDao userDao = userDatabase.userDao();
-                            new Thread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    // Register the new user to the database
-                                    userDao.registerUser(userEntity);
-                                    runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            Toast.makeText(getApplicationContext(), "Half way done", Toast.LENGTH_SHORT).show();
-
-                                            // Close first CreateUser screen and move to CreateUser2. Send userId to the 2.fragment
-                                            startActivity(new Intent(CreateUser1.this, CreateUser2.class)
-                                                    .putExtra("key", userName.getText().toString()));
-                                            //      System.out.println("Kayttajanimi:   "+ userId.getText().toString());
-                                        }
-                                    });
-                                }
-                            }).start();
-
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Fill needed information", Toast.LENGTH_SHORT).show();
-                        }
+                        //switch to activity 2
+                        startActivity(new Intent(CreateUser1.this, CreateUser2.class)
+                                .putExtra("name", userName.getText().toString())
+                                .putExtra("email", email.getText().toString())
+                                .putExtra("password", password.getText().toString()));
 
                     } else {
-                        Toast.makeText(getApplicationContext(), "Passwords does not match", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Fill needed information", Toast.LENGTH_SHORT).show();
                     }
+
+                } else {
+                    Toast.makeText(getApplicationContext(), "Passwords does not match", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -116,12 +75,25 @@ public class CreateUser1 extends AppCompatActivity {
     }
 
     // check given information --> is the input empty?
-    private Boolean validateInput(UserEntity userEntity) {
-    System.out.println("WTF: " + userEntity);
+    private Boolean validateInput() {
+        System.out.println("name: " + userName.getText().toString());
+        System.out.println("email: " + email.getText().toString());
+        System.out.println("pass1: " + password.getText().toString());
+        System.out.println("pass2: " + password2.getText().toString());
         // add the needed components with -->  || userEntity.get_____().isEmpty())
-        // if (userEntity.getUserName().isEmpty() || userEntity.getPassword().isEmpty() || userEntity.getEmail().isEmpty()) {
-        // todo replace with the original above when null issues cleared
-        if (userName.toString().isEmpty() || password.toString().isEmpty() || email.toString().isEmpty()) {
+        //Check if input is empty
+        if (userName.toString().isEmpty() || password.toString().isEmpty() ||  password2.toString().isEmpty() || email.toString().isEmpty()) {
+            return false;
+        }
+        //check if email is a valid syntax
+        Pattern pattern = Pattern.compile("^(\\w|\\.|\\_|\\-)+[@](\\w|\\_|\\-|\\.)+[.]\\w{2,3}$", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(email.getText().toString());
+        if(!matcher.find()){
+            return false;
+        }
+        //check if password is valid syntax
+        //TODO add password reqs
+        if(false){
             return false;
         }
         return true;

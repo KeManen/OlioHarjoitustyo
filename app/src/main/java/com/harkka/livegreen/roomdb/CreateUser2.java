@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.UserManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +22,8 @@ public class CreateUser2 extends AppCompatActivity {
     EditText firstName, lastName, age, location;
     Button create, goBack;
 
+    String username, email, password;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,10 +37,11 @@ public class CreateUser2 extends AppCompatActivity {
         create = findViewById(R.id.create);
         goBack = findViewById(R.id.goBack);
 
-        // userId comes from first CreateUser screen
-        // used to store both credentials to same ID/username
-        String userName = getIntent().getStringExtra("key");
-        System.out.println("On the other side:   " + userName);
+        Intent intent = getIntent();
+        System.out.println(intent.getExtras().toString());
+        this.username = intent.getStringExtra("name");
+        this.email = intent.getStringExtra("email");
+        this.password = intent.getStringExtra("password");
 
         create.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,17 +49,18 @@ public class CreateUser2 extends AppCompatActivity {
 
                 // Initialize new database object and insert info to the object as strings
                 UserEntity userEntity = new UserEntity();
-                userEntity.setUserName(userName);
+                userEntity.setUserName(username);
+                userEntity.setEmail(email);
+                userEntity.setPassword(password);
                 userEntity.setFirstName(firstName.getText().toString());
                 userEntity.setLastName(lastName.getText().toString());
                 userEntity.setAge(age.getText().toString());
                 userEntity.setLocation(location.getText().toString());
 
                 // check whether given information is given correctly
-                if (validateInput(userEntity)) {
+                if (validateInput()){
 
-                    // Insert additional information to an existing object
-                    // perform Query command at UserDao
+                    // Insert userEntity to db
                     UserDatabase userDatabase = UserDatabase.getUserDatabase(getApplicationContext());
                     UserDao userDao = userDatabase.userDao();
                     new Thread(new Runnable() {
@@ -64,33 +69,23 @@ public class CreateUser2 extends AppCompatActivity {
                             // Add user to the database
                             userDao.registerUser(userEntity);
 
-                            // check whether the given credentials exist in the database
-                            if (userEntity == null) {
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Toast.makeText(getApplicationContext(), "Invalid credentials", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                            } else {
-                                // Tell the user account was created successfully
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Toast.makeText(getApplicationContext(), "Account created", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-
-                                // Sleep for 1second so user has time to read previous Toast message
-                                try {
-                                    TimeUnit.SECONDS.sleep(1);
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
+                            // Tell the user account was created successfully
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(getApplicationContext(), "Account created", Toast.LENGTH_SHORT).show();
                                 }
+                            });
 
-                                // User is created. Move to Login fragment here and close current fragment
-                                startActivity(new Intent(CreateUser2.this, MainActivity.class)); // Was LoginActivity
+                            // Sleep for 1second so user has time to read previous Toast message
+                            try {
+                                TimeUnit.SECONDS.sleep(1);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
                             }
+
+                            // User is created. Move to Login fragment here and close current fragment
+                            startActivity(new Intent(CreateUser2.this, MainActivity.class)); // Was LoginActivity
                         }
                     }).start();
 
@@ -110,6 +105,8 @@ public class CreateUser2 extends AppCompatActivity {
 
     }
 
+
+
 /*
     // check given information --> is the input empty?
     private Boolean validateInput(UserEntity userEntity) {
@@ -124,8 +121,7 @@ public class CreateUser2 extends AppCompatActivity {
   */
     // For testing
 
-    private Boolean validateInput(UserEntity userEntity) {
-        String userName = getIntent().getStringExtra("key");
+    private Boolean validateInput() {
         firstName = findViewById(R.id.firstName);
         System.out.println(firstName.getText());
         lastName = findViewById(R.id.lastName);
@@ -135,7 +131,7 @@ public class CreateUser2 extends AppCompatActivity {
         location = findViewById(R.id.location);
         System.out.println(location.getText());
         // add the needed components with -->  || userEntity.get_____().isEmpty())
-        if (userName.toString().isEmpty() ||firstName.getText().toString().isEmpty() || lastName.getText().toString().isEmpty() || age.getText().toString().isEmpty() || location.getText().toString().isEmpty()) {
+        if (firstName.getText().toString().isEmpty() || lastName.getText().toString().isEmpty() || age.getText().toString().isEmpty() || location.getText().toString().isEmpty()) {
             return false;
         }
         return true;
