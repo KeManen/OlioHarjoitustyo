@@ -16,6 +16,7 @@ import android.widget.Button;
 import com.harkka.livegreen.R;
 import com.harkka.livegreen.entry.Entry;
 import com.harkka.livegreen.entry.EntryManager;
+import com.harkka.livegreen.roomdb.DataDao;
 import com.harkka.livegreen.user.UserManager;
 
 import java.util.UUID;

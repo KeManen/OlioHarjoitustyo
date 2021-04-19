@@ -1,5 +1,6 @@
 package com.harkka.livegreen.entry;
 
+import com.harkka.livegreen.roomdb.DataDao;
 import com.harkka.livegreen.roomdb.DataEntity;
 
 import java.time.LocalDateTime;
