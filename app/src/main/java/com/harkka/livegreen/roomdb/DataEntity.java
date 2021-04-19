@@ -15,13 +15,13 @@ public class DataEntity {
 
     // add needed data components to store with the uid
     // daily data inputs
-/*
+
     @ColumnInfo(name = "userId")
     String userId;
 
     @ColumnInfo(name = "entryId")
     String entryId;
-*/
+
     @ColumnInfo(name = "weight")
     String weight;
 
@@ -43,8 +43,7 @@ public class DataEntity {
 
     public void setId(Integer id) { this.id = id; }
 
-    /*
-    // Room cannot handle UUID -> conversions to String and back
+     // Room cannot handle UUID -> conversions to String and back
     public UUID getUserId() {
         return UUID.fromString(userId);
     }
@@ -62,7 +61,6 @@ public class DataEntity {
         this.entryId = entryId.toString();
     }
 
- */
     public String getWeight() { return weight; }
 
     public void setWeight(String weight) { this.weight = weight; }
