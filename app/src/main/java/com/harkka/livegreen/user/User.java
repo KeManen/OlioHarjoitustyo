@@ -108,7 +108,6 @@ public class User {
         userLogged = logged;
     }
 
-
    // Internal auxiliary methods
 
    // Guid generation
