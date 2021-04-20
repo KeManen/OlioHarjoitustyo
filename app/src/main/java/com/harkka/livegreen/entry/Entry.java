@@ -27,6 +27,8 @@ public class Entry {
         System.out.println(classString + entryDateTime + " User Guid: " + userGuid + " Entry Guid: " + entryGuid);
     }
 
+    // Get methods
+
     public LocalDateTime getEntryDateTime() {
         return entryDateTime;
     }
@@ -51,6 +53,13 @@ public class Entry {
         return vegeConsumption;
     }
 
+    // Set methods
+
+    public void setEntryDateTime(LocalDateTime localDateTime) {
+        this.entryDateTime = localDateTime;
+        System.out.println(classString + "localDateTime set to " + localDateTime);
+    }
+
     public void setHeightEntry(float heightEntry) {
         this.heightEntry = heightEntry;
         System.out.println(classString + "heightEntry set to " + heightEntry);
@@ -58,7 +67,7 @@ public class Entry {
 
     public void setWeightEntry(float weightEntry) {
         this.weightEntry = weightEntry;
-        System.out.println(classString + "weightEntry set to " + heightEntry);
+        System.out.println(classString + "weightEntry set to " + weightEntry);
     }
 
     public void setDairyConsumption(float dairyConsumption) {

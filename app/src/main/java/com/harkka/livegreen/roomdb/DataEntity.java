@@ -1,9 +1,12 @@
 package com.harkka.livegreen.roomdb;
 
+import androidx.annotation.RequiresPermission;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 @Entity(tableName = "data")
@@ -62,6 +65,22 @@ public class DataEntity {
 
     public void setEntryId(UUID entryId) {
         this.entryId = entryId.toString();
+    }
+
+    public LocalDateTime getDateTime() {
+        DateTimeFormatter formatter = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        }
+        LocalDateTime localDateTime = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            localDateTime = LocalDateTime.parse(dateTime, formatter);
+        }
+        return localDateTime;
+    }
+
+    public void setDateTime(LocalDateTime localDateTime) {
+        this.dateTime = localDateTime.toString();
     }
 
     public String getWeight() { return weight; }

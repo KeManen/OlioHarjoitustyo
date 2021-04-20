@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.harkka.livegreen.R;
 import com.harkka.livegreen.entry.Entry;
@@ -36,8 +38,10 @@ public class TestFragment extends Fragment {
     // Variables for test purposes Todo: Remove these when not needed anymore (jka)
     Button testButton;
     int testInt = 0;
+    private String testString = "Test Fragment: ";
 
     private TestViewModel mViewModel;
+
 
     public static TestFragment newInstance() {
         return new TestFragment();
@@ -47,7 +51,6 @@ public class TestFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.test_fragment, container, false);
-
         // Todo: remove after test use
         Button testButton = (Button) root.findViewById(R.id.buttonTest);
         testButton.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +74,9 @@ public class TestFragment extends Fragment {
     public void pushTestButton(View v) {
         UUID uGuid = null;
 
+        TextView textViewTest = v.findViewById(R.id.textViewTest);
+        EditText editTextTest = v.findViewById(R.id.editTextTextMultiLineTest);
+
         testButton = v.findViewById(R.id.buttonTest);
         testInt++;
         if (testInt % 2 == 0) {
@@ -93,7 +99,13 @@ public class TestFragment extends Fragment {
             //uManager.getUserProfile(uGuid);
  // // Todo: Entrymanager test code 2
             Entry entry = entryManager.createEntry(uGuid);
-            System.out.println("In Test Fragment: " + entry.toString() + " " + entryManager.entry.getEntryDateTime());
+
+            String output = testString + entry.toString() + " " + entry.getEntryDateTime();
+
+            System.out.println(output);
+
+            //System.out.println(editTextTest.getText().toString());
+            //editTextTest.setText(output);
 
             float value = (float).34566;
             for (int i = 0; i < 5; i++)
