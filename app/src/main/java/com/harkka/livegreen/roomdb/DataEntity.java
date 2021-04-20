@@ -22,6 +22,9 @@ public class DataEntity {
     @ColumnInfo(name = "entryId")
     String entryId;
 
+    @ColumnInfo(name = "datetime")
+    String dateTime;
+
     @ColumnInfo(name = "weight")
     String weight;
 

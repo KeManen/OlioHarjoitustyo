@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {UserEntity.class}, version = 3)
+@Database(entities = {UserEntity.class, DataEntity.class}, version = 3)
 public abstract class UserDatabase extends RoomDatabase {
 
     // creating the user database
@@ -47,6 +47,7 @@ public abstract class UserDatabase extends RoomDatabase {
                     "id INTEGER PRIMARY KEY NOT NULL," +
                     "userId TEXT," +
                     "entryId TEXT," +
+                    "dateTime TEXT," +
                     "weight TEXT," +
                     "height TEXT," +
                     "dairyUsed TEXT," +
