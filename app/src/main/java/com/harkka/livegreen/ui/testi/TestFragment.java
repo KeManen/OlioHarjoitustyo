@@ -123,6 +123,7 @@ public class TestFragment extends Fragment {
 
            Calculable bmi = new BMI();
            value = bmi.calculateBMI(value1, value2);
+           System.out.println("BMI: " + value );
         }
     }
 }

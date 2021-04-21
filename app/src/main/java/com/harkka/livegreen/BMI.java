@@ -7,13 +7,8 @@ public class BMI implements Calculable {
 
     @Override
         public float calculateBMI(float height, float weight) {
-            float index;
-            index = (weight / (height * height));
-            float bmi =  (float) (round(index * 100.0) / 100.0);
-
-            System.out.println("BMI: " + bmi );
-
-            return bmi;
+            float index = (weight / (height * height));
+            return (float) (round(index * 100.0) / 100.0);
     }
     @Override
     public BMI getCalculable() { return bmi; }
