@@ -15,6 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.harkka.livegreen.BMI;
+import com.harkka.livegreen.Calculable;
 import com.harkka.livegreen.R;
 import com.harkka.livegreen.entry.Entry;
 import com.harkka.livegreen.entry.EntryManager;
@@ -111,6 +113,16 @@ public class TestFragment extends Fragment {
             for (int i = 0; i < 5; i++)
                 entryManager.setEntryValue(i, value);
 
+
+            entryManager.setEntryValue(0, 1.8f);
+            float value1 = entryManager.getEntryValue(0);
+            System.out.println("Weight: " + value1);
+            entryManager.setEntryValue(1, 80f);
+            float value2 = entryManager.getEntryValue(1);
+            System.out.println("Height: " + value2);
+
+           Calculable bmi = new BMI();
+           value = bmi.calculateBMI(value1, value2);
         }
     }
 }

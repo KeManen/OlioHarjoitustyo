@@ -33,8 +33,6 @@ public class EntryManager {
     }
 
     public void setEntryValue( int entryType, float newEntry ) {
-
-
         // Todo: in here entry type switch using ENUM
         switch(entryType){
             case 0:
@@ -56,8 +54,34 @@ public class EntryManager {
             case 4:
                 entryManager.entry.setVegeConsumption(newEntry);
                 entryManager.entry.insertEntry(entryType);
+                break;
             default:
                 break;
         }
+    }
+
+    public float getEntryValue(int entryType) {
+        // Todo: in here entry type switch using ENUM
+        float ret = 0;
+        switch(entryType){
+            case 0:
+                ret = entryManager.entry.getWeightEntry();
+                break;
+            case 1:
+                ret = entryManager.entry.getHeightEntry();
+                break;
+            case 2:
+                ret = entryManager.entry.getDairyConsumption();
+                break;
+            case 3:
+                ret = entryManager.entry.getMeatConsumption();
+                break;
+            case 4:
+                ret = entryManager.entry.getVegeConsumption();
+                break;
+            default:
+                break;
+        }
+        return ret;
     }
 }

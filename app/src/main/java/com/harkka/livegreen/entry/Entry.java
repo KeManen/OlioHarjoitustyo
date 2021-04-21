@@ -103,19 +103,19 @@ public class Entry {
         switch(entryType){
             case 0:
                 dataEntity.setWeight(String.valueOf(weightEntry));
-                System.out.println(classString + "Weight " + weightEntry + "with guid " + entryGuid + " inserted in database!");
+                System.out.println(classString + "Weight " + weightEntry + " with guid " + entryGuid + " inserted in database!");
                 break;
             case 1:
-                System.out.println(classString + "Height " + heightEntry + "with guid " + entryGuid + " inserted in database!");
+                System.out.println(classString + "Height " + heightEntry + " with guid " + entryGuid + " inserted in database!");
                 break;
             case 2:
-                System.out.println(classString + "dairyConsumption " + dairyConsumption + "with guid " + entryGuid + " inserted in database!");
+                System.out.println(classString + "dairyConsumption " + dairyConsumption + " with guid " + entryGuid + " inserted in database!");
                 break;
             case 3:
-                System.out.println(classString + "meatConsumption " + meatConsumption + "with guid " + entryGuid + " inserted in database!");
+                System.out.println(classString + "meatConsumption " + meatConsumption + " with guid " + entryGuid + " inserted in database!");
                 break;
             case 4:
-                System.out.println(classString + "vegeConsumption " + vegeConsumption + "with guid " + entryGuid + " inserted in database!");
+                System.out.println(classString + "vegeConsumption " + vegeConsumption + " with guid " + entryGuid + " inserted in database!");
             default:
                 break;
         }
