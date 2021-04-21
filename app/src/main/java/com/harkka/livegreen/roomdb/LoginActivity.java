@@ -13,6 +13,8 @@ import android.widget.Toast;
 import com.harkka.livegreen.MainActivity;
 import com.harkka.livegreen.R;
 
+import java.util.concurrent.TimeUnit;
+
 public class LoginActivity extends AppCompatActivity {
 
     // Integrate components
@@ -37,44 +39,44 @@ public class LoginActivity extends AppCompatActivity {
 
                 String userIdText = userId.getText().toString();
                 String passwordText = password.getText().toString();
-
+                System.out.println("################################################");
+                System.out.println("id and pass");
+                System.out.println(userIdText.isEmpty());
+                System.out.println(passwordText.isEmpty());
                 // check for empty inputs
                 if (userIdText.isEmpty() || passwordText.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Fill all fields", Toast.LENGTH_SHORT).show();
-                } else {
-                    // perform Query command at UserDao
-                    UserDatabase userDatabase = UserDatabase.getUserDatabase(getApplicationContext());
-                    UserDao userDao = userDatabase.userDao();
-
-                    // Check database for existing user
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            UserEntity userEntity = userDao.login(userIdText, passwordText);
-                            if (userEntity == null) {
-
-                                // In case of user not found:
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Toast.makeText(getApplicationContext(), "Invalid credentials", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                            } else {
-                                // move to mainactivity fragment here and send username
-                                String name = userEntity.userId;
-                                //TODO REMOVE <temp>
-                                com.harkka.livegreen.user.UserManager um = com.harkka.livegreen.user.UserManager.getInstance();
-                                um.createUser();
-                                // </temp>
-                                //Toast.makeText(getApplicationContext(), "Welcome "+name+"!", Toast.LENGTH_SHORT).show(); crashes
-                                startActivity(new Intent(getApplicationContext(), MainActivity.class).putExtra("name", name));
-
-                            }
-                        }
-                    }).start();
+                    return;
                 }
+                // perform Query command at UserDao
+                UserDatabase userDatabase = UserDatabase.getUserDatabase(getApplicationContext());
+                UserDao userDao = userDatabase.userDao();
 
+                // Check database for existing user
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        UserEntity userEntity = userDao.login(userIdText, passwordText);
+
+                        if (userEntity == null) {
+
+                            // In case of user not found:
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(getApplicationContext(), "Invalid credentials", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                            return;
+                        }
+
+                        // move to mainactivity fragment here and send username
+                        String name = userEntity.userId;
+                        //Toast.makeText(getApplicationContext(), "Welcome "+name+"!", Toast.LENGTH_SHORT).show(); crashes
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class).putExtra("name", name));
+
+                    }
+                }).start();
             }
         });
 

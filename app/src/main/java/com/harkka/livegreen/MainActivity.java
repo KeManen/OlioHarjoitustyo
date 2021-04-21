@@ -69,10 +69,10 @@ public class MainActivity extends AppCompatActivity {
 
         UserManager um = UserManager.getInstance();
         if(!um.isAnyoneLogged()){
-        startActivity(new Intent(getBaseContext(), LoginActivity.class));
+            startActivity(new Intent(getBaseContext(), LoginActivity.class));
+        } else {
+            Toast.makeText(getApplicationContext(), "Welcome back !", Toast.LENGTH_SHORT).show();
         }
-
-        Toast.makeText(getApplicationContext(), "Welcome back !", Toast.LENGTH_SHORT).show();
     }
 
 }
