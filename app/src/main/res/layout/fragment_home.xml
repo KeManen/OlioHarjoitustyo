@@ -37,6 +37,19 @@
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/imageViewMeat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_menu_send" />
+
+            <SeekBar
+                android:id="@+id/seekBarMeat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
         </LinearLayout>
 
 
@@ -58,6 +71,16 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <ImageView
+                android:id="@+id/imageViewDairy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_menu_send" />
+
+            <SeekBar
+                android:id="@+id/seekBarDairy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
@@ -83,6 +106,16 @@
             android:orientation="vertical">
 
 
+            <ImageView
+                android:id="@+id/imageViewVege"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_menu_send" />
+
+            <SeekBar
+                android:id="@+id/seekBarVege"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
 
@@ -105,6 +138,16 @@
             android:orientation="vertical">
 
 
+            <ImageView
+                android:id="@+id/imageViewFish"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_menu_send" />
+
+            <SeekBar
+                android:id="@+id/seekBarFish"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
