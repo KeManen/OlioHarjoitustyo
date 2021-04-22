@@ -6,8 +6,6 @@ import android.view.View;
 import android.view.Menu;
 import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.harkka.livegreen.roomdb.LoginActivity;
 import com.harkka.livegreen.user.User;
@@ -24,12 +22,13 @@ import androidx.appcompat.widget.Toolbar;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private UserManager um;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.Theme_LiveGreen_NoActionBar);
 
-        UserManager um = UserManager.getInstance();
+        um = UserManager.getInstance();
 
         handle_loginprompt();
 
@@ -66,8 +65,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void handle_loginprompt(){
-
-        UserManager um = UserManager.getInstance();
         if(!um.isAnyoneLogged()){
             startActivity(new Intent(getBaseContext(), LoginActivity.class));
         } else {

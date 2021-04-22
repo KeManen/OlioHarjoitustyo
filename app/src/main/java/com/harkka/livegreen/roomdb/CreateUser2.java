@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.UserManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +14,7 @@ import com.harkka.livegreen.R;
 import com.harkka.livegreen.ui.home.HomeViewModel;
 
 import java.util.concurrent.TimeUnit;
+import com.harkka.livegreen.user.UserManager;
 
 public class CreateUser2 extends AppCompatActivity {
 

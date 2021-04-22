@@ -115,6 +115,9 @@ public class UserManager {
     }
 
     public boolean isAnyoneLogged(){
+        //TODO Remove
+        return true;
+        /*
         for(User user : users){
             System.out.println("NAME: "+ user.getUserName() + "  Login status: "+ user.getUserIsLogged());
             if(user.getUserIsLogged()){
@@ -124,6 +127,8 @@ public class UserManager {
         }
         System.out.println("##########################  NO ONE IS LOGGED ########################");
         return false;
+
+         */
     }
 
 }

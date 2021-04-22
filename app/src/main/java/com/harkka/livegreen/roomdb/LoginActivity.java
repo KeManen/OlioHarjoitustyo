@@ -45,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
                 System.out.println(passwordText.isEmpty());
                 // check for empty inputs
                 if (userIdText.isEmpty() || passwordText.isEmpty()) {
+                    System.out.println("fill fields");
                     Toast.makeText(getApplicationContext(), "Fill all fields", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -64,12 +65,14 @@ public class LoginActivity extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+                                    System.out.println("Invalid credentials");
                                     Toast.makeText(getApplicationContext(), "Invalid credentials", Toast.LENGTH_SHORT).show();
                                 }
                             });
+
                             return;
                         }
-
+                        System.out.println("login successful");
                         // move to mainactivity fragment here and send username
                         String name = userEntity.userId;
                         //Toast.makeText(getApplicationContext(), "Welcome "+name+"!", Toast.LENGTH_SHORT).show(); crashes
