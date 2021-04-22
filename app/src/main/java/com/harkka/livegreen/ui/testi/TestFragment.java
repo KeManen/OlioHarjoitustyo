@@ -15,12 +15,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.harkka.livegreen.BMI;
-import com.harkka.livegreen.Calculable;
+import com.harkka.livegreen.calculable.BMI;
+import com.harkka.livegreen.calculable.Calculable;
 import com.harkka.livegreen.R;
 import com.harkka.livegreen.entry.Entry;
 import com.harkka.livegreen.entry.EntryManager;
-import com.harkka.livegreen.roomdb.DataDao;
 import com.harkka.livegreen.user.UserManager;
 
 import java.util.UUID;

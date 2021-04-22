@@ -1,4 +1,4 @@
-package com.harkka.livegreen;
+package com.harkka.livegreen.calculable;
 
 public interface Calculable {
 

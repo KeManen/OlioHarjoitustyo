@@ -1,4 +1,4 @@
-package com.harkka.livegreen;
+package com.harkka.livegreen.calculable;
 
 import static java.lang.Math.round;
 
