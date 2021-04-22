@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,20 +21,30 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.harkka.livegreen.MainActivity;
 import com.harkka.livegreen.R;
+import com.harkka.livegreen.calculable.BMI;
+import com.harkka.livegreen.calculable.Calculable;
+import com.harkka.livegreen.entry.Entry;
+import com.harkka.livegreen.entry.EntryManager;
 import com.harkka.livegreen.roomdb.LoginActivity;
 import com.harkka.livegreen.user.UserManager;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 public class ProfileFragment extends Fragment {
 
     private ProfileViewModel profileViewModel;
     private Button login_button;
-    Button exportFiles_Button;
-    Button submitData_Button;
+    private Button exportFiles_Button;
+    private Button submitData_Button;
     private CardView card;
+    private EditText editTextHeight;
+    private EditText editTextWeight;
+    private EditText editTextBMI;
+    private EditText editTextAge;
+    private EditText editTextLocation;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -41,6 +52,14 @@ public class ProfileFragment extends Fragment {
                 new ViewModelProvider(this).get(ProfileViewModel.class);
         View root = inflater.inflate(R.layout.fragment_profile, container, false);
         final TextView textView = root.findViewById(R.id.text_profile);
+
+        // Initializing data field variables
+        editTextHeight = root.findViewById(R.id.editTextHeight);
+        editTextWeight = root.findViewById(R.id.editTextWeight);
+        editTextBMI = root.findViewById(R.id.editTextBMI);
+        editTextAge = root.findViewById(R.id.editTextAge);
+        editTextLocation = root.findViewById(R.id.editTextLocation);
+
         login_button = root.findViewById(R.id.buttonProfileViewLogout);
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,13 +77,7 @@ public class ProfileFragment extends Fragment {
         submitData_Button = root.findViewById(R.id.submitDataButton);
         submitData_Button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                try {
-                    submitData();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+            public void onClick(View v) { submitData(); }
         });
 
         card = root.findViewById(R.id.profileCardView);
@@ -161,11 +174,54 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    public void submitData() throws IOException {
+    public void submitData() {
         Context context = getContext();
+        UserManager um = UserManager.getInstance();
+        EntryManager em = EntryManager.getInstance();
+
+        // Todo: This is for prototyping, user is not initialized so do it here. Initialization missing in app start! TO BE FIXED AND REMOVED
+        UUID uGuid = um.createUser();
+        //UUID uGuid = um.getCurrentUserUUID();
+
+        Entry entry = em.createEntry(uGuid);
+        float value = 0;
+        float value0 = 0;
+        float value1 = 0;
+
+        //TODO Enter data into user profile instance TO BE CHECKED, now age and location in USer Profile entity!!!
+        if (!editTextAge.getText().toString().isEmpty()) {
+            value = Float.parseFloat(editTextAge.getText().toString());
+
+            System.out.println("Data submit Age ok: " + editTextAge.getText().toString());
+        }
+
+        if (!editTextLocation.getText().toString().isEmpty()) {
+            value = Float.parseFloat(editTextLocation.getText().toString());
+
+            System.out.println("Data submit Age ok: " + editTextLocation.getText().toString());
+        }
 
         //TODO Enter data into entry instance
-        System.out.println("Data submit ok...");
+        if (!editTextWeight.getText().toString().isEmpty()) {
+            value0 = Float.parseFloat(editTextWeight.getText().toString());
+            em.setEntryValue(0, value0);
+
+            System.out.println("Data submit Weight ok...");
+        }
+
+        if (!editTextHeight.getText().toString().isEmpty()) {
+            value1 = Float.parseFloat(editTextHeight.getText().toString());
+            em.setEntryValue(1, value1);
+
+            System.out.println("Data submit Height ok...");
+        }
+
+        if ( value0 > 0f && value1 > 0f) {
+            Calculable bmi = new BMI();
+            value = bmi.calculateBMI(value1, value0);
+            editTextBMI.setText(Float.toString(value));
+            System.out.println("Profile Fragment - BMI: " + value);
+        }
 
         // Sleep for 1second so user has time to read previous Toast message
         try {

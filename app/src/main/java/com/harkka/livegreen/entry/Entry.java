@@ -126,7 +126,7 @@ public class Entry {
 
     private UUID getGuid() {
         UUID guid = UUID.randomUUID();
-        System.out.println("GetGuid()/Guid: " + guid);
+        System.out.println(classString + " GetGuid()/Guid: " + guid);
         return guid;
     }
 }

@@ -10,7 +10,7 @@ public class User {
     private String userEmail = "user.email@email.com";
     public String userName = "testU";
     public String userPasswd = "12345";
-
+    private String classString = "User Class: ";
 
     /*
     public String userFirstName= "testF";
@@ -58,7 +58,12 @@ public class User {
         return user;
     }
 
-    public UUID getUserId() { return userId; }
+    public UUID getUserId() {
+        // Todo: For cases User is not created or loaded
+        if (userId == null)
+            userId = getGuid();
+        return userId;
+    }
 
     public String getUserEmail(){
         return userEmail;
@@ -115,7 +120,7 @@ public class User {
     private UUID getGuid() {
 
         UUID guid = UUID.randomUUID();
-        System.out.println("GetGuid()/Guid: " + guid);
+        System.out.println(classString + " GetGuid()/Guid: " + guid);
 
         return guid;
     }
