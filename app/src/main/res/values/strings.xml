@@ -58,4 +58,17 @@
     <string name="retype_password_hint">Retype password</string>
     <string name="login">Login</string>
     <string name="login_user">Login user</string>
+    <string name="title_vege">VEGE</string>
+    <string name="submit">SUBMIT</string>
+    <string name="vege_high">1170g</string>
+    <string name="title_meat">MEAT</string>
+    <string name="meat_low">0g</string>
+    <string name="meat_high">520g</string>
+    <string name="title_dairy">DAIRY</string>
+    <string name="dairy_low">0g</string>
+    <string name="dairy_high">880g</string>
+    <string name="vege_low">0g</string>
+    <string name="cd_meat_icon">image of meat</string>
+    <string name="cd_dairy_icon">image of dairy</string>
+    <string name="cd_vege_icon">image of vegetables</string>
 </resources>

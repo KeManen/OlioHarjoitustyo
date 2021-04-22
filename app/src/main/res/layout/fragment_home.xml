@@ -7,19 +7,30 @@
     android:background="@color/background_black"
     tools:context=".ui.home.HomeFragment">
 
+    <TextView
+        android:id="@+id/text_home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/cardViewMeat"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
+        android:id="@+id/cardViewMeat"
         android:layout_width="408dp"
         android:layout_height="119dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="64dp"
         app:cardBackgroundColor="@color/foreground_black"
         app:cardCornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.16000003">
+        app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,13 +38,11 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/text_home"
+                android:id="@+id/text_meat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
                 android:gravity="center_horizontal"
+                android:text="@string/title_meat"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
@@ -42,21 +51,61 @@
                 android:id="@+id/imageViewMeat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_menu_send" />
+                android:src="@drawable/ic_menu_send"
+                android:contentDescription="@string/cd_meat_icon" />
 
-            <SeekBar
-                android:id="@+id/seekBarMeat"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent"
+                android:layout_margin="10dp">
 
+                <TextView
+                    android:id="@+id/textViewLowMeat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
 
+                    android:layout_gravity="center"
+                    android:text="@string/meat_low"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/sliderMeat"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/sliderMeat" />
+
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/sliderMeat"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+
+                    android:valueFrom="0.0"
+                    android:valueTo="200.0"
+                    android:stepSize="1"
+                    app:labelStyle="@style/sliderlabel"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/textViewHighMeat"
+                    app:layout_constraintStart_toEndOf="@+id/textViewLowMeat"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.473" />
+
+                <TextView
+                    android:id="@+id/textViewHighMeat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/meat_high"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/sliderMeat"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/sliderMeat" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
-
-
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView3"
+        android:id="@+id/cardViewDairy"
         android:layout_width="408dp"
         android:layout_height="119dp"
         android:layout_marginTop="16dp"
@@ -64,30 +113,84 @@
         app:cardCornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView2">
+        app:layout_constraintTop_toBottomOf="@+id/cardViewMeat">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/text_dairy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/title_dairy"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
             <ImageView
                 android:id="@+id/imageViewDairy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_menu_send" />
+                android:src="@drawable/ic_menu_send"
+                android:contentDescription="@string/cd_dairy_icon" />
 
-            <SeekBar
-                android:id="@+id/seekBarDairy"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+                android:layout_height="match_parent"
+                android:layout_margin="10dp">
 
+                <TextView
+                    android:id="@+id/textViewLowDairy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_gravity="center"
+                    android:text="@string/dairy_low"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/sliderDairy"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/sliderDairy" />
+
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/sliderDairy"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:stepSize="1"
+
+
+                    android:valueFrom="0"
+                    android:valueTo="200"
+                    app:labelStyle="@style/sliderlabel"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/textViewHighDiary"
+                    app:layout_constraintStart_toEndOf="@+id/textViewLowDairy"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.473" />
+
+                <TextView
+                    android:id="@+id/textViewHighDiary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/dairy_high"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/sliderDairy"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/sliderDairy" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView2"
+        android:id="@+id/cardViewVege"
         android:layout_width="408dp"
         android:layout_height="119dp"
         android:layout_marginTop="16dp"
@@ -97,7 +200,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewDairy"
         app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
@@ -105,50 +208,82 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/text_vege"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/title_vege"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
 
             <ImageView
                 android:id="@+id/imageViewVege"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_menu_send" />
+                android:src="@drawable/ic_menu_send"
+                android:contentDescription="@string/cd_vege_icon" />
 
-            <SeekBar
-                android:id="@+id/seekBarVege"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent"
+                android:layout_margin="10dp">
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_gravity="center"
+                    android:text="@string/vege_low"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/sliderVege"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/sliderVege" />
+
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/sliderVege"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:stepSize="1"
+
+                    android:valueFrom="0.0"
+                    android:valueTo="200.0"
+                    app:labelStyle="@style/sliderlabel"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/textView6"
+                    app:layout_constraintStart_toEndOf="@+id/textView7"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.473" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/vege_high"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/sliderVege"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/sliderVege" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
-
-
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView4"
-        android:layout_width="408dp"
-        android:layout_height="116dp"
-        android:layout_marginTop="16dp"
-        app:cardBackgroundColor="@color/foreground_black"
-        app:cardCornerRadius="20dp"
+    <Button
+        android:id="@+id/buttonSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/submit"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView3">
+        app:layout_constraintTop_toBottomOf="@+id/cardViewVege" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-
-            <ImageView
-                android:id="@+id/imageViewFish"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_menu_send" />
-
-            <SeekBar
-                android:id="@+id/seekBarFish"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

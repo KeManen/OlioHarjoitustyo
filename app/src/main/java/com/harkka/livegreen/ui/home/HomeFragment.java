@@ -14,6 +14,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.slider.LabelFormatter;
+import com.google.android.material.slider.Slider;
 import com.harkka.livegreen.R;
 import com.harkka.livegreen.user.UserManager;
 
@@ -24,6 +26,10 @@ import static com.harkka.livegreen.user.UserManager.*;
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
+
+    private Slider sliderMeat;
+    private Slider sliderDairy;
+    private Slider sliderVege;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -38,6 +44,36 @@ public class HomeFragment extends Fragment {
                         textView.setText(s);
                     }
                 });
+
+        sliderMeat = root.findViewById(R.id.sliderMeat);
+        sliderDairy = root.findViewById(R.id.sliderDairy);
+        sliderVege = root.findViewById(R.id.sliderVege);
+
+
+
+        sliderMeat.setLabelFormatter(new LabelFormatter() {
+                    @NonNull
+                    @Override
+                    public String getFormattedValue(float value) {
+                        return Math.round(260*(value/100))+"g";
+                    }
+                }
+        );
+        sliderDairy.setLabelFormatter(new LabelFormatter() {
+            @NonNull
+            @Override
+            public String getFormattedValue(float value) {
+                return Math.round(440*(value/100))+"g";
+            }
+        });
+        sliderVege.setLabelFormatter(new LabelFormatter() {
+            @NonNull
+            @Override
+            public String getFormattedValue(float value) {
+                return Math.round(585*(value/100))+"g";
+            }
+        });
+
         return root;
     }
 
