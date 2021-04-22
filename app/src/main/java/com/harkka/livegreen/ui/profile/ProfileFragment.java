@@ -32,6 +32,7 @@ public class ProfileFragment extends Fragment {
     private ProfileViewModel profileViewModel;
     private Button login_button;
     Button exportFiles_Button;
+    Button submitData_Button;
     private CardView card;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -51,6 +52,19 @@ public class ProfileFragment extends Fragment {
         exportFiles_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { exportFiles(); }
+        });
+
+        // Submit data
+        submitData_Button = root.findViewById(R.id.submitDataButton);
+        submitData_Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    submitData();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         });
 
         card = root.findViewById(R.id.profileCardView);
@@ -145,5 +159,20 @@ public class ProfileFragment extends Fragment {
             }
             Toast.makeText(context.getApplicationContext(), "Files ready", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void submitData() throws IOException {
+        Context context = getContext();
+
+        //TODO Enter data into entry instance
+        System.out.println("Data submit ok...");
+
+        // Sleep for 1second so user has time to read previous Toast message
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Toast.makeText(context.getApplicationContext(), "Data submitted", Toast.LENGTH_SHORT).show();
     }
 }
