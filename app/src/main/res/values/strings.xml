@@ -45,6 +45,7 @@
     <string name="location">Location</string>
     <string name="log_out">Log out</string>
     <string name="log_in">Log in</string>
+    <string name="export_files">Export Data</string>
     <string name="create_new_account">Create new account</string>
     <string name="create_account">Create account</string>
     <string name="return_hint">Return</string>

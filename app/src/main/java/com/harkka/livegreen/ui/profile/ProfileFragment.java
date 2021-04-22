@@ -3,11 +3,13 @@ package com.harkka.livegreen.ui.profile;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,10 +23,15 @@ import com.harkka.livegreen.R;
 import com.harkka.livegreen.roomdb.LoginActivity;
 import com.harkka.livegreen.user.UserManager;
 
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.util.concurrent.TimeUnit;
+
 public class ProfileFragment extends Fragment {
 
     private ProfileViewModel profileViewModel;
     private Button login_button;
+    Button exportFiles_Button;
     private CardView card;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -36,16 +43,20 @@ public class ProfileFragment extends Fragment {
         login_button = root.findViewById(R.id.buttonProfileViewLogout);
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                handle_profileview_loginbutton();
-            }
+            public void onClick(View v) { handle_profileview_loginbutton(); }
         });
+
+        // Export data files
+        exportFiles_Button = root.findViewById(R.id.writeFiles);
+        exportFiles_Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { exportFiles(); }
+        });
+
         card = root.findViewById(R.id.profileCardView);
         profileViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
+            public void onChanged(@Nullable String s) { textView.setText(s); }
         });
         return root;
     }
@@ -89,6 +100,50 @@ public class ProfileFragment extends Fragment {
             });
 
             //TODO change rank, profile picture and profile name with stockvalues
+        }
+    }
+
+    public void exportFiles() {
+        System.out.println("Toistaiseksi ok...");
+        String userFile = "UserLog.txt";
+        String dataFile = "DataLog.txt";
+
+        Context context = getContext();
+
+        // Write userdata to log file
+        try {
+            OutputStreamWriter osw = new OutputStreamWriter(context.openFileOutput(userFile, Context.MODE_PRIVATE));
+
+            //TODO add what to write into log file here
+            System.out.println("Userfile write ok...");
+
+
+            osw.close();
+        } catch (IOException e) {
+            Log.e("IOException", "Error in write");
+        } finally {
+            Toast.makeText(context.getApplicationContext(), "First file ready", Toast.LENGTH_SHORT).show();
+        }
+
+
+        // Write inputdata to log file
+        try {
+            OutputStreamWriter osw = new OutputStreamWriter(context.openFileOutput(dataFile, Context.MODE_PRIVATE));
+
+            //TODO add what to write into log file here
+            System.out.println("Datafile write ok...");
+
+            osw.close();
+        } catch (IOException e) {
+            Log.e("IOException", "Error in write");
+        } finally {
+            // Sleep for 1second so user has time to read previous Toast message
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            Toast.makeText(context.getApplicationContext(), "Files ready", Toast.LENGTH_SHORT).show();
         }
     }
 }
