@@ -60,6 +60,7 @@ public class ProfileFragment extends Fragment {
         editTextAge = root.findViewById(R.id.editTextAge);
         editTextLocation = root.findViewById(R.id.editTextLocation);
 
+        // Logout handler
         login_button = root.findViewById(R.id.buttonProfileViewLogout);
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,6 +131,7 @@ public class ProfileFragment extends Fragment {
         }
     }
 
+    // User and Data export to file when Export button is pushed
     public void exportFiles() {
         System.out.println("Toistaiseksi ok...");
         String userFile = "UserLog.txt";
@@ -144,14 +146,12 @@ public class ProfileFragment extends Fragment {
             //TODO add what to write into log file here
             System.out.println("Userfile write ok...");
 
-
             osw.close();
         } catch (IOException e) {
             Log.e("IOException", "Error in write");
         } finally {
             Toast.makeText(context.getApplicationContext(), "First file ready", Toast.LENGTH_SHORT).show();
         }
-
 
         // Write inputdata to log file
         try {
@@ -216,6 +216,8 @@ public class ProfileFragment extends Fragment {
             System.out.println("Data submit Height ok...");
         }
 
+        // Todo: This should be moved into code where values are entered, calculate at the same time
+        //BMI calculation
         if ( value0 > 0f && value1 > 0f) {
             Calculable bmi = new BMI();
             value = bmi.calculateBMI(value1, value0);
