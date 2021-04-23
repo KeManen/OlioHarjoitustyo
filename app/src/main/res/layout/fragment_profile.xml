@@ -61,50 +61,41 @@
         app:layout_constraintTop_toBottomOf="@+id/profileCardView"
         app:layout_constraintVertical_bias="0.274" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardProfilerank"
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageViewProfile"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
-        android:elevation="12dp"
-        app:cardCornerRadius="40dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@string/user_profile_icon"
+        android:src="@drawable/unlogged_profilepicture"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.141"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageButton
-            android:id="@+id/imageButtonProfile"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-
-            android:contentDescription="@string/user_profile_icon"
-            tools:src="@tools:sample/avatars" />
-    </androidx.cardview.widget.CardView>
+        app:layout_constraintTop_toTopOf="parent"
 
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:elevation="12dp"
-        android:id="@+id/cardEcorank"
-        app:cardCornerRadius="40dp"
+        app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp" />
+
+    <com.google.android.material.imageview.ShapeableImageView
         android:layout_centerHorizontal="true"
         app:layout_constraintHorizontal_bias="0.73"
         app:layout_constraintVertical_bias="0.73"
-        app:layout_constraintStart_toEndOf="@+id/cardProfilerank"
-        app:layout_constraintTop_toTopOf="@+id/cardProfilerank"
-        app:layout_constraintBottom_toBottomOf="@+id/cardProfilerank"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintStart_toEndOf="@+id/imageViewProfile"
+        app:layout_constraintTop_toTopOf="@+id/imageViewProfile"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewProfile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp"
 
-        <ImageButton
-            android:id="@+id/imageButtonEcorank"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/eco_3"
-            android:contentDescription="@string/user_ecorank_icon" />
-    </androidx.cardview.widget.CardView>
+        android:id="@+id/imageViewEcorank"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/eco_0"
+        android:contentDescription="@string/user_ecorank_icon" />
+
 
     <androidx.cardview.widget.CardView
         android:id="@+id/profileCardView"
@@ -256,9 +247,9 @@
         android:layout_marginTop="8dp"
         android:text="PROFILENAME"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="@+id/cardProfilerank"
-        app:layout_constraintStart_toStartOf="@+id/cardProfilerank"
-        app:layout_constraintTop_toBottomOf="@+id/cardProfilerank" />
+        app:layout_constraintEnd_toEndOf="@+id/imageViewProfile"
+        app:layout_constraintStart_toStartOf="@+id/imageViewProfile"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewProfile" />
 
     <TextView
         android:id="@+id/textViewEcorankName"
@@ -267,8 +258,8 @@
         android:layout_marginTop="8dp"
         android:text="@string/your_ecorank"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="@+id/cardEcorank"
-        app:layout_constraintStart_toStartOf="@+id/cardEcorank"
-        app:layout_constraintTop_toBottomOf="@+id/cardEcorank" />
+        app:layout_constraintEnd_toEndOf="@+id/imageViewEcorank"
+        app:layout_constraintStart_toStartOf="@+id/imageViewEcorank"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewEcorank" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
