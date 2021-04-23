@@ -17,6 +17,8 @@ import java.util.Calendar;
 
 public class BarChart2Activity extends AppCompatActivity {
 
+    // TODO add button or command when to draw or refresh the chart
+
     // Draws bar chart of users food usage
     @Override
     protected void onCreate(Bundle savedInstanceState) {

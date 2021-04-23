@@ -19,6 +19,8 @@ import com.harkka.livegreen.R;
 
 public class BarChartActivity extends AppCompatActivity {
 
+    // TODO add button or command when to draw or refresh the chart
+
     // Draws bar chart for users food emissions
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -111,7 +111,7 @@ public class HomeFragment extends Fragment {
                     baseValue = 24.62 + 33.35 + 340.15;
                 }
 
-                // TODO values from sliders here --> 0% - 200%
+                // takes values from sliders + format to String to use in URL
                 float firstInput = sliderMeat.getValue();
                 String firstInput2 = String.format("%.0f", firstInput);
                 float secondInput = sliderDairy.getValue();
@@ -177,7 +177,8 @@ public class HomeFragment extends Fragment {
                     System.out.println("This is the correct value of today's inputs " + total + "kg without formatting");
                     String result = String.format("%.2f", total);
                     System.out.println("This is the correct value of today's inputs " + result + "kg of CO2");
-                    // TODO add data to database
+                    // TODO result data to database
+                    // TODO with timestamp?
 
                 } catch (IOException e) {
                     e.printStackTrace();
