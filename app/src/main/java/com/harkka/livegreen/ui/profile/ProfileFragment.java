@@ -38,7 +38,6 @@ import com.google.android.material.imageview.ShapeableImageView;
 
 public class ProfileFragment extends Fragment {
 
-    private ProfileViewModel profileViewModel;
     private TextView textView;
     private Button login_button;
     private ShapeableImageView profilePicture;
@@ -56,10 +55,7 @@ public class ProfileFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        profileViewModel =
-                new ViewModelProvider(this).get(ProfileViewModel.class);
         View root = inflater.inflate(R.layout.fragment_profile, container, false);
-        textView = root.findViewById(R.id.text_profile);
 
         // Initializing data field variables
         editTextHeight = root.findViewById(R.id.editTextHeight);
@@ -94,10 +90,6 @@ public class ProfileFragment extends Fragment {
         ecorankPicture = root.findViewById(R.id.imageViewEcorank);
         profileName = root.findViewById(R.id.textViewProfileName);
         userManager = UserManager.getInstance();
-        profileViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) { textView.setText(s);  }
-        });
 
         //TODO enable userManager works correctly
         //handle_profileview_login_state(userManager.isAnyoneLogged());

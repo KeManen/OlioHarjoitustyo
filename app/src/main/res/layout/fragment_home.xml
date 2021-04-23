@@ -7,23 +7,11 @@
     android:background="@color/background_black"
     tools:context=".ui.home.HomeFragment">
 
-    <TextView
-        android:id="@+id/text_home"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/cardViewMeat"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewMeat"
-        android:layout_width="408dp"
-        android:layout_height="119dp"
-        android:layout_marginTop="64dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         app:cardBackgroundColor="@color/foreground_black"
         app:cardCornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -32,10 +20,10 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_margin="10dp">
 
             <TextView
                 android:id="@+id/text_meat"
@@ -45,80 +33,82 @@
                 android:text="@string/title_meat"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/imageViewMeat"
-                android:layout_width="match_parent"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:contentDescription="@string/cd_meat_icon"
+                android:src="@drawable/meat"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+                app:strokeColor="@color/black"
+                app:strokeWidth="1dp" />
+
+            <TextView
+                android:id="@+id/textViewLowMeat"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_menu_send"
-                android:contentDescription="@string/cd_meat_icon" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp">
+                android:layout_gravity="center"
+                android:text="@string/meat_low"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@id/sliderMeat"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/sliderMeat" />
 
-                <TextView
-                    android:id="@+id/textViewLowMeat"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+            <com.google.android.material.slider.Slider
+                android:id="@+id/sliderMeat"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
 
-                    android:layout_gravity="center"
-                    android:text="@string/meat_low"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/sliderMeat"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/sliderMeat" />
+                android:stepSize="1"
+                android:valueFrom="0.0"
+                android:valueTo="200.0"
+                app:labelStyle="@style/sliderlabel"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/textViewHighMeat"
+                app:layout_constraintStart_toEndOf="@id/textViewLowMeat"
+                app:layout_constraintTop_toBottomOf="@id/imageViewMeat" />
 
-                <com.google.android.material.slider.Slider
-                    android:id="@+id/sliderMeat"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-
-                    android:valueFrom="0.0"
-                    android:valueTo="200.0"
-                    android:stepSize="1"
-                    app:labelStyle="@style/sliderlabel"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/textViewHighMeat"
-                    app:layout_constraintStart_toEndOf="@+id/textViewLowMeat"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.473" />
-
-                <TextView
-                    android:id="@+id/textViewHighMeat"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text="@string/meat_high"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/sliderMeat"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/sliderMeat" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
+            <TextView
+                android:id="@+id/textViewHighMeat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/meat_high"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@id/sliderMeat"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/sliderMeat" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewDairy"
-        android:layout_width="408dp"
-        android:layout_height="119dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         app:cardBackgroundColor="@color/foreground_black"
         app:cardCornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardViewMeat">
+        app:layout_constraintTop_toBottomOf="@id/cardViewMeat">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_margin="10dp">
 
             <TextView
                 android:id="@+id/text_dairy"
@@ -128,85 +118,84 @@
                 android:text="@string/title_dairy"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
+
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/imageViewDairy"
-                android:layout_width="match_parent"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:contentDescription="@string/cd_dairy_icon"
+                android:src="@drawable/dairy"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+                app:strokeColor="@color/black"
+                app:strokeWidth="1dp" />
+
+            <TextView
+                android:id="@+id/textViewLowDairy"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_menu_send"
-                android:contentDescription="@string/cd_dairy_icon" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp">
+                android:layout_gravity="center"
+                android:text="@string/dairy_low"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@id/sliderDairy"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/sliderDairy" />
 
-                <TextView
-                    android:id="@+id/textViewLowDairy"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:layout_gravity="center"
-                    android:text="@string/dairy_low"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/sliderDairy"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/sliderDairy" />
-
-                <com.google.android.material.slider.Slider
-                    android:id="@+id/sliderDairy"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:stepSize="1"
+            <com.google.android.material.slider.Slider
+                android:id="@+id/sliderDairy"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:stepSize="1"
 
 
-                    android:valueFrom="0"
-                    android:valueTo="200"
-                    app:labelStyle="@style/sliderlabel"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/textViewHighDiary"
-                    app:layout_constraintStart_toEndOf="@+id/textViewLowDairy"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.473" />
+                android:valueFrom="0"
+                android:valueTo="200"
+                app:labelStyle="@style/sliderlabel"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/textViewHighDiary"
+                app:layout_constraintStart_toEndOf="@id/textViewLowDairy"
+                app:layout_constraintTop_toBottomOf="@id/imageViewDairy" />
 
-                <TextView
-                    android:id="@+id/textViewHighDiary"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text="@string/dairy_high"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/sliderDairy"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/sliderDairy" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
+            <TextView
+                android:id="@+id/textViewHighDiary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/dairy_high"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@id/sliderDairy"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/sliderDairy" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewVege"
-        android:layout_width="408dp"
-        android:layout_height="119dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="268dp"
         app:cardBackgroundColor="@color/foreground_black"
         app:cardCornerRadius="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardViewDairy"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@id/cardViewDairy">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_margin="10dp">
 
             <TextView
                 android:id="@+id/text_vege"
@@ -216,91 +205,99 @@
                 android:text="@string/title_vege"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/imageViewVege"
-                android:layout_width="match_parent"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:contentDescription="@string/cd_vege_icon"
+                android:src="@drawable/vege"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+
+                app:strokeColor="@color/black"
+                app:strokeWidth="1dp" />
+
+            <TextView
+                android:id="@+id/textViewLowVege"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_menu_send"
-                android:contentDescription="@string/cd_vege_icon" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp">
+                android:layout_gravity="center"
+                android:text="@string/vege_low"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/sliderVege" />
 
-                <TextView
-                    android:id="@+id/textView7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+            <com.google.android.material.slider.Slider
+                android:id="@+id/sliderVege"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:stepSize="1"
 
-                    android:layout_gravity="center"
-                    android:text="@string/vege_low"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/sliderVege"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/sliderVege" />
+                android:valueFrom="0.0"
+                android:valueTo="200.0"
+                app:labelStyle="@style/sliderlabel"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/textViewHighVege"
+                app:layout_constraintStart_toEndOf="@id/textViewLowVege"
+                app:layout_constraintTop_toBottomOf="@id/imageViewVege" />
 
-                <com.google.android.material.slider.Slider
-                    android:id="@+id/sliderVege"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:stepSize="1"
+            <TextView
+                android:id="@+id/textViewHighVege"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:gravity="center_horizontal"
+                android:text="@string/vege_high"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/sliderVege"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/sliderVege" />
 
-                    android:valueFrom="0.0"
-                    android:valueTo="200.0"
-                    app:labelStyle="@style/sliderlabel"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/textView6"
-                    app:layout_constraintStart_toEndOf="@+id/textView7"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.473" />
-
-                <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text="@string/vege_high"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/sliderVege"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/sliderVege" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
     <Switch
         android:id="@+id/ecofriendlySwitch"
         android:layout_width="287dp"
         android:layout_height="46dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:checked="false"
-        android:text="Eco friendly food - No/Yes"
+        android:text="@string/eco_friendly_food_no_yes"
         android:textColor="@color/white"
-        android:textOff="Off"
-        android:textOn="On"
+        android:textOff="@string/off"
+        android:textOn="@string/on"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/buttonSubmit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardViewVege"
-        app:layout_constraintVertical_bias="0.176" />
+        app:layout_constraintTop_toBottomOf="@+id/cardViewVege" />
 
     <Button
-        android:id="@+id/buttonSubmit"
+        android:id="@id/buttonSubmit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:text="@string/submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardViewVege"
-        app:layout_constraintVertical_bias="0.539" />
+        app:layout_constraintTop_toBottomOf="@id/cardViewVege" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
