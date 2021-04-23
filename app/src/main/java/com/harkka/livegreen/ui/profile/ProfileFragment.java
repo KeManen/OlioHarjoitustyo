@@ -36,6 +36,7 @@ import java.util.concurrent.TimeUnit;
 public class ProfileFragment extends Fragment {
 
     private ProfileViewModel profileViewModel;
+    private TextView textView;
     private Button login_button;
     private Button exportFiles_Button;
     private Button submitData_Button;
@@ -51,7 +52,7 @@ public class ProfileFragment extends Fragment {
         profileViewModel =
                 new ViewModelProvider(this).get(ProfileViewModel.class);
         View root = inflater.inflate(R.layout.fragment_profile, container, false);
-        final TextView textView = root.findViewById(R.id.text_profile);
+        textView = root.findViewById(R.id.text_profile);
 
         // Initializing data field variables
         editTextHeight = root.findViewById(R.id.editTextHeight);
@@ -84,7 +85,7 @@ public class ProfileFragment extends Fragment {
         card = root.findViewById(R.id.profileCardView);
         profileViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
-            public void onChanged(@Nullable String s) { textView.setText(s); }
+            public void onChanged(@Nullable String s) { textView.setText(s);  }
         });
         return root;
     }
@@ -128,6 +129,25 @@ public class ProfileFragment extends Fragment {
             });
 
             //TODO change rank, profile picture and profile name with stockvalues
+        }
+    }
+
+    //
+    public void handle_profileview_datachanges(String s) {
+        float height = 0f;
+        float weight = 0f;
+
+        System.out.println("In OnChanged handler...");
+
+        if (!editTextHeight.getText().toString().isEmpty())
+            height = Float.parseFloat(editTextHeight.getText().toString());
+        if(!editTextWeight.getText().toString().isEmpty())
+            weight = Float.parseFloat(editTextWeight.getText().toString());
+        if (BMI(height, weight)){
+            textView.setText("BMI");
+        }
+        else {
+            textView.setText(s);
         }
     }
 
@@ -218,12 +238,7 @@ public class ProfileFragment extends Fragment {
 
         // Todo: This should be moved into code where values are entered, calculate at the same time
         //BMI calculation
-        if ( value0 > 0f && value1 > 0f) {
-            Calculable bmi = new BMI();
-            value = bmi.calculateBMI(value1, value0);
-            editTextBMI.setText(Float.toString(value));
-            System.out.println("Profile Fragment - BMI: " + value);
-        }
+        Boolean calculated = BMI(value1, value0);
 
         // Sleep for 1second so user has time to read previous Toast message
         try {
@@ -232,5 +247,19 @@ public class ProfileFragment extends Fragment {
             e.printStackTrace();
         }
         Toast.makeText(context.getApplicationContext(), "Data submitted", Toast.LENGTH_SHORT).show();
+    }
+
+    public Boolean BMI(float height, float weight) {
+        Boolean ret = false;
+        float value = 0f;
+        //BMI calculation
+        if ( height > 0f && weight > 0f) {
+            Calculable bmi = new BMI();
+            value = bmi.calculateBMI(height, weight);
+            editTextBMI.setText(Float.toString(value));
+            System.out.println("Profile Fragment - BMI: " + value);
+            ret = true;
+        }
+        return ret;
     }
 }
