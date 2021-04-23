@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,13 +20,18 @@ import androidx.lifecycle.ViewModelProvider;
 import com.harkka.livegreen.MainActivity;
 import com.harkka.livegreen.R;
 import com.harkka.livegreen.roomdb.LoginActivity;
+import com.harkka.livegreen.user.User;
 import com.harkka.livegreen.user.UserManager;
 
 public class ProfileFragment extends Fragment {
 
     private ProfileViewModel profileViewModel;
     private Button login_button;
+    private ImageButton profilePicture;
+    private ImageButton ecorankPicture;
+    private TextView profileName;
     private CardView card;
+    private UserManager userManager;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -41,6 +47,10 @@ public class ProfileFragment extends Fragment {
             }
         });
         card = root.findViewById(R.id.profileCardView);
+        profilePicture = root.findViewById(R.id.imageButtonProfile);
+        ecorankPicture = root.findViewById(R.id.imageButtonEcorank);
+        profileName = root.findViewById(R.id.textViewProfileName);
+        userManager = UserManager.getInstance();
         profileViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
@@ -60,9 +70,9 @@ public class ProfileFragment extends Fragment {
         //login_button = v.findViewById(R.id.buttonProfileViewLogout);
         //card = v.findViewById(R.id.profileCardView);
         Context context = getContext();
-        UserManager um = UserManager.getInstance();
 
-        if(um.isAnyoneLogged()){
+
+        if(userManager.isAnyoneLogged()){
             login_button.setText(getText(R.string.log_out));
             login_button.setBackgroundColor(login_button.getContext().getResources().getColor(R.color.red));
 
@@ -74,7 +84,32 @@ public class ProfileFragment extends Fragment {
                 }
             });
 
-            //TODO change rank, profile picture and profile name with stockvalues
+            User user = userManager.getCurrentUser();
+            switch(user.getRank()){
+                case 1:
+                    ecorankPicture.setImageResource(R.drawable.eco_1);
+                    break;
+                case 2:
+                    ecorankPicture.setImageResource(R.drawable.eco_2);
+                    break;
+                case 3:
+                    ecorankPicture.setImageResource(R.drawable.eco_3);
+                    break;
+                case 4:
+                    ecorankPicture.setImageResource(R.drawable.eco_4);
+                    break;
+                case 5:
+                    ecorankPicture.setImageResource(R.drawable.eco_5);
+                    break;
+                default:
+                    //TODO create art for unlogged
+                    break;
+            }
+
+            profileName.setText(user.userName);
+
+            //TODO change to userpicture
+            //profilePicture.setImageResource();
 
         } else {
             login_button.setText(getText(R.string.log_in));
@@ -87,8 +122,12 @@ public class ProfileFragment extends Fragment {
                     startActivity(new Intent(context, LoginActivity.class));
                 }
             });
+            // TODO create art for unlogged
+            //ecorankPicture.setImageResource(R.drawable.eco_unlogged);
+            //profilePicture.setImageResource(R.drawable.profileUnlogged);
 
-            //TODO change rank, profile picture and profile name with stockvalues
+
+            profileName.setText("Profilename");
         }
     }
 }

@@ -71,4 +71,6 @@
     <string name="cd_meat_icon">image of meat</string>
     <string name="cd_dairy_icon">image of dairy</string>
     <string name="cd_vege_icon">image of vegetables</string>
+    <string name="user_profile_icon">User profile icon</string>
+    <string name="user_ecorank_icon">User ecorank icon</string>
 </resources>

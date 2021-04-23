@@ -113,6 +113,9 @@ public class UserManager {
         }
         // Todo: update ArrayList / DB
     }
+    public User getCurrentUser(){
+        return user;
+    }
 
     public boolean isAnyoneLogged(){
         //TODO Remove

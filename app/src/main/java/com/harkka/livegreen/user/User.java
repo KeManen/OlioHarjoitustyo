@@ -119,4 +119,9 @@ public class User {
 
         return guid;
     }
+
+    //TODO implement full logic
+    public int getRank(){
+        return (int) Math.round(Math.random()*5);
+    }
 }
