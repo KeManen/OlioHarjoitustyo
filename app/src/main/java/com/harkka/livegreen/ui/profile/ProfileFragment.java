@@ -101,8 +101,7 @@ public class ProfileFragment extends Fragment {
     }
 
     public void handle_profileview_loginbutton(){
-        // TODO toggle current login position
-        handle_profileview_login_state(false);
+        handle_profileview_login_state(userManager.isAnyoneLogged());
     }
 
     // Change profileview according to loginstate
@@ -142,7 +141,7 @@ public class ProfileFragment extends Fragment {
                     ecorankPicture.setImageResource(R.drawable.eco_5);
                     break;
                 default:
-                    //TODO create art for unlogged
+                    ecorankPicture.setImageResource(R.drawable.eco_0);
                     break;
             }
 
@@ -162,9 +161,9 @@ public class ProfileFragment extends Fragment {
                     startActivity(new Intent(context, LoginActivity.class));
                 }
             });
-            // TODO create art for unlogged
-            //ecorankPicture.setImageResource(R.drawable.eco_unlogged);
-            //profilePicture.setImageResource(R.drawable.profileUnlogged);
+
+            ecorankPicture.setImageResource(R.drawable.eco_0);
+            profilePicture.setImageResource(R.drawable.unlogged_profilepicture);
 
 
             profileName.setText("Profilename");
