@@ -32,19 +32,21 @@ public class BarChart2Activity extends AppCompatActivity {
         int wantedDate = c.get(Calendar.DAY_OF_MONTH);
         System.out.println(wantedDate);
 
-        //TODO add data inserts from database
         //TODO max one month per one chart ?
         //TODO when month is full refresh chart? --> move data to file?
 
         // test food usage for a week
         // format is day of the month (int) + food used
-    /*    foodUsage.add(new BarEntry(1, 50));
+        //TODO add data inserts from database
+        //TODO format is day as integer, food usage as grams
+
+        foodUsage.add(new BarEntry(1, 50));
         foodUsage.add(new BarEntry(2, 220));
         foodUsage.add(new BarEntry(3, 700));
         foodUsage.add(new BarEntry(4, 180));
         foodUsage.add(new BarEntry(10, 400));
         foodUsage.add(new BarEntry(11, 320));
-        foodUsage.add(new BarEntry(12, 620)); */
+        foodUsage.add(new BarEntry(12, 620));
 
         // create dataset using library and specify text size and colors
         BarDataSet barDataSet = new BarDataSet(foodUsage, "Food used");

@@ -38,8 +38,11 @@ public class BarChartActivity extends AppCompatActivity {
         //TODO max one month per one chart ?
         //TODO when month is full refresh chart? --> move data to file?
 
-        // test emissions for a week
-        // format is day of the month (int) + emissions
+
+        //TODO add data inserts from database
+        //TODO format is day as integer, CO2 emissions as kg
+        // emissions come from database or from calculator at DataFragment
+
         emissions.add(new BarEntry(1, 50));
         emissions.add(new BarEntry(2, 220));
         emissions.add(new BarEntry(3, 700));
@@ -47,16 +50,7 @@ public class BarChartActivity extends AppCompatActivity {
         emissions.add(new BarEntry(10, 400));
         emissions.add(new BarEntry(11, 320));
         emissions.add(new BarEntry(12, 620));
-    /*    emissions.add(new BarEntry(8, 450));
-        emissions.add(new BarEntry(9, 220));
-        emissions.add(new BarEntry(12, 400));
-        emissions.add(new BarEntry(13, 320));
-        emissions.add(new BarEntry(14, 620));
-        emissions.add(new BarEntry(20, 0));
-        emissions.add(new BarEntry(21, 700));
-        emissions.add(new BarEntry(28, 400));
-        emissions.add(new BarEntry(29, 320));
-        emissions.add(new BarEntry(30, 20)); */
+
 
         // create dataset using library and specify text size and colors
         BarDataSet barDataSet = new BarDataSet(emissions, "Emissions");

@@ -50,7 +50,6 @@ public class HomeFragment extends Fragment {
         sliderVege = root.findViewById(R.id.sliderVege);
 
 
-
         sliderMeat.setLabelFormatter(new LabelFormatter() {
                     @NonNull
                     @Override
