@@ -276,6 +276,22 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
+    <Switch
+        android:id="@+id/ecofriendlySwitch"
+        android:layout_width="287dp"
+        android:layout_height="46dp"
+        android:checked="false"
+        android:text="Eco friendly food - No/Yes"
+        android:textColor="@color/white"
+        android:textOff="Off"
+        android:textOn="On"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewVege"
+        app:layout_constraintVertical_bias="0.176" />
+
     <Button
         android:id="@+id/buttonSubmit"
         android:layout_width="wrap_content"
@@ -284,6 +300,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardViewVege" />
+        app:layout_constraintTop_toBottomOf="@+id/cardViewVege"
+        app:layout_constraintVertical_bias="0.539" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

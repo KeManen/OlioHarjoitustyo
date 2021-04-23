@@ -80,7 +80,7 @@ public class CreateUser1 extends AppCompatActivity {
         System.out.println("email: " + email.getText().toString());
         System.out.println("pass1: " + password.getText().toString());
         System.out.println("pass2: " + password2.getText().toString());
-        // add the needed components with -->  || userEntity.get_____().isEmpty())
+
         //Check if input is empty
         if (userName.toString().isEmpty() || password.toString().isEmpty() ||  password2.toString().isEmpty() || email.toString().isEmpty()) {
             return false;

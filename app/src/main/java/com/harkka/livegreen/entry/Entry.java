@@ -97,7 +97,7 @@ public class Entry {
 
     // TODO: This is db interface method
     // Makes db insert of current entry set by EntryManager.setEntryValue()
-    public void insertEntry(int entryType) {
+    public void insertDBEntry(int entryType) {
         DataEntity dataEntity = new DataEntity();
         // Todo: in here entry type switch using ENUM
         switch(entryType){
@@ -126,7 +126,7 @@ public class Entry {
 
     private UUID getGuid() {
         UUID guid = UUID.randomUUID();
-        System.out.println("GetGuid()/Guid: " + guid);
+        System.out.println(classString + " GetGuid()/Guid: " + guid);
         return guid;
     }
 }

@@ -65,7 +65,7 @@ public class UserManager {
 
     }
 
-
+    public UUID getCurrentUserUUID() { return user.getUserId(); }
 
     public void getUser(UUID guid) {
 
