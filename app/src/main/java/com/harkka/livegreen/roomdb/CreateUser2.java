@@ -11,12 +11,13 @@ import android.widget.Toast;
 
 import com.harkka.livegreen.MainActivity;
 import com.harkka.livegreen.R;
-import com.harkka.livegreen.ui.home.HomeViewModel;
 
 import java.util.concurrent.TimeUnit;
-import com.harkka.livegreen.user.UserManager;
 
 public class CreateUser2 extends AppCompatActivity {
+    UserDatabase userDatabase;
+    UserDao userDao;
+
 
     // Integrate components
     EditText firstName, lastName, age, location;
@@ -28,6 +29,8 @@ public class CreateUser2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_user2);
+        userDatabase = UserDatabase.getUserDatabase(getApplicationContext());
+        userDao = userDatabase.userDao();
 
         // Integrate components
         firstName = findViewById(R.id.firstName);
@@ -57,41 +60,37 @@ public class CreateUser2 extends AppCompatActivity {
                 userEntity.setAge(age.getText().toString());
                 userEntity.setLocation(location.getText().toString());
 
-                // check whether given information is given correctly
-                if (validateInput()){
 
-                    // Insert userEntity to db
-                    UserDatabase userDatabase = UserDatabase.getUserDatabase(getApplicationContext());
-                    UserDao userDao = userDatabase.userDao();
-                    new Thread(new Runnable() {
+                // check whether given information is given correctly
+                //TODO add other checks?
+                if (!validateInput()) {
+                    Toast.makeText(getApplicationContext(), "Fill all the fields", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Insert userEntity to db
+                new Thread(() -> {
+                    // Add user to the database
+                    userDao.registerUser(userEntity);
+
+                    // Tell the user account was created successfully
+                    runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            // Add user to the database
-                            userDao.registerUser(userEntity);
-
-                            // Tell the user account was created successfully
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(getApplicationContext(), "Account created", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-
-                            // Sleep for 1second so user has time to read previous Toast message
-                            try {
-                                TimeUnit.SECONDS.sleep(1);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-
-                            // User is created. Move to Login fragment here and close current fragment
-                            startActivity(new Intent(CreateUser2.this, MainActivity.class)); // Was LoginActivity
+                            Toast.makeText(getApplicationContext(), "Account created", Toast.LENGTH_SHORT).show();
                         }
-                    }).start();
+                    });
 
-                } else {
-                    Toast.makeText(getApplicationContext(), "Fill all the fields", Toast.LENGTH_SHORT).show();
-                }
+                    // Sleep for 1second so user has time to read previous Toast message
+                    try {
+                        TimeUnit.SECONDS.sleep(1);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    // User is created. Move to Login fragment here and close current fragment
+                    startActivity(new Intent(CreateUser2.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)); // Was LoginActivity
+                }).start();
             }
         });
 

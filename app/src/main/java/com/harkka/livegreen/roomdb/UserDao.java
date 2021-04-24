@@ -18,6 +18,12 @@ public interface UserDao {
     @Query("SELECT * from users where userId=(:userId) and password=(:password)")
     UserEntity login(String userId, String password);
 
+    @Query("SELECT userId from users where userId=(:userId)")
+    String doesContainName(String userId);
+
+    @Query("SELECT email from users where email=(:email)")
+    String doesContainEmail(String email);
+
     /*
     @Query("SELECT * from users where userId=(:userId) and password=(:password) and email=(:email)")
     UserEntity login(String userId, String password, String email);
