@@ -1,15 +1,17 @@
 package com.harkka.livegreen.user;
 
+import com.harkka.livegreen.roomdb.DataEntity;
+import com.harkka.livegreen.roomdb.UserEntity;
+
 import java.util.UUID;
 
 public class User {
 
     public UUID userId;
+    private String userEmail = null;
+    public String userName = null;
+    public String userPasswd = null;
 
-    // Todo: For prototyping before sub class UserProfile is fully implemented
-    private String userEmail = "user.email@email.com";
-    public String userName = "testU";
-    public String userPasswd = "12345";
     private String classString = "User Class: ";
 
     /*
@@ -52,8 +54,6 @@ public class User {
         user.userEmail = userEmail;
         user.userName = userName;
         user.userPasswd = userPasswd;
-        //user.userFirstName = userFirstName;
-        //user.userLastName = userLastName;
 
         return user;
     }
@@ -129,4 +129,22 @@ public class User {
     public int getRank(){
         return (int) Math.round(Math.random()*5);
     }
+
+    // Entry management
+
+    // TODO: This is db interface method
+    // Load all users
+    public void loadUsers() {}
+
+    // TODO: This is db interface method
+    // Makes db insert of user
+    public void insertDBUser() {
+        UserEntity userEntity = UserEntity.getInstance();
+
+        userEntity.setUserId(userId);
+        userEntity.setUserName(userName);
+        userEntity.setPassword(userPasswd);
+        userEntity.setEmail(userEmail);
+    }
+
 }

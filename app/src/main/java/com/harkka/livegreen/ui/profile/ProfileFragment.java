@@ -26,7 +26,12 @@ import com.harkka.livegreen.calculable.BMI;
 import com.harkka.livegreen.calculable.Calculable;
 import com.harkka.livegreen.entry.Entry;
 import com.harkka.livegreen.entry.EntryManager;
+import com.harkka.livegreen.roomdb.DataDao;
+import com.harkka.livegreen.roomdb.DataEntity;
 import com.harkka.livegreen.roomdb.LoginActivity;
+import com.harkka.livegreen.roomdb.UserDao;
+import com.harkka.livegreen.roomdb.UserDatabase;
+import com.harkka.livegreen.roomdb.UserEntity;
 import com.harkka.livegreen.user.User;
 import com.harkka.livegreen.user.UserManager;
 
@@ -35,6 +40,7 @@ import java.io.OutputStreamWriter;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import com.google.android.material.imageview.ShapeableImageView;
+import com.harkka.livegreen.user.UserProfile;
 
 public class ProfileFragment extends Fragment {
 
@@ -52,6 +58,10 @@ public class ProfileFragment extends Fragment {
     private EditText editTextBMI;
     private EditText editTextAge;
     private EditText editTextLocation;
+    // Variables for data entity management
+    private UserDatabase userDatabase;
+    private UserDao userDao;
+    private DataDao dataDao;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -81,6 +91,12 @@ public class ProfileFragment extends Fragment {
         ecorankPicture = root.findViewById(R.id.imageViewEcorank);
         profileName = root.findViewById(R.id.textViewProfileName);
         userManager = UserManager.getInstance();
+
+        // Database and Dao initialization
+        Context context = this.getContext();
+        userDatabase = UserDatabase.getUserDatabase(context.getApplicationContext());
+        userDao = userDatabase.userDao();
+        dataDao = userDatabase.dataDao();
 
         //TODO enable userManager works correctly
         //handle_profileview_login_state(userManager.isAnyoneLogged());
@@ -194,35 +210,38 @@ public class ProfileFragment extends Fragment {
         Context context = getContext();
         UserManager um = UserManager.getInstance();
         EntryManager em = EntryManager.getInstance();
+        DataEntity dataEntity = DataEntity.getInstance();
+        UserEntity userEntity = UserEntity.getInstance();
 
         // Todo: This is for prototyping, user is not initialized so do it here. Initialization missing in app start! TO BE FIXED AND REMOVED
-        //UUID uGuid = um.createUser();
-        UUID uGuid = um.getCurrentUserUUID();
+        UUID uGuid = um.createUser();
+        User user = um.getCurrentUser();
+        UserProfile userProfile = um.createUserProfile(uGuid);
+        //uGuid = um.getCurrentUserUUID();
 
+        // New entry object for data transfer and insert to DB
         Entry entry = em.createEntry(uGuid);
-        float value = 0;
+        int age = 0;
         float value0 = 0;
         float value1 = 0;
         String textValue = null;
 
-        //TODO Enter data into user profile instance TO BE CHECKED, now age and location in USer Profile entity!!!
+        // Reading the values and transferring them to the objects
         if (!editTextAge.getText().toString().isEmpty()) {
-            value = Float.parseFloat(editTextAge.getText().toString());
-
+            age = Integer.parseInt(editTextAge.getText().toString());
+            userProfile.setUserProfileAge(age);
             System.out.println("Data submit Age ok: " + editTextAge.getText().toString());
         }
 
         if (!editTextLocation.getText().toString().isEmpty()) {
             textValue = editTextLocation.getText().toString();
-
+            userProfile.setUserProfileLocation(textValue);
             System.out.println("Data submit Location ok: " + editTextLocation.getText().toString());
         }
 
-        //TODO Enter data into entry instance
         if (!editTextWeight.getText().toString().isEmpty()) {
             value0 = Float.parseFloat(editTextWeight.getText().toString());
             em.setEntryValue(0, value0);
-
             System.out.println("Data submit Weight ok...");
         }
 
@@ -233,9 +252,33 @@ public class ProfileFragment extends Fragment {
             System.out.println("Data submit Height ok...");
         }
 
-        // Todo: This should be moved into code where values are entered, calculate at the same time
+        // Todo: This calculation should be moved into code where values are entered, calculate automatically at the same time
         //BMI calculation
         Boolean calculated = BMI(value1, value0);
+
+        // Inserts into database
+
+        // Entry data insert
+        entry.insertDBEntry(); // Prepare Entry object for db insert, copy data to DataEntity
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("IN DB Entry***************" + dataEntity.getEntryId().toString() + "************");
+                dataDao.insertDataEntity(dataEntity); // Do the thing
+            }
+        }).start();
+
+        // User data insert
+        user.insertDBUser(); // Prepare User object for db insert, copy data to DataEntity
+        userProfile.insertDBUserProfile(); // Prepare UserProfile object for db insert, copy data to DataEntity
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("IN DB User ***************" + dataEntity.getEntryId().toString() + "************");
+                // User and UserProfile are both included in UserEntity
+                userDao.insertUserEntity(userEntity);
+            }
+        }).start();
 
         // Sleep for 1second so user has time to read previous Toast message
         try {

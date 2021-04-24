@@ -1,5 +1,7 @@
 package com.harkka.livegreen.user;
 
+import com.harkka.livegreen.roomdb.UserEntity;
+
 import java.util.UUID;
 
 public class UserProfile{
@@ -42,15 +44,31 @@ public class UserProfile{
         userFirstName = fName;
     }
 
+    public void setUserProfileFName( String fName) {
+        userFirstName = fName;
+    }
+
     public void setUserProfileLName(UUID uGuid, String lName) {
         userLastName = lName;
     }
 
-    public void setUserProfileAge(UUID uGuid, int age) {
+    public void setUserProfileLName(String lName) {
+        userLastName = lName;
+    }
+
+    /*public void setUserProfileAge(UUID uGuid, int age) {
+        userAge = age;
+    }
+*/
+    public void setUserProfileAge(int age) {
         userAge = age;
     }
 
     public void setUserProfileLocation(UUID uGuid, String location) {
+        userLocation = location;
+    }
+
+    public void setUserProfileLocation(String location) {
         userLocation = location;
     }
 
@@ -65,6 +83,17 @@ public class UserProfile{
         uProfile.userLocation = userLocation;
 
         return uProfile;
+    }
+
+    // TODO: This is db interface method
+    // Makes db insert of user
+    public void insertDBUserProfile() {
+        UserEntity userEntity = UserEntity.getInstance();
+
+        userEntity.setFirstName(userFirstName);
+        userEntity.setLastName(userLastName);
+        userEntity.setAge(Integer.toString(userAge));
+        userEntity.setLocation(userLocation);
     }
 
 }

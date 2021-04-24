@@ -11,6 +11,12 @@ import java.util.UUID;
 @Entity(tableName = "users")
 public class UserEntity {
 
+    public static UserEntity userEntity = new UserEntity(); // Singleton!!!
+
+    public static UserEntity getInstance() {
+        return userEntity;
+    } // Singleton!!!
+
     // Needed information
     // getters + setters
 

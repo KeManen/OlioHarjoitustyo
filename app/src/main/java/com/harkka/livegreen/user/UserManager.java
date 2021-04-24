@@ -59,9 +59,11 @@ public class UserManager {
     }
 */
 
-    public void createUserProfile( UUID uGuid ) {
+    public UserProfile createUserProfile( UUID uGuid ) {
 
         uProfile = new UserProfile(uGuid);
+
+        return uProfile;
 
     }
 

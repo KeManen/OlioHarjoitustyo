@@ -116,7 +116,6 @@ public class Entry {
     // TODO: This is db interface method
     // Makes db insert of entry
     public void insertDBEntry() {
-        //DataEntity dataEntity = new DataEntity();
         DataEntity dataEntity = DataEntity.getInstance();
         
         dataEntity.setUserId(userGuid);
@@ -133,7 +132,7 @@ public class Entry {
     // TODO: This is db interface method
     // Makes db insert of current entry set by EntryManager.setEntryValue()
     public void insertDBEntry(int entryType) {
-        DataEntity dataEntity = new DataEntity();
+        DataEntity dataEntity = DataEntity.getInstance();
         // Todo: in here entry type switch using ENUM
         switch(entryType){
             case 0:
