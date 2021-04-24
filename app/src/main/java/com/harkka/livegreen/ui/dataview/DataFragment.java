@@ -45,6 +45,12 @@ public class DataFragment extends Fragment {
         //TODO when month is full --> move data to file?
         //TODO format is date as integer + Emissions as KG
 
+        // clear old values from arraylist
+        emissions.clear();
+        for(int i=0; i < 15; i++) {
+
+        }
+
         // test emissions for a week
         // format is day of the month (int) + emissions
         emissions.add(new BarEntry(1, 50));
@@ -89,16 +95,26 @@ public class DataFragment extends Fragment {
         //TODO add data inserts from database
         //TODO format is day as integer, food usage as grams
 
+        // clear old values from arraylist
+        foodUsage.clear();
+        for(int i=0; i < 15; i++) {
+
+        }
+
         foodUsage.add(new BarEntry(1, 5));
         foodUsage.add(new BarEntry(2, 9));
         foodUsage.add(new BarEntry(3, 5));
         foodUsage.add(new BarEntry(4, 4));
-        foodUsage.add(new BarEntry(6, 5));
-        foodUsage.add(new BarEntry(7, 9));
-        foodUsage.add(new BarEntry(9, 5));
+        foodUsage.add(new BarEntry(5, 5));
+        foodUsage.add(new BarEntry(6, 9));
+        foodUsage.add(new BarEntry(7, 5));
+        foodUsage.add(new BarEntry(8, 4));
+        foodUsage.add(new BarEntry(9, 3));
         foodUsage.add(new BarEntry(10, 4));
         foodUsage.add(new BarEntry(11, 3));
         foodUsage.add(new BarEntry(12, 4));
+        foodUsage.add(new BarEntry(13, 5));
+        foodUsage.add(new BarEntry(14, 9));
 
         // create dataset using library and specify text size and colors
         BarDataSet barDataSet2 = new BarDataSet(foodUsage, "");
@@ -113,7 +129,6 @@ public class DataFragment extends Fragment {
         barChart2.setData(barData2);
         barChart2.getDescription().setText("Food usage");
         barChart2.animateY(2000);
-
         return root;
     }
 }

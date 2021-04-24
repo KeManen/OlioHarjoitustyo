@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -15,22 +14,22 @@ import com.harkka.livegreen.R;
 import java.util.concurrent.TimeUnit;
 
 public class CreateUser2 extends AppCompatActivity {
-    UserDatabase userDatabase;
-    UserDao userDao;
 
+    //database for users
+    UserDao userDao;
 
     // Integrate components
     EditText firstName, lastName, age, location;
     Button create, goBack;
 
+    //earlier inputs
     String username, email, password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_user2);
-        userDatabase = UserDatabase.getUserDatabase(getApplicationContext());
-        userDao = userDatabase.userDao();
+        userDao = UserDatabase.getUserDatabase(getApplicationContext()).userDao();
 
         // Integrate components
         firstName = findViewById(R.id.firstName);
@@ -40,11 +39,10 @@ public class CreateUser2 extends AppCompatActivity {
         create = findViewById(R.id.create);
         goBack = findViewById(R.id.goBack);
 
-        Intent intent = getIntent();
-        System.out.println(intent.getExtras().toString());
-        this.username = intent.getStringExtra("name");
-        this.email = intent.getStringExtra("email");
-        this.password = intent.getStringExtra("password");
+        //get earlier inputs
+        this.username = getIntent().getStringExtra("name");
+        this.email = getIntent().getStringExtra("email");
+        this.password = getIntent().getStringExtra("password");
 
         create.setOnClickListener(v -> {
 
@@ -59,8 +57,7 @@ public class CreateUser2 extends AppCompatActivity {
             userEntity.setLocation(location.getText().toString());
 
 
-            // check whether given information is given correctly
-            //TODO add other checks?
+            // validate inputs
             if (!validateInput()) {
                 Toast.makeText(getApplicationContext(), "Fill all the fields", Toast.LENGTH_SHORT).show();
                 return;
@@ -90,34 +87,22 @@ public class CreateUser2 extends AppCompatActivity {
         goBack.setOnClickListener(v -> startActivity(new Intent(CreateUser2.this, CreateUser1.class)));
 
     }
+    //TODO add other checks?
 
-
-
-/*
-    // check given information --> is the input empty?
-    private Boolean validateInput(UserEntity userEntity) {
-
-        // add the needed components with -->  || userEntity.get_____().isEmpty())
-        if (userEntity.getUserName().isEmpty() ||userEntity.getFirstName().isEmpty() || userEntity.getLastName()
-                .isEmpty() || userEntity.getAge().isEmpty() || userEntity.getLocation().isEmpty()) {
-            return false;
-        }
-        return true;
-    }
-  */
-    // For testing
-
+    // validateInput
+    // returns false if any input field is empty
     private Boolean validateInput() {
-        firstName = findViewById(R.id.firstName);
+        //debugs
         System.out.println(firstName.getText());
-        lastName = findViewById(R.id.lastName);
         System.out.println(lastName.getText());
-        age = findViewById(R.id.age);
         System.out.println(age.getText());
-        location = findViewById(R.id.location);
         System.out.println(location.getText());
 
-        return !firstName.getText().toString().isEmpty() && !lastName.getText().toString().isEmpty() && !age.getText().toString().isEmpty() && !location.getText().toString().isEmpty();
+        //checks if any fields are empty
+        return !firstName.getText().toString().trim().isEmpty() &&
+                !lastName.getText().toString().trim().isEmpty() &&
+                     !age.getText().toString().trim().isEmpty() &&
+                !location.getText().toString().trim().isEmpty();
     }
 
 

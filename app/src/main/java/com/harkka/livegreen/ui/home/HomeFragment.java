@@ -50,13 +50,14 @@ public class HomeFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
+        //get components
         sliderMeat = root.findViewById(R.id.sliderMeat);
         sliderDairy = root.findViewById(R.id.sliderDairy);
         sliderVege = root.findViewById(R.id.sliderVege);
         ecofriendlySwitch = root.findViewById(R.id.ecofriendlySwitch);
         buttonSubmit = root.findViewById(R.id.buttonSubmit);
 
-
+        //set labels to be grams, numbers are from national average
         sliderMeat.setLabelFormatter(value -> Math.round(260*(value/100))+"g");
         sliderDairy.setLabelFormatter(value -> Math.round(440*(value/100))+"g");
         sliderVege.setLabelFormatter(value -> Math.round(585*(value/100))+"g");
@@ -87,6 +88,7 @@ public class HomeFragment extends Fragment {
             // meat - 260g, dairy - 440g, vege - 585g
             // https://www.luke.fi/uutinen/mita-suomessa-syotiin-vuonna-2019/
 
+            //debug prints
             System.out.println(meatInput);
             System.out.println(dairyInput);
             System.out.println(vegeInput);

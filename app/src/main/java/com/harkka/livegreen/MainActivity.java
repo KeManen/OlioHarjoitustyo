@@ -61,9 +61,11 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-
+    // void handle_loginprompt()
+    // opens loginactivity if user is not logged
+    // if user is logged it toasts them
     private void handle_loginprompt(){
-        if(!userManager.isAnyoneLogged()){
+        if(userManager.getCurrentUser() == null){
             startActivity(new Intent(getBaseContext(), LoginActivity.class));
         } else {
             Toast.makeText(getApplicationContext(), "Welcome back !", Toast.LENGTH_SHORT).show();

@@ -86,38 +86,36 @@ public class ProfileFragment extends Fragment {
         submitData_Button = root.findViewById(R.id.submitDataButton);
         submitData_Button.setOnClickListener(v -> submitData());
 
+        //components that change with loginstate
         card = root.findViewById(R.id.profileCardView);
         profilePicture = root.findViewById(R.id.imageViewProfile);
         ecorankPicture = root.findViewById(R.id.imageViewEcorank);
         profileName = root.findViewById(R.id.textViewProfileName);
-        userManager = UserManager.getInstance();
 
-        // Database and Dao initialization
-        Context context = this.getContext();
-        userDatabase = UserDatabase.getUserDatabase(context.getApplicationContext());
-        userDao = userDatabase.userDao();
-        dataDao = userDatabase.dataDao();
+        userManager = UserManager.getInstance();
 
         //TODO enable userManager works correctly
         //handle_profileview_login_state(userManager.isAnyoneLogged());
         return root;
     }
 
-
-    // Change profileview according to loginstate
+    // void handle_profileview_login_state()
+    // handles profileview based on login state
     public void handle_profileview_login_state(){
-        //login_button = v.findViewById(R.id.buttonProfileViewLogout);
-        //card = v.findViewById(R.id.profileCardView);
         Context context = getContext();
 
-
-        if(userManager.isAnyoneLogged()){
+        //checks if the user is logged
+        if(userManager.getCurrentUser() == null){
+            //Change button to user logged in state
             login_button.setText(getText(R.string.log_out));
             login_button.setBackgroundColor(login_button.getContext().getResources().getColor(R.color.red));
+            login_button.setOnClickListener(v -> handle_profileview_login_state());
 
+
+            //show profileinput card
             card.setVisibility(View.VISIBLE);
-            login_button.setOnClickListener(v -> {});
 
+            //get users rank and assing correct rankicon
             User user = userManager.getCurrentUser();
             switch(user.getRank()){
                 case 1: { ecorankPicture.setImageResource(R.drawable.eco_1); break; }
@@ -127,18 +125,23 @@ public class ProfileFragment extends Fragment {
                 case 5: { ecorankPicture.setImageResource(R.drawable.eco_5); break; }
                 default:{ ecorankPicture.setImageResource(R.drawable.eco_0); break; }
             }
+
+            //set username
             profileName.setText(user.userName);
 
-            //TODO change to userpicture
+            //TODO set userpicture
             //profilePicture.setImageResource();
 
         } else {
+            //change loginbutton to user logged out state
             login_button.setText(getText(R.string.log_in));
             login_button.setBackgroundColor(login_button.getContext().getResources().getColor(R.color.green_dark));
-
-            card.setVisibility(View.GONE);
             login_button.setOnClickListener(v -> startActivity(new Intent(context, LoginActivity.class)));
 
+            //hide profileinput card
+            card.setVisibility(View.GONE);
+
+            // set rank, name and profilepicture to defaults
             ecorankPicture.setImageResource(R.drawable.eco_0);
             profilePicture.setImageResource(R.drawable.unlogged_profilepicture);
             profileName.setText(R.string.profilename);
