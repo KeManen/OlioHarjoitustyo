@@ -119,6 +119,9 @@ public class UserManager {
 
     public boolean isAnyoneLogged(){
         //TODO Remove
+        if((int) Math.round(Math.random()) == 0){
+            return false;
+        }
         return true;
         /*
         for(User user : users){

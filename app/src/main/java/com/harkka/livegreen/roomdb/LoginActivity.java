@@ -75,8 +75,12 @@ public class LoginActivity extends AppCompatActivity {
                         System.out.println("login successful");
                         // move to mainactivity fragment here and send username
                         String name = userEntity.userId;
+
                         //Toast.makeText(getApplicationContext(), "Welcome "+name+"!", Toast.LENGTH_SHORT).show(); crashes
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class).putExtra("name", name));
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class)
+                                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                                .putExtra("name", name)
+                        );
 
                     }
                 }).start();
@@ -89,5 +93,9 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(new Intent(LoginActivity.this, CreateUser1.class));
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 }
