@@ -81,8 +81,8 @@ public class HomeFragment extends Fragment {
 
             // takes values from sliders + format to String to use in URL
             String meatInput = String.format("%.0f", sliderMeat.getValue());
-            String dairyInput = String.format("%.0f", sliderDairy.getValue(););
-            String vegeInput = String.format("%.0f", sliderVege.getValue(););
+            String dairyInput = String.format("%.0f", sliderDairy.getValue());
+            String vegeInput = String.format("%.0f", sliderVege.getValue());
             // Finnish daily average consumptions are:
             // meat - 260g, dairy - 440g, vege - 585g
             // https://www.luke.fi/uutinen/mita-suomessa-syotiin-vuonna-2019/
