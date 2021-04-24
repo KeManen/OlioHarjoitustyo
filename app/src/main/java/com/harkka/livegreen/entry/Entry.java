@@ -111,8 +111,9 @@ public class Entry {
     // TODO: This is db interface method
     // Makes db insert of entry
     public void insertDBEntry() {
-        DataEntity dataEntity = new DataEntity();
-
+        //DataEntity dataEntity = new DataEntity();
+        DataEntity dataEntity = DataEntity.getInstance();
+        
         dataEntity.setUserId(userGuid);
         dataEntity.setEntryId(entryGuid);
         dataEntity.setDateTime(entryDateTime);
