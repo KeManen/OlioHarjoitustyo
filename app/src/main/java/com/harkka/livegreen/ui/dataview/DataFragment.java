@@ -56,9 +56,9 @@ public class DataFragment extends Fragment {
         emissions.add(new BarEntry(12, 620));
 
         // create dataset using library and specify text size and colors
-        BarDataSet barDataSet = new BarDataSet(emissions, "Emissions");
+        BarDataSet barDataSet = new BarDataSet(emissions, "");
         barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
-        barDataSet.setValueTextColor(Color.BLACK);
+        barDataSet.setValueTextColor(Color.WHITE);
         barDataSet.setValueTextSize(16f);
 
         // fill the bardata with arraylist data
@@ -101,9 +101,9 @@ public class DataFragment extends Fragment {
         foodUsage.add(new BarEntry(12, 4));
 
         // create dataset using library and specify text size and colors
-        BarDataSet barDataSet2 = new BarDataSet(foodUsage, "Food used");
+        BarDataSet barDataSet2 = new BarDataSet(foodUsage, "");
         barDataSet2.setColors(ColorTemplate.MATERIAL_COLORS);
-        barDataSet2.setValueTextColor(Color.BLACK);
+        barDataSet2.setValueTextColor(Color.WHITE);
         barDataSet2.setValueTextSize(16f);
 
         // fill the bardata with arraylist data
