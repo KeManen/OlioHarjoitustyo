@@ -17,21 +17,11 @@ import com.harkka.livegreen.R;
 
 public class DataFragment extends Fragment {
 
-    private DataViewModel dataViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        dataViewModel =
-                new ViewModelProvider(this).get(DataViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_data, container, false);
-        final TextView textView = root.findViewById(R.id.text_data);
-        dataViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
 
+        View root = inflater.inflate(R.layout.fragment_data, container, false);
         return root;
     }
 }

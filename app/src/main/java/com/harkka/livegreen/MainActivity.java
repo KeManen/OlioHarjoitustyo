@@ -22,13 +22,13 @@ import androidx.appcompat.widget.Toolbar;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    private UserManager um;
+    private UserManager userManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.Theme_LiveGreen_NoActionBar);
 
-        um = UserManager.getInstance();
+        userManager = UserManager.getInstance();
 
         handle_loginprompt();
 
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void handle_loginprompt(){
-        if(!um.isAnyoneLogged()){
+        if(!userManager.isAnyoneLogged()){
             startActivity(new Intent(getBaseContext(), LoginActivity.class));
         } else {
             Toast.makeText(getApplicationContext(), "Welcome back !", Toast.LENGTH_SHORT).show();

@@ -77,4 +77,7 @@
     <string name="cd_vege_icon">image of vegetables</string>
     <string name="user_profile_icon">User profile icon</string>
     <string name="user_ecorank_icon">User ecorank icon</string>
+    <string name="eco_friendly_food_no_yes">Eco friendly food - No/Yes</string>
+    <string name="off">Off</string>
+    <string name="on">On</string>
 </resources>

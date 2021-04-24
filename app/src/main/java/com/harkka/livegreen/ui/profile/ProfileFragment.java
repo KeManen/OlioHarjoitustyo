@@ -34,14 +34,14 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+import com.google.android.material.imageview.ShapeableImageView;
 
 public class ProfileFragment extends Fragment {
 
-    private ProfileViewModel profileViewModel;
     private TextView textView;
     private Button login_button;
-    private ImageButton profilePicture;
-    private ImageButton ecorankPicture;
+    private ShapeableImageView profilePicture;
+    private ShapeableImageView ecorankPicture;
     private TextView profileName;
     private Button exportFiles_Button;
     private Button submitData_Button;
@@ -55,10 +55,7 @@ public class ProfileFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        profileViewModel =
-                new ViewModelProvider(this).get(ProfileViewModel.class);
         View root = inflater.inflate(R.layout.fragment_profile, container, false);
-        textView = root.findViewById(R.id.text_profile);
 
         // Initializing data field variables
         editTextHeight = root.findViewById(R.id.editTextHeight);
@@ -89,14 +86,13 @@ public class ProfileFragment extends Fragment {
         });
 
         card = root.findViewById(R.id.profileCardView);
-        profilePicture = root.findViewById(R.id.imageButtonProfile);
-        ecorankPicture = root.findViewById(R.id.imageButtonEcorank);
+        profilePicture = root.findViewById(R.id.imageViewProfile);
+        ecorankPicture = root.findViewById(R.id.imageViewEcorank);
         profileName = root.findViewById(R.id.textViewProfileName);
         userManager = UserManager.getInstance();
-        profileViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) { textView.setText(s);  }
-        });
+
+        //TODO enable userManager works correctly
+        //handle_profileview_login_state(userManager.isAnyoneLogged());
         return root;
     }
 
