@@ -1,5 +1,9 @@
 package com.harkka.livegreen.entry;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import com.harkka.livegreen.roomdb.DataDao;
 import com.harkka.livegreen.roomdb.DataEntity;
 
@@ -22,6 +26,7 @@ public class Entry {
 
     public Entry() {}
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public Entry(UUID uGuid) {
         entry = new Entry();
 

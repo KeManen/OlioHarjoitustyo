@@ -51,6 +51,9 @@ public class DataEntity {
     @ColumnInfo(name = "vegeUsed")
     String vegeUsed;
 
+    @ColumnInfo(name = "totalResult")
+    String totalResult;
+
     // adding getters + setters
 
     public Integer getId() { return id; }
@@ -112,5 +115,9 @@ public class DataEntity {
     public String getVegeUsed() { return vegeUsed; }
 
     public void setVegeUsed(String vegeUsed) { this.vegeUsed = vegeUsed; }
+
+    public String getTotalResult() { return totalResult; }
+
+    public void setTotalResult(String totalResult) { this.totalResult = totalResult; }
 
 }

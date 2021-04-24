@@ -150,7 +150,6 @@ public class ProfileFragment extends Fragment {
 
     // User and Data export to file when Export button is pushed
     public void exportFiles() {
-        System.out.println("Toistaiseksi ok...");
         String userFile = "UserLog.txt";
         String dataFile = "DataLog.txt";
 
@@ -197,8 +196,8 @@ public class ProfileFragment extends Fragment {
         EntryManager em = EntryManager.getInstance();
 
         // Todo: This is for prototyping, user is not initialized so do it here. Initialization missing in app start! TO BE FIXED AND REMOVED
-        UUID uGuid = um.createUser();
-        //UUID uGuid = um.getCurrentUserUUID();
+        //UUID uGuid = um.createUser();
+        UUID uGuid = um.getCurrentUserUUID();
 
         Entry entry = em.createEntry(uGuid);
         float value = 0;
