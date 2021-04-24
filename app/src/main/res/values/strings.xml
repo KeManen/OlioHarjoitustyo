@@ -80,4 +80,6 @@
     <string name="eco_friendly_food_no_yes">Eco friendly food - No/Yes</string>
     <string name="off">Off</string>
     <string name="on">On</string>
+    <string name="profilename">Profilename</string>
+    <string name="bmi">BMI</string>
 </resources>

@@ -20,12 +20,12 @@ public class Entry {
     private float meatConsumption;
     private float vegeConsumption;
 
-    public Entry() {};
+    public Entry() {}
 
     public Entry(UUID uGuid) {
         entry = new Entry();
 
-        entryDateTime = LocalDateTime.now();
+        entryDateTime = LocalDateTime.now(); // oisko korjaus että sais toimimaan nykyisellä apitasolla
         userGuid = uGuid;
         entryGuid = getGuid();
 

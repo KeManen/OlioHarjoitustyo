@@ -2,13 +2,11 @@ package com.harkka.livegreen;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.view.Menu;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.harkka.livegreen.roomdb.LoginActivity;
-import com.harkka.livegreen.user.User;
 import com.harkka.livegreen.user.UserManager;
 
 import androidx.navigation.NavController;

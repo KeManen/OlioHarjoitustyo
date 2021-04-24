@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.UserManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,66 +32,51 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.password);
 
 
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        login.setOnClickListener(v -> {
+            String userIdText = userId.getText().toString();
+            String passwordText = password.getText().toString();
+            System.out.println("################################################");
+            System.out.println("id and pass");
+            System.out.println(userIdText.isEmpty());
+            System.out.println(passwordText.isEmpty());
+            // check for empty inputs
+            if (userIdText.isEmpty() || passwordText.isEmpty()) {
+                System.out.println("fill fields");
+                Toast.makeText(getApplicationContext(), "Fill all fields", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            // perform Query command at UserDao
+            UserDatabase userDatabase = UserDatabase.getUserDatabase(getApplicationContext());
+            UserDao userDao = userDatabase.userDao();
 
-                String userIdText = userId.getText().toString();
-                String passwordText = password.getText().toString();
-                System.out.println("################################################");
-                System.out.println("id and pass");
-                System.out.println(userIdText.isEmpty());
-                System.out.println(passwordText.isEmpty());
-                // check for empty inputs
-                if (userIdText.isEmpty() || passwordText.isEmpty()) {
-                    System.out.println("fill fields");
-                    Toast.makeText(getApplicationContext(), "Fill all fields", Toast.LENGTH_SHORT).show();
+            // Check database for existing user
+            new Thread(() -> {
+                UserEntity userEntity = userDao.login(userIdText, passwordText);
+
+                if (userEntity == null) {
+
+                    // In case of user not found:
+                    runOnUiThread(() -> {
+                        System.out.println("Invalid credentials");
+                        Toast.makeText(getApplicationContext(), "Invalid credentials", Toast.LENGTH_SHORT).show();
+                    });
+
                     return;
                 }
-                // perform Query command at UserDao
-                UserDatabase userDatabase = UserDatabase.getUserDatabase(getApplicationContext());
-                UserDao userDao = userDatabase.userDao();
+                System.out.println("login successful");
+                // move to mainactivity fragment here and send username
+                String name = userEntity.userId;
 
-                // Check database for existing user
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        UserEntity userEntity = userDao.login(userIdText, passwordText);
+                //Toast.makeText(getApplicationContext(), "Welcome "+name+"!", Toast.LENGTH_SHORT).show(); crashes
+                startActivity(new Intent(getApplicationContext(), MainActivity.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        .putExtra("name", name)
+                );
 
-                        if (userEntity == null) {
-
-                            // In case of user not found:
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    System.out.println("Invalid credentials");
-                                    Toast.makeText(getApplicationContext(), "Invalid credentials", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-
-                            return;
-                        }
-                        System.out.println("login successful");
-                        // move to mainactivity fragment here and send username
-                        String name = userEntity.userId;
-
-                        //Toast.makeText(getApplicationContext(), "Welcome "+name+"!", Toast.LENGTH_SHORT).show(); crashes
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class)
-                                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                                .putExtra("name", name)
-                        );
-
-                    }
-                }).start();
-            }
+            }).start();
         });
 
-        notYetUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, CreateUser1.class));
-            }
-        });
+        notYetUser.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this, CreateUser1.class)));
     }
 
     @Override

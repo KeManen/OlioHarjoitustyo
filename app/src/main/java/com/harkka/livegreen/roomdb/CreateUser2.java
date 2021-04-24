@@ -46,61 +46,48 @@ public class CreateUser2 extends AppCompatActivity {
         this.email = intent.getStringExtra("email");
         this.password = intent.getStringExtra("password");
 
-        create.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        create.setOnClickListener(v -> {
 
-                // Initialize new database object and insert info to the object as strings
-                UserEntity userEntity = new UserEntity();
-                userEntity.setUserName(username);
-                userEntity.setEmail(email);
-                userEntity.setPassword(password);
-                userEntity.setFirstName(firstName.getText().toString());
-                userEntity.setLastName(lastName.getText().toString());
-                userEntity.setAge(age.getText().toString());
-                userEntity.setLocation(location.getText().toString());
+            // Initialize new database object and insert info to the object as strings
+            UserEntity userEntity = new UserEntity();
+            userEntity.setUserName(username);
+            userEntity.setEmail(email);
+            userEntity.setPassword(password);
+            userEntity.setFirstName(firstName.getText().toString());
+            userEntity.setLastName(lastName.getText().toString());
+            userEntity.setAge(age.getText().toString());
+            userEntity.setLocation(location.getText().toString());
 
 
-                // check whether given information is given correctly
-                //TODO add other checks?
-                if (!validateInput()) {
-                    Toast.makeText(getApplicationContext(), "Fill all the fields", Toast.LENGTH_SHORT).show();
-                    return;
+            // check whether given information is given correctly
+            //TODO add other checks?
+            if (!validateInput()) {
+                Toast.makeText(getApplicationContext(), "Fill all the fields", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Insert userEntity to db
+            new Thread(() -> {
+                // Add user to the database
+                userDao.registerUser(userEntity);
+
+                // Tell the user account was created successfully
+                runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Account created", Toast.LENGTH_SHORT).show());
+
+                // Sleep for 1second so user has time to read previous Toast message
+                try {
+                    TimeUnit.SECONDS.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
 
-                // Insert userEntity to db
-                new Thread(() -> {
-                    // Add user to the database
-                    userDao.registerUser(userEntity);
-
-                    // Tell the user account was created successfully
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(getApplicationContext(), "Account created", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-                    // Sleep for 1second so user has time to read previous Toast message
-                    try {
-                        TimeUnit.SECONDS.sleep(1);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-                    // User is created. Move to Login fragment here and close current fragment
-                    startActivity(new Intent(CreateUser2.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)); // Was LoginActivity
-                }).start();
-            }
+                // User is created. Move to Login fragment here and close current fragment
+                startActivity(new Intent(CreateUser2.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)); // Was LoginActivity
+            }).start();
         });
 
         // move back to the previous screen
-        goBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(CreateUser2.this, CreateUser1.class));
-            }
-        });
+        goBack.setOnClickListener(v -> startActivity(new Intent(CreateUser2.this, CreateUser1.class)));
 
     }
 
@@ -129,11 +116,8 @@ public class CreateUser2 extends AppCompatActivity {
         System.out.println(age.getText());
         location = findViewById(R.id.location);
         System.out.println(location.getText());
-        // add the needed components with -->  || userEntity.get_____().isEmpty())
-        if (firstName.getText().toString().isEmpty() || lastName.getText().toString().isEmpty() || age.getText().toString().isEmpty() || location.getText().toString().isEmpty()) {
-            return false;
-        }
-        return true;
+
+        return !firstName.getText().toString().isEmpty() && !lastName.getText().toString().isEmpty() && !age.getText().toString().isEmpty() && !location.getText().toString().isEmpty();
     }
 
 

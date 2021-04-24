@@ -9,13 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.harkka.livegreen.MainActivity;
 import com.harkka.livegreen.R;
 import com.harkka.livegreen.user.UserManager;
 
-import java.util.Set;
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -46,81 +42,60 @@ public class CreateUser1 extends AppCompatActivity {
         password = findViewById(R.id.password);
 
 
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        register.setOnClickListener(v -> {
 
-                if(!arePasswordsMatching()){
-                    Toast.makeText(getApplicationContext(), "Passwords does not match", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(isInputEmpty()){
-                    Toast.makeText(getApplicationContext(), "Fill needed information", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(!isEmailFormatted()){
-                    Toast.makeText(getApplicationContext(), "Check email correctness", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(!isEmailFree()){
-                    Toast.makeText(getApplicationContext(), "This email is already in use", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(!isUsernameFree()){
-                    Toast.makeText(getApplicationContext(), "This username is already in use", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(!isPasswordFormatted()){
-                    Toast.makeText(getApplicationContext(), "The password doesn't match criteria", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                startActivity(new Intent(CreateUser1.this, CreateUser2.class)
-                        .putExtra("name", userName.getText().toString())
-                        .putExtra("email", email.getText().toString())
-                        .putExtra("password", password.getText().toString()));
+            if(!arePasswordsMatching()){
+                Toast.makeText(getApplicationContext(), "Passwords does not match", Toast.LENGTH_SHORT).show();
+                return;
             }
+            if(isInputEmpty()){
+                Toast.makeText(getApplicationContext(), "Fill needed information", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if(!isEmailFormatted()){
+                Toast.makeText(getApplicationContext(), "Check email correctness", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if(!isEmailFree()){
+                Toast.makeText(getApplicationContext(), "This email is already in use", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if(!isUsernameFree()){
+                Toast.makeText(getApplicationContext(), "This username is already in use", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if(!isPasswordFormatted()){
+                Toast.makeText(getApplicationContext(), "The password doesn't match criteria", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            startActivity(new Intent(CreateUser1.this, CreateUser2.class)
+                    .putExtra("name", userName.getText().toString())
+                    .putExtra("email", email.getText().toString())
+                    .putExtra("password", password.getText().toString()));
         });
 
         // move back to the previous Login screen
-        toLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(CreateUser1.this, LoginActivity.class));
-            }
-        });
+        toLogin.setOnClickListener(v -> startActivity(new Intent(CreateUser1.this, LoginActivity.class)));
     }
 
     private Boolean isUsernameFree(){
         //       usernames = [inputUsername, dbUsername]
         String[] usernames = {userName.getText().toString(), ""};
 
-        new Thread(() -> {
-            usernames[1] = userDao.doesContainName(usernames[0]);
-        }).start();
-        if(usernames[1] != null){
-            return false;
-        }
-        return true;
+        new Thread(() -> usernames[1] = userDao.doesContainName(usernames[0])).start();
+        return usernames[1] == null;
 
     }
     private Boolean isEmailFree(){
         String[] emails = {email.getText().toString(), ""};
 
-        new Thread(() -> {
-            emails[1] = userDao.doesContainName(emails[0]);
-        }).start();
-        if(emails[1] != null){
-            return false;
-        }
-        return true;
+        new Thread(() -> emails[1] = userDao.doesContainName(emails[0])).start();
+        return emails[1] == null;
     }
     private Boolean isEmailFormatted(){
-        Pattern pattern = Pattern.compile("^(\\w|\\.|\\_|\\-)+[@](\\w|\\_|\\-|\\.)+[.]\\w{2,3}$", Pattern.CASE_INSENSITIVE);
+        Pattern pattern = Pattern.compile("^(\\w|\\.|_|-)+[@](\\w|_|-|\\.)+[.]\\w{2,3}$", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(email.getText().toString());
-        if(matcher.find()){
-            return true;
-        }
-        return false;
+        return matcher.find();
     }
     private Boolean arePasswordsMatching(){
         return password.getText().toString().equals(password2.getText().toString());
@@ -139,10 +114,7 @@ public class CreateUser1 extends AppCompatActivity {
         System.out.println("pass2: " + password2.getText().toString());
 
         //Check if input is empty
-        if (userName.toString().isEmpty() || password.toString().isEmpty() ||  password2.toString().isEmpty() || email.toString().isEmpty()) {
-            return true;
-        }
-        return false;
+        return userName.toString().isEmpty() || password.toString().isEmpty() || password2.toString().isEmpty() || email.toString().isEmpty();
 
 
     }

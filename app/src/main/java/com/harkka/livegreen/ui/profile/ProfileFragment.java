@@ -66,24 +66,15 @@ public class ProfileFragment extends Fragment {
 
         // Logout handler
         login_button = root.findViewById(R.id.buttonProfileViewLogout);
-        login_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { handle_profileview_loginbutton(); }
-        });
+        login_button.setOnClickListener(v -> handle_profileview_login_state());
 
         // Export data files
         exportFiles_Button = root.findViewById(R.id.writeFiles);
-        exportFiles_Button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { exportFiles(); }
-        });
+        exportFiles_Button.setOnClickListener(v -> exportFiles());
 
         // Submit data
         submitData_Button = root.findViewById(R.id.submitDataButton);
-        submitData_Button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { submitData(); }
-        });
+        submitData_Button.setOnClickListener(v -> submitData());
 
         card = root.findViewById(R.id.profileCardView);
         profilePicture = root.findViewById(R.id.imageViewProfile);
@@ -96,12 +87,9 @@ public class ProfileFragment extends Fragment {
         return root;
     }
 
-    public void handle_profileview_loginbutton(){
-        handle_profileview_login_state(userManager.isAnyoneLogged());
-    }
 
     // Change profileview according to loginstate
-    public void handle_profileview_login_state(boolean is_logged){
+    public void handle_profileview_login_state(){
         //login_button = v.findViewById(R.id.buttonProfileViewLogout);
         //card = v.findViewById(R.id.profileCardView);
         Context context = getContext();
@@ -112,35 +100,17 @@ public class ProfileFragment extends Fragment {
             login_button.setBackgroundColor(login_button.getContext().getResources().getColor(R.color.red));
 
             card.setVisibility(View.VISIBLE);
-            login_button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
+            login_button.setOnClickListener(v -> {});
 
             User user = userManager.getCurrentUser();
             switch(user.getRank()){
-                case 1:
-                    ecorankPicture.setImageResource(R.drawable.eco_1);
-                    break;
-                case 2:
-                    ecorankPicture.setImageResource(R.drawable.eco_2);
-                    break;
-                case 3:
-                    ecorankPicture.setImageResource(R.drawable.eco_3);
-                    break;
-                case 4:
-                    ecorankPicture.setImageResource(R.drawable.eco_4);
-                    break;
-                case 5:
-                    ecorankPicture.setImageResource(R.drawable.eco_5);
-                    break;
-                default:
-                    ecorankPicture.setImageResource(R.drawable.eco_0);
-                    break;
+                case 1: { ecorankPicture.setImageResource(R.drawable.eco_1); break; }
+                case 2: { ecorankPicture.setImageResource(R.drawable.eco_2); break; }
+                case 3: { ecorankPicture.setImageResource(R.drawable.eco_3); break; }
+                case 4: { ecorankPicture.setImageResource(R.drawable.eco_4); break; }
+                case 5: { ecorankPicture.setImageResource(R.drawable.eco_5); break; }
+                default:{ ecorankPicture.setImageResource(R.drawable.eco_0); break; }
             }
-
             profileName.setText(user.userName);
 
             //TODO change to userpicture
@@ -151,18 +121,11 @@ public class ProfileFragment extends Fragment {
             login_button.setBackgroundColor(login_button.getContext().getResources().getColor(R.color.green_dark));
 
             card.setVisibility(View.GONE);
-            login_button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(context, LoginActivity.class));
-                }
-            });
+            login_button.setOnClickListener(v -> startActivity(new Intent(context, LoginActivity.class)));
 
             ecorankPicture.setImageResource(R.drawable.eco_0);
             profilePicture.setImageResource(R.drawable.unlogged_profilepicture);
-
-
-            profileName.setText("Profilename");
+            profileName.setText(R.string.profilename);
         }
     }
 
@@ -178,7 +141,7 @@ public class ProfileFragment extends Fragment {
         if(!editTextWeight.getText().toString().isEmpty())
             weight = Float.parseFloat(editTextWeight.getText().toString());
         if (BMI(height, weight)){
-            textView.setText("BMI");
+            textView.setText(R.string.bmi);
         }
         else {
             textView.setText(s);
