@@ -83,14 +83,15 @@ public class CreateUser1 extends AppCompatActivity {
         String[] usernames = {userName.getText().toString(), ""};
 
         new Thread(() -> usernames[1] = userDao.doesContainName(usernames[0])).start();
-        return usernames[1] == null;
+        return usernames[1] == "";
 
     }
     private Boolean isEmailFree(){
+        //       emails = [inputEmail, dbEmail]
         String[] emails = {email.getText().toString(), ""};
 
         new Thread(() -> emails[1] = userDao.doesContainName(emails[0])).start();
-        return emails[1] == null;
+        return emails[1] == "";
     }
     private Boolean isEmailFormatted(){
         Pattern pattern = Pattern.compile("^(\\w|\\.|_|-)+[@](\\w|_|-|\\.)+[.]\\w{2,3}$", Pattern.CASE_INSENSITIVE);
