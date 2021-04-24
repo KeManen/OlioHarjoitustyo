@@ -245,6 +245,7 @@ public class ProfileFragment extends Fragment {
         float value = 0;
         float value0 = 0;
         float value1 = 0;
+        String textValue = null;
 
         //TODO Enter data into user profile instance TO BE CHECKED, now age and location in USer Profile entity!!!
         if (!editTextAge.getText().toString().isEmpty()) {
@@ -254,9 +255,9 @@ public class ProfileFragment extends Fragment {
         }
 
         if (!editTextLocation.getText().toString().isEmpty()) {
-            value = Float.parseFloat(editTextLocation.getText().toString());
+            textValue = editTextLocation.getText().toString();
 
-            System.out.println("Data submit Age ok: " + editTextLocation.getText().toString());
+            System.out.println("Data submit Location ok: " + editTextLocation.getText().toString());
         }
 
         //TODO Enter data into entry instance

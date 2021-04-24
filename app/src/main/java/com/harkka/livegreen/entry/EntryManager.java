@@ -11,6 +11,7 @@ import java.util.UUID;
 public class EntryManager {
 
     public enum Entrytype {WEIGHT, HEIGHT, DAIRY, MEAT, VEGE, OTHER}
+    private String classString = "EntryManager: ";
 
     //Entry storage;
     public Entry entry;
@@ -32,28 +33,40 @@ public class EntryManager {
         return entry;
     }
 
+    public void setEntry(Entry entry) {
+        if (!entry.equals(null)) {
+            System.out.println(classString + "in setEntry");
+        }
+    }
+
+    // Get current entry
+    public Entry getEntry() {
+        System.out.println(classString + "in getEntry");
+        return entry.getCurrentEntry();
+    }
+
     public void setEntryValue( int entryType, float newEntry ) {
         // Todo: in here entry type switch using ENUM
         switch(entryType){
             case 0:
-                entryManager.entry.setWeightEntry(newEntry);
-                entryManager.entry.insertDBEntry(entryType);
+                entry.setWeight(newEntry);
+                //entryManager.entry.insertDBEntry(entryType);
                 break;
             case 1:
-                entryManager.entry.setHeightEntry(newEntry);
-                entryManager.entry.insertDBEntry(entryType);
+                entryManager.entry.setHeight(newEntry);
+                //entryManager.entry.insertDBEntry(entryType);
                 break;
             case 2:
                 entryManager.entry.setDairyConsumption(newEntry);
-                entryManager.entry.insertDBEntry(entryType);
+                //entryManager.entry.insertDBEntry(entryType);
                 break;
             case 3:
                 entryManager.entry.setMeatConsumption(newEntry);
-                entryManager.entry.insertDBEntry(entryType);
+                //entryManager.entry.insertDBEntry(entryType);
                 break;
             case 4:
                 entryManager.entry.setVegeConsumption(newEntry);
-                entryManager.entry.insertDBEntry(entryType);
+                //entryManager.entry.insertDBEntry(entryType);
                 break;
             default:
                 break;
@@ -65,10 +78,10 @@ public class EntryManager {
         float ret = 0;
         switch(entryType){
             case 0:
-                ret = entryManager.entry.getWeightEntry();
+                ret = entryManager.entry.getWeight();
                 break;
             case 1:
-                ret = entryManager.entry.getHeightEntry();
+                ret = entryManager.entry.getHeight();
                 break;
             case 2:
                 ret = entryManager.entry.getDairyConsumption();

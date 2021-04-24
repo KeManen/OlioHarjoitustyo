@@ -78,6 +78,8 @@ public abstract class UserDatabase extends RoomDatabase {
         return userDatabase;
     }
 
+    // DAO definitions
     public abstract UserDao userDao();
+    public abstract DataDao dataDao();
 
 }

@@ -5,12 +5,20 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.harkka.livegreen.entry.EntryManager;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 @Entity(tableName = "data")
 public class DataEntity {
+
+    public static DataEntity dataEntity = new DataEntity(); // Singleton!!!
+
+    public static DataEntity getInstance() {
+        return dataEntity;
+    } // Singleton!!!
 
     // uid tahan?
     @PrimaryKey(autoGenerate = true)
@@ -54,8 +62,9 @@ public class DataEntity {
         return UUID.fromString(userId);
     }
 
-    public void setUserId(UUID userId) {
-        this.userId = userId.toString();
+    public void setUserId(UUID uId) {
+        this.userId = uId.toString();
+        System.out.println(" DataEntity UserID: " + this.userId);
     }
 
     // Room cannot handle UUID -> conversions to String and back
@@ -63,8 +72,9 @@ public class DataEntity {
         return UUID.fromString(entryId);
     }
 
-    public void setEntryId(UUID entryId) {
-        this.entryId = entryId.toString();
+    public void setEntryId(UUID eId) {
+        this.entryId = eId.toString();
+        System.out.println(" DataEntity EntryID: " + this.entryId);
     }
 
     public LocalDateTime getDateTime() {
@@ -85,7 +95,7 @@ public class DataEntity {
 
     public String getWeight() { return weight; }
 
-    public void setWeight(String weight) { this.weight = weight; }
+    public void setWeight(String weight) { this.weight = weight; System.out.println(" DataEntity Weigth " + this.weight); }
 
     public String getHeight() { return height; }
 

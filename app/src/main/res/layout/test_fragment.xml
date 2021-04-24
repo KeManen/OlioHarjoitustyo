@@ -7,6 +7,16 @@
     tools:context=".ui.testi.TestFragment">
 
 
+    <Button
+        android:id="@+id/buttonTestLoadDB"
+        android:layout_width="150dp"
+        android:layout_height="75dp"
+        android:onClick="pushTestButtonLoadDB"
+        android:text="Load DB"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/buttonTest" />
+
     <TextView
         android:id="@+id/textViewTest"
         android:layout_width="match_parent"
@@ -25,10 +35,11 @@
         android:id="@+id/buttonTest"
         android:layout_width="150dp"
         android:layout_height="75dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
         android:onClick="pushTestButton"
-        android:text="Test Button"
+        android:text="Test"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText

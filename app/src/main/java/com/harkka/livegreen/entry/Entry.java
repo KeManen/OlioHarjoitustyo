@@ -10,16 +10,21 @@ public class Entry {
 
     private String classString = "Entry Class: ";
 
+    public Entry entry;
     private LocalDateTime entryDateTime;
     private UUID userGuid;
     private UUID entryGuid;
-    private float weightEntry;
-    private float heightEntry;
+    private float weight;
+    private float height;
     private float dairyConsumption;
     private float meatConsumption;
     private float vegeConsumption;
 
+    public Entry() {};
+
     public Entry(UUID uGuid) {
+        entry = new Entry();
+
         entryDateTime = LocalDateTime.now();
         userGuid = uGuid;
         entryGuid = getGuid();
@@ -29,16 +34,24 @@ public class Entry {
 
     // Get methods
 
-    public LocalDateTime getEntryDateTime() {
+    public Entry getCurrentEntry() {
+        return entry;
+    }
+
+    public UUID getUserGuid() { return userGuid; }
+
+    public UUID getEntryGuid() { return entryGuid; }
+
+    public LocalDateTime getDateTime() {
         return entryDateTime;
     }
 
-    public float getWeightEntry() {
-        return weightEntry;
+    public float getWeight() {
+        return weight;
     }
 
-    public float getHeightEntry() {
-        return heightEntry;
+    public float getHeight() {
+        return height;
     }
 
     public float getDairyConsumption() {
@@ -55,18 +68,18 @@ public class Entry {
 
     // Set methods
 
-    public void setEntryDateTime(LocalDateTime localDateTime) {
+    public void setDateTime(LocalDateTime localDateTime) {
         this.entryDateTime = localDateTime;
         System.out.println(classString + "localDateTime set to " + localDateTime);
     }
 
-    public void setHeightEntry(float heightEntry) {
-        this.heightEntry = heightEntry;
+    public void setHeight(float heightEntry) {
+        this.height = heightEntry;
         System.out.println(classString + "heightEntry set to " + heightEntry);
     }
 
-    public void setWeightEntry(float weightEntry) {
-        this.weightEntry = weightEntry;
+    public void setWeight(float weightEntry) {
+        this.weight = weightEntry;
         System.out.println(classString + "weightEntry set to " + weightEntry);
     }
 
@@ -96,25 +109,45 @@ public class Entry {
     public void loadEntry(UUID entryGuid) {}
 
     // TODO: This is db interface method
+    // Makes db insert of entry
+    public void insertDBEntry() {
+        DataEntity dataEntity = new DataEntity();
+
+        dataEntity.setUserId(userGuid);
+        dataEntity.setEntryId(entryGuid);
+        dataEntity.setDateTime(entryDateTime);
+        dataEntity.setWeight(String.valueOf(weight));
+        dataEntity.setHeight(String.valueOf(height));
+        dataEntity.setDairyUsed(String.valueOf(dairyConsumption));
+        dataEntity.setMeatUsed(String.valueOf(meatConsumption));
+        dataEntity.setVegeUsed(String.valueOf(vegeConsumption));
+
+    }
+
+    // TODO: This is db interface method
     // Makes db insert of current entry set by EntryManager.setEntryValue()
     public void insertDBEntry(int entryType) {
         DataEntity dataEntity = new DataEntity();
         // Todo: in here entry type switch using ENUM
         switch(entryType){
             case 0:
-                dataEntity.setWeight(String.valueOf(weightEntry));
-                System.out.println(classString + "Weight " + weightEntry + " with guid " + entryGuid + " inserted in database!");
+                dataEntity.setWeight(String.valueOf(weight));
+                System.out.println(classString + "Weight " + weight + " with guid " + entryGuid + " inserted in database!");
                 break;
             case 1:
-                System.out.println(classString + "Height " + heightEntry + " with guid " + entryGuid + " inserted in database!");
+                dataEntity.setHeight(String.valueOf(height));
+                System.out.println(classString + "Height " + height + " with guid " + entryGuid + " inserted in database!");
                 break;
             case 2:
+                dataEntity.setDairyUsed(String.valueOf(dairyConsumption));
                 System.out.println(classString + "dairyConsumption " + dairyConsumption + " with guid " + entryGuid + " inserted in database!");
                 break;
             case 3:
+                dataEntity.setMeatUsed(String.valueOf(meatConsumption));
                 System.out.println(classString + "meatConsumption " + meatConsumption + " with guid " + entryGuid + " inserted in database!");
                 break;
             case 4:
+                dataEntity.setVegeUsed(String.valueOf(vegeConsumption));
                 System.out.println(classString + "vegeConsumption " + vegeConsumption + " with guid " + entryGuid + " inserted in database!");
             default:
                 break;
