@@ -17,9 +17,7 @@ import java.util.regex.Pattern;
 
 public class CreateUser1 extends AppCompatActivity {
 
-    // Variables for user management
-    UserManager uManager = UserManager.getInstance(); // Singleton for User class usage
-    UserDatabase userDatabase;
+    //database
     UserDao userDao;
     // Integrate components
     EditText userName, password, email, password2;
@@ -30,8 +28,7 @@ public class CreateUser1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_user1);
 
-        userDatabase = UserDatabase.getUserDatabase(getApplicationContext());
-        userDao = userDatabase.userDao();
+        userDao = UserDatabase.getUserDatabase(getApplicationContext()).userDao();
 
         // integrate components
         register = findViewById(R.id.register);
@@ -43,61 +40,89 @@ public class CreateUser1 extends AppCompatActivity {
 
 
         register.setOnClickListener(v -> {
+            //validating input
+            if(!validateInput()){
+                return;
+            }
 
-            if(!arePasswordsMatching()){
-                Toast.makeText(getApplicationContext(), "Passwords does not match", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if(isInputEmpty()){
-                Toast.makeText(getApplicationContext(), "Fill needed information", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if(!isEmailFormatted()){
-                Toast.makeText(getApplicationContext(), "Check email correctness", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if(!isEmailFree()){
-                Toast.makeText(getApplicationContext(), "This email is already in use", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if(!isUsernameFree()){
-                Toast.makeText(getApplicationContext(), "This username is already in use", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if(!isPasswordFormatted()){
-                Toast.makeText(getApplicationContext(), "The password doesn't match criteria", Toast.LENGTH_SHORT).show();
-                return;
-            }
+            //move to second step and pass inputs
             startActivity(new Intent(CreateUser1.this, CreateUser2.class)
-                    .putExtra("name", userName.getText().toString())
-                    .putExtra("email", email.getText().toString())
-                    .putExtra("password", password.getText().toString()));
+                    .putExtra("name", userName.getText().toString().trim())
+                    .putExtra("email", email.getText().toString().trim())
+                    .putExtra("password", password.getText().toString().trim())
+            );
         });
 
         // move back to the previous Login screen
         toLogin.setOnClickListener(v -> startActivity(new Intent(CreateUser1.this, LoginActivity.class)));
     }
 
+    // validateInput
+    // Returns true if all checks are good
+    // checks for password-match, empty fields, email format, password format,
+    // and availability of username and email
+    private Boolean validateInput(){
+        if(!arePasswordsMatching()){
+            Toast.makeText(getApplicationContext(), "Passwords does not match", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(isInputEmpty()){
+            Toast.makeText(getApplicationContext(), "Fill needed information", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(!isEmailFormatted()){
+            Toast.makeText(getApplicationContext(), "Check email correctness", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(!isEmailFree()){
+            Toast.makeText(getApplicationContext(), "This email is already in use", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(!isUsernameFree()){
+            Toast.makeText(getApplicationContext(), "This username is already in use", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(!isPasswordFormatted()){
+            Toast.makeText(getApplicationContext(), "The password doesn't match criteria", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
+    // isUsernameFree
+    // returns True if username is available
     private Boolean isUsernameFree(){
         //       usernames = [inputUsername, dbUsername]
         String[] usernames = {userName.getText().toString(), ""};
 
+        //if sql search comes back with null it doesn't change the string
         new Thread(() -> usernames[1] = userDao.doesContainName(usernames[0])).start();
         return usernames[1] == "";
 
     }
+
+    // isEmailFree
+    // returns True if username is available
     private Boolean isEmailFree(){
         //       emails = [inputEmail, dbEmail]
         String[] emails = {email.getText().toString(), ""};
 
+        //if sql search comes back with null it doesn't change the string
         new Thread(() -> emails[1] = userDao.doesContainName(emails[0])).start();
         return emails[1] == "";
     }
+
+    // isEmailFormatted
+    // returns true if email is acceptable by regex
+    // accepted input: Text.text_text-texT@Text.text_text-texT.wWw
     private Boolean isEmailFormatted(){
         Pattern pattern = Pattern.compile("^(\\w|\\.|_|-)+[@](\\w|_|-|\\.)+[.]\\w{2,3}$", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(email.getText().toString());
         return matcher.find();
     }
+
+    // arePasswordsMatching
+    // returns true if the passwords match
     private Boolean arePasswordsMatching(){
         return password.getText().toString().equals(password2.getText().toString());
     }
@@ -107,7 +132,8 @@ public class CreateUser1 extends AppCompatActivity {
         return true;
     }
 
-    // check given information --> is the input empty?
+    // isEmpty
+    // returns True if any input field is empty
     private Boolean isInputEmpty() {
         System.out.println("name: " + userName.getText().toString());
         System.out.println("email: " + email.getText().toString());
@@ -115,7 +141,7 @@ public class CreateUser1 extends AppCompatActivity {
         System.out.println("pass2: " + password2.getText().toString());
 
         //Check if input is empty
-        return userName.toString().isEmpty() || password.toString().isEmpty() || password2.toString().isEmpty() || email.toString().isEmpty();
+        return userName.toString().trim().isEmpty() || password.toString().trim().isEmpty() || password2.toString().trim().isEmpty() || email.toString().trim().isEmpty();
 
 
     }
