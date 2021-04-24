@@ -82,20 +82,17 @@ public class ProfileFragment extends Fragment {
         profileName = root.findViewById(R.id.textViewProfileName);
         userManager = UserManager.getInstance();
 
-        //TODO enable userManager works correctly
-        //handle_profileview_login_state(userManager.isAnyoneLogged());
+        handle_profileview_login_state();
         return root;
     }
 
 
     // Change profileview according to loginstate
     public void handle_profileview_login_state(){
-        //login_button = v.findViewById(R.id.buttonProfileViewLogout);
-        //card = v.findViewById(R.id.profileCardView);
         Context context = getContext();
 
 
-        if(userManager.isAnyoneLogged()){
+        if(userManager.getCurrentUser() == null){
             login_button.setText(getText(R.string.log_out));
             login_button.setBackgroundColor(login_button.getContext().getResources().getColor(R.color.red));
 

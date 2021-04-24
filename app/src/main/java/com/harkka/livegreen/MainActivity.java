@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void handle_loginprompt(){
-        if(!userManager.isAnyoneLogged()){
+        if(userManager.getCurrentUser() == null){
             startActivity(new Intent(getBaseContext(), LoginActivity.class));
         } else {
             Toast.makeText(getApplicationContext(), "Welcome back !", Toast.LENGTH_SHORT).show();
