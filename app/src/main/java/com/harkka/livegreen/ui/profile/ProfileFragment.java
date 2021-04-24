@@ -94,7 +94,14 @@ public class ProfileFragment extends Fragment {
 
         userManager = UserManager.getInstance();
 
+        // Database and Dao initialization
+        Context context = this.getContext();
+        userDatabase = UserDatabase.getUserDatabase(context.getApplicationContext());
+        userDao = userDatabase.userDao();
+        dataDao = userDatabase.dataDao();
+
         //TODO enable userManager works correctly
+        handle_profileview_login_state();
         //handle_profileview_login_state(userManager.isAnyoneLogged());
         return root;
     }
