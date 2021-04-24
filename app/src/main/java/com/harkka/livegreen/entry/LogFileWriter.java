@@ -24,7 +24,6 @@ public class LogFileWriter extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        System.out.println("TEST TEST TEST TEST TEST TEST ");
 
         context = LogFileWriter.this;
         writeFiles = findViewById(R.id.writeFiles);

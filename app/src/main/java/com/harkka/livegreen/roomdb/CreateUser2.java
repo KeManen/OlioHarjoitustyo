@@ -91,22 +91,6 @@ public class CreateUser2 extends AppCompatActivity {
 
     }
 
-
-
-/*
-    // check given information --> is the input empty?
-    private Boolean validateInput(UserEntity userEntity) {
-
-        // add the needed components with -->  || userEntity.get_____().isEmpty())
-        if (userEntity.getUserName().isEmpty() ||userEntity.getFirstName().isEmpty() || userEntity.getLastName()
-                .isEmpty() || userEntity.getAge().isEmpty() || userEntity.getLocation().isEmpty()) {
-            return false;
-        }
-        return true;
-    }
-  */
-    // For testing
-
     private Boolean validateInput() {
         firstName = findViewById(R.id.firstName);
         System.out.println(firstName.getText());
