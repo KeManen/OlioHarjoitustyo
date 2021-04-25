@@ -6,6 +6,7 @@ import androidx.annotation.RequiresApi;
 
 import com.harkka.livegreen.roomdb.DataDao;
 import com.harkka.livegreen.roomdb.DataEntity;
+import com.harkka.livegreen.roomdb.UserDao;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -30,7 +31,7 @@ public class Entry {
     public Entry(UUID uGuid) {
         entry = new Entry();
 
-        entryDateTime = LocalDateTime.now(); // oisko korjaus että sais toimimaan nykyisellä apitasolla
+        entryDateTime = LocalDateTime.now();
         userGuid = uGuid;
         entryGuid = getGuid();
 
@@ -104,15 +105,37 @@ public class Entry {
     }
 
     // Entry management
-
+/*
     // TODO: This is db interface method
     // Load all entries of a user
-    public void loadUserEntries(UUID userGuid) {}
+    public Entry[] loadUserEntries(UUID userGuid) {
+        //DataEntity dataEntity = DataEntity.getInstance();
+        DataEntity dataEntries[];
+        Entry entry = new Entry();
+        Entry entries[];
+        int i = 0;
+
+        for (DataEntity entity : dataEntries = DataDao.loadAllDataEntitiesByUserId(userGuid)) {
+            entry[i].userGuid = entity.getUserId();
+            entry[i].userGuid = entity.getEntryId();
+            entry[i].userGuid = entity.getDateTime();
+            entry[i].userGuid = Float.parseFloat(entity.getWeight());
+            entry[i].userGuid = Float.parseFloat(entity.getHeight());
+            entry[i].userGuid = Float.parseFloat(entity.getDairyUsed());
+            entry[i].userGuid = Float.parseFloat(entity.getMeatUsed());
+            entry[i].userGuid = Float.parseFloat(entity.getVegeUsed());
+            i++;
+        };
+
+        return entries;
+    }
 
     // TODO: This is db interface method
     // Load selected entry
-    public void loadEntry(UUID entryGuid) {}
-
+    public Entry[] loadEntry(UUID entryGuid) {
+        DataEntity dataEntity = DataEntity.getInstance();
+    };
+*/
     // TODO: This is db interface method
     // Makes db insert of entry
     public void insertDBEntry() {
@@ -131,9 +154,16 @@ public class Entry {
 
     // TODO: This is db interface method
     // Makes db insert of current entry set by EntryManager.setEntryValue()
+    // Entry types:
+    // 0: Weight
+    // 1: Height
+    // 2: Dairy consumption
+    // 3: Meat consumption
+    // 4: Vegetables consumption
+
     public void insertDBEntry(int entryType) {
         DataEntity dataEntity = DataEntity.getInstance();
-        // Todo: in here entry type switch using ENUM
+
         switch(entryType){
             case 0:
                 dataEntity.setWeight(String.valueOf(weight));
@@ -161,7 +191,7 @@ public class Entry {
     }
 
     // Aux methods
-
+    // Create a new guid
     private UUID getGuid() {
         UUID guid = UUID.randomUUID();
         System.out.println(classString + " GetGuid()/Guid: " + guid);
