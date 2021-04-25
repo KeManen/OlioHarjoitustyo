@@ -63,26 +63,32 @@ public class CreateUser1 extends AppCompatActivity {
     // and availability of username and email
     private Boolean validateInput(){
         if(!arePasswordsMatching()){
+            System.out.println("Password mismatch");
             Toast.makeText(getApplicationContext(), "Passwords does not match", Toast.LENGTH_SHORT).show();
             return false;
         }
         if(isInputEmpty()){
+            System.out.println("Fill all fields");
             Toast.makeText(getApplicationContext(), "Fill needed information", Toast.LENGTH_SHORT).show();
             return false;
         }
         if(!isEmailFormatted()){
+            System.out.println("Email is not formatted");
             Toast.makeText(getApplicationContext(), "Check email correctness", Toast.LENGTH_SHORT).show();
             return false;
         }
         if(!isEmailFree()){
+            System.out.println("Email is already in use");
             Toast.makeText(getApplicationContext(), "This email is already in use", Toast.LENGTH_SHORT).show();
             return false;
         }
         if(!isUsernameFree()){
+            System.out.println("Username is already in use");
             Toast.makeText(getApplicationContext(), "This username is already in use", Toast.LENGTH_SHORT).show();
             return false;
         }
         if(!isPasswordFormatted()){
+            System.out.println("Password doesn't match criteria");
             Toast.makeText(getApplicationContext(), "The password doesn't match criteria", Toast.LENGTH_SHORT).show();
             return false;
         }

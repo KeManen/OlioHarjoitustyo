@@ -102,7 +102,6 @@ public class ProfileFragment extends Fragment {
 
         //TODO enable userManager works correctly
         handle_profileview_login_state();
-        //handle_profileview_login_state(userManager.isAnyoneLogged());
         return root;
     }
 
