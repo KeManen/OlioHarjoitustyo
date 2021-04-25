@@ -99,7 +99,9 @@ public class TestFragment extends Fragment {
         testButtonLoadDB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View root){
-                pushTestButtonLoadDB(root);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    pushTestButtonLoadDB(root);
+                }
             }
         });
         return root;
@@ -229,6 +231,7 @@ public class TestFragment extends Fragment {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
+                    DataEntity dataEntity = DataEntity.getInstance();
                     System.out.println("******************" + auxGuid.toString() + "******************");
                     dataEntity = dataDao.loadDataEntityByEntryId(auxGuid.toString());
                     System.out.println(testString + " " + dataEntity);

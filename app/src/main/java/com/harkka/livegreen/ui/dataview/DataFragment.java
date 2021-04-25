@@ -73,6 +73,7 @@ public class DataFragment extends Fragment {
         uGuid = uManager.createUser(); // New user creation
         uGuid = uManager.getCurrentUserUUID();
         System.out.println(testString + ": " + uGuid);
+        auxGuid = uGuid;
 
         // get date as number of the month
         Calendar c = Calendar.getInstance();
@@ -102,7 +103,7 @@ public class DataFragment extends Fragment {
             userDatabase.userDao().loadUserEntityByUserId(String.valueOf(auxGuid));
             String testString2 = "12321";
             System.out.println("******************" + auxGuid.toString() + "******************");
-        //    dataEntities = dataDao.loadDataEntityByEntryId(auxGuid.toString());
+        //    dataEntities = dataDao.loadDataEntityByEntryId(uGuid.toString());
             System.out.println(testString2 + " " + dataEntity);
             System.out.println(testString2 + dataEntities[0].getTotalResult());
             System.out.println(testString2 + dataEntity.getTotalResult() + dataEntity.getDateTime());
