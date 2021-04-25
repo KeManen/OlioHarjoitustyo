@@ -10,9 +10,9 @@ import java.util.UUID;
 
 public class User {
 
-    public User user;
+//    public User user;
     public UUID userId;
-    private String userEmail = null;
+    public String userEmail = null;
     public String userName = null;
     public String userPasswd = null;
     private String classString = "User Class: ";
@@ -23,10 +23,12 @@ public class User {
     private UserDao userDao;
     private UserEntity userEntity = UserEntity.getInstance(); // Singleton for UserEntity class usage
 
-    public User() { CreateUser(); } //TODO: This to be just empty default constructor
+    public User(){};
+
+    //public User() { createUser(); } //TODO: Original, remove when not needed
 
     // Method to create a new user and initialize user Id
-    public void CreateUser() {
+    public void createUser() {
         userId =  getGuid();
         userLogged = true;
         System.out.println(userLogged);
@@ -34,6 +36,7 @@ public class User {
     }
 
     public User getCurrentUser() {
+        User user = new User();
         if (user != null) {
             user.userId = userId;
             user.userEmail = userEmail;
@@ -45,7 +48,7 @@ public class User {
 
 
     public User getUser(UUID guid) {
-        User user = new User(); // Todo: THIS HAS TO BE VERIFIED !!!!
+        User user = new User();
         new Thread(new Runnable() {
             @Override
             public void run() {

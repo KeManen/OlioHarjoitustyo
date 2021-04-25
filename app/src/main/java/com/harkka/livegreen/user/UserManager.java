@@ -30,8 +30,9 @@ public class UserManager {
     // For testing - At least
     // Todo: Return values to be agreed!
     public UUID createUser() {
-
-        user = new User(); // TODO This to changed to User CreateUser()
+        user = new User(); // TODO This to be changed to User CreateUser(),remove when not needed
+        user.createUser();
+        user = user.getCurrentUser();
         users.add(user);
         System.out.println("UserManager/User Created: " + user);
 
@@ -73,6 +74,7 @@ public class UserManager {
    */
 
     public User getCurrentUser(){
+        //return user.getCurrentUser(); //TODO: To be verified, NULL handler missing
         return user;
     }
 
