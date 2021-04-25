@@ -69,9 +69,13 @@ public class UserManager {
 
     public UUID getCurrentUserUUID() { return user.getUserId(); }
 
-    public void getUser(UUID guid) {
+    public User getUser(UUID guid) {
 
-        //Todo: Implement fetch form ArrayList
+        for(User user: users){
+            if(user.getUserId()== guid){
+                return user;
+            }
+        }
         //User user = new User();
         //user = user.getUser(guid);
 
@@ -82,7 +86,7 @@ public class UserManager {
         //System.out.println("UserManager/getUser(): " + user.userFirstName);
         System.out.println("UserManager/getUser()Uname2: " + users.get(0).userName);
 
-
+        return null;
     }
 
     public UserProfile getUserProfile(UUID guid) {
@@ -119,24 +123,5 @@ public class UserManager {
         return user;
     }
 
-    public boolean isAnyoneLogged(){
-        //TODO Remove
-        if((int) Math.round(Math.random()) == 0){
-            return false;
-        }
-        return true;
-        /*
-        for(User user : users){
-            System.out.println("NAME: "+ user.getUserName() + "  Login status: "+ user.getUserIsLogged());
-            if(user.getUserIsLogged()){
-                System.out.println("##########################  SOMEONE IS LOGGED ########################");
-                return true;
-            }
-        }
-        System.out.println("##########################  NO ONE IS LOGGED ########################");
-        return false;
-
-         */
-    }
 
 }

@@ -11,6 +11,9 @@ import android.widget.Toast;
 
 import com.harkka.livegreen.MainActivity;
 import com.harkka.livegreen.R;
+import com.harkka.livegreen.user.User;
+import com.harkka.livegreen.user.UserProfile;
+import com.harkka.livegreen.user.UserManager;
 
 import java.util.concurrent.TimeUnit;
 
@@ -18,6 +21,7 @@ public class CreateUser2 extends AppCompatActivity {
 
     //database for users
     UserDao userDao;
+    UserManager userManager;
 
     // Integrate components
     EditText firstName, lastName, age, location;
@@ -31,6 +35,7 @@ public class CreateUser2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_user2);
         userDao = UserDatabase.getUserDatabase(getApplicationContext()).userDao();
+        userManager = UserManager.getInstance();
 
         // Integrate components
         firstName = findViewById(R.id.firstName);
@@ -81,18 +86,25 @@ public class CreateUser2 extends AppCompatActivity {
             return;
         }
 
-        // Initialize new database object and insert info to the object as strings
-        UserEntity userEntity = new UserEntity();
-        userEntity.setUserName(username);
-        userEntity.setEmail(email);
-        userEntity.setPassword(password);
-        userEntity.setFirstName(firstName.getText().toString());
-        userEntity.setLastName(lastName.getText().toString());
-        userEntity.setAge(age.getText().toString());
-        userEntity.setLocation(location.getText().toString());
+        String SFirstName = firstName.getText().toString().trim();
+        String SLastName = lastName.getText().toString().trim();
+        int iAge = Integer.parseInt(age.getText().toString().trim());
+        String SLocation = location.getText().toString().trim();
+
+        // Create new user and profile and insert data
+        User user = userManager.getUser(userManager.createUser());
+        user.setUserName(username);
+        user.setUserEmail(email);
+        user.setUserPasswd(password);
+        UserProfile userProfile = userManager.createUserProfile(user.getUserId());
+        userProfile.setUserProfile(user.getUserId(), SFirstName, SLastName, iAge, SLocation);
+
+        // insert userdata to userEntity
+        user.insertDBUser();
+        userProfile.insertDBUserProfile();
 
         // Insert userEntity to db
-        new Thread(() -> userDao.registerUser(userEntity)).start();
+        new Thread(() -> userDao.registerUser(UserEntity.getInstance())).start();
 
         // Tell the user account was created successfully
         Toast.makeText(getApplicationContext(), "Account created", Toast.LENGTH_SHORT).show();
