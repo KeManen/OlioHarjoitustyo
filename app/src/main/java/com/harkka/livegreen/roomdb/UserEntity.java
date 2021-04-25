@@ -21,7 +21,6 @@ public class UserEntity {
     // getters + setters
 
     // login and create new user fragment 1
-    // Todo: updated to version 2, to be fixed in UserDatabase
 
     @PrimaryKey(autoGenerate = true)
     Integer id;
