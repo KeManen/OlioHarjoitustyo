@@ -74,6 +74,12 @@ public class CreateUser2 extends AppCompatActivity {
     // gets earlier and current inputs validates them and puts them in the userDB
     // finally changes view to main Activity
     private void onClick(View v) {
+        // validate inputs
+        if (!validateInput()) {
+            System.out.println("Fill all fields");
+            Toast.makeText(getApplicationContext(), "Fill all the fields", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         // Initialize new database object and insert info to the object as strings
         UserEntity userEntity = new UserEntity();
@@ -85,19 +91,11 @@ public class CreateUser2 extends AppCompatActivity {
         userEntity.setAge(age.getText().toString());
         userEntity.setLocation(location.getText().toString());
 
-
-        // validate inputs
-        if (!validateInput()) {
-            System.out.println("Fill all fields");
-            Toast.makeText(getApplicationContext(), "Fill all the fields", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         // Insert userEntity to db
         new Thread(() -> userDao.registerUser(userEntity)).start();
 
         // Tell the user account was created successfully
-        runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Account created", Toast.LENGTH_SHORT).show());
+        Toast.makeText(getApplicationContext(), "Account created", Toast.LENGTH_SHORT).show();
 
         // Sleep for 1second so user has time to read previous Toast message
         try {
