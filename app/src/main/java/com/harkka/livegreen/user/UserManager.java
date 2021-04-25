@@ -69,12 +69,12 @@ public class UserManager {
 
     public UUID getCurrentUserUUID() { return user.getUserId(); }
 
-    public User getCurrentUser() { return user.getCurrentUser(); }
-/*
+//    public User getCurrentUser() { return user.getCurrentUser(); }
+
     public User getCurrentUser(){
         return user;
     }
-*/
+
 
     public User getUser(UUID guid) {
 
