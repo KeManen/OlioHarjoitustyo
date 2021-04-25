@@ -34,7 +34,7 @@ public class UserManager {
         user.createUser();
         user = user.getCurrentUser();
         users.add(user);
-        System.out.println("UserManager/User Created: " + user);
+        System.out.println("UserManager/User Created: " + user + " Guid: " + user.userId);
 
         return user.userId;
     }
