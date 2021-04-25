@@ -69,6 +69,13 @@ public class UserManager {
 
     public UUID getCurrentUserUUID() { return user.getUserId(); }
 
+    public User getCurrentUser() { return user.getCurrentUser(); }
+/*
+    public User getCurrentUser(){
+        return user;
+    }
+*/
+
     public User getUser(UUID guid) {
 
         for(User user: users){
@@ -118,9 +125,6 @@ public class UserManager {
             UserProfile userProfile = new UserProfile(uGuid, fName, lName, age, location);
         }
         // Todo: update ArrayList / DB
-    }
-    public User getCurrentUser(){
-        return user;
     }
 
 

@@ -1,5 +1,9 @@
 package com.harkka.livegreen.entry;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import com.harkka.livegreen.roomdb.UserEntity;
 import com.harkka.livegreen.ui.testi.TestFragment;
 import com.harkka.livegreen.user.User;
@@ -26,6 +30,7 @@ public class EntryManager {
 
     //Todo: Necessary methods for Main - to be decided
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public Entry createEntry(UUID uGuid) {
 
         entry = new Entry(uGuid);

@@ -7,6 +7,7 @@ import java.util.UUID;
 
 public class User {
 
+    public User user;
     public UUID userId;
     private String userEmail = null;
     public String userName = null;
@@ -14,12 +15,22 @@ public class User {
     private String classString = "User Class: ";
     boolean userLogged = true;
 
+
     public User() {
         userId =  getGuid();
         userLogged = true;
         System.out.println(userLogged);
         //UserProfile uProfile = new UserProfile();
     }
+
+    public User getCurrentUser() {
+        user.userId = userId;
+        user.userEmail = userEmail;
+        user.userName = userName;
+        user.userPasswd = userPasswd;
+        return user;
+    }
+
 
     public User getUser(UUID guid) {
         User user = new User(); // Todo: Implement fetch from UserDB
