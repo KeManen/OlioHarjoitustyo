@@ -101,7 +101,7 @@ public abstract class UserDatabase extends RoomDatabase {
                     "dairyUsed TEXT," +
                     "meatUsed TEXT," +
                     "vegeUsed TEXT," +
-                    "totalResult)");
+                    "totalResult TEXT)");
 
             database.execSQL("INSERT INTO new_data (id, userId, entryId, weight, height, dairyUsed, meatUsed, vegeUsed) " +
                     "SELECT id, userId, entryId, weight, height, dairyUsed, meatUsed, vegeUsed FROM data");
