@@ -111,16 +111,15 @@ public class CreateUser2 extends AppCompatActivity {
         new Thread(() -> {
             UserEntity userEntity = UserEntity.getInstance();
             System.out.println("#######################################");
-            System.out.println("UserEntityData");
-            System.out.println(userEntity.getId());
-            System.out.println(userEntity.getUserId());
-            System.out.println(userEntity.getUserName());
-            System.out.println(userEntity.getEmail());
-            System.out.println(userEntity.getPassword());
-            System.out.println(userEntity.getFirstName());
-            System.out.println(userEntity.getLastName());
-            System.out.println(userEntity.getAge());
-            System.out.println(userEntity.getLocation());
+            System.out.println("CreateUser2/userEntity/userid: "+userEntity.getUserId());
+            System.out.println("CreateUser2/userEntity/username: "+userEntity.getUserName());
+            System.out.println("CreateUser2/userEntity/email: "+userEntity.getEmail());
+            System.out.println("CreateUser2/userEntity/password: "+userEntity.getPassword());
+            System.out.println("CreateUser2/userEntity/firstname: "+userEntity.getFirstName());
+            System.out.println("CreateUser2/userEntity/lastname: "+userEntity.getLastName());
+            System.out.println("CreateUser2/userEntity/age: "+userEntity.getAge());
+            System.out.println("CreateUser2/userEntity/location: "+userEntity.getLocation());
+
             userDao.registerUser(userEntity);
         }).start();
 

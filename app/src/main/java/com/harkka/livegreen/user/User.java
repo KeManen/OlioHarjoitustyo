@@ -31,7 +31,6 @@ public class User {
     public void createUser() {
         userId =  getGuid();
         userLogged = true;
-        System.out.println(userLogged);
         //UserProfile uProfile = new UserProfile();
     }
 
@@ -129,6 +128,10 @@ public class User {
     // Makes db insert of user
     public void insertDBUser() {
         UserEntity userEntity = UserEntity.getInstance();
+        System.out.println("User/insertDBUser/userId: "+ userId);
+        System.out.println("User/insertDBUser/userName: "+ userName);
+        System.out.println("User/insertDBUser/userPass: "+ userPasswd);
+        System.out.println("User/insertDBUser/userEmail: "+ userEmail);
 
         userEntity.setUserId(userId);
         userEntity.setUserName(userName);
