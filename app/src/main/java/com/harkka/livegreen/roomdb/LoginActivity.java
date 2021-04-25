@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
             new Thread(() -> {
                 UserEntity userEntity = userDao.login(userIdText, passwordText);
 
-                if (userEntity.getUserId() == null) {
+                if (userEntity == null) {
                     // In case of user not found:
                     runOnUiThread(() -> {
                         System.out.println("Invalid credentials");
@@ -68,7 +68,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 System.out.println("#######################################");
                 System.out.println("UserEntityData");
-                System.out.println(userEntity.getId());
                 System.out.println(userEntity.getUserId());
                 System.out.println(userEntity.getUserName());
                 System.out.println(userEntity.getEmail());

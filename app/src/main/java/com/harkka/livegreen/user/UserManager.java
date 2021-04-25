@@ -30,9 +30,8 @@ public class UserManager {
     // For testing - At least
     // Todo: Return values to be agreed!
     public UUID createUser() {
-        user = new User(); // TODO This to be changed to User CreateUser(),remove when not needed
+        user = new User(); // TODO This to be changed to User CreateUser(), remove when not needed
         user.createUser();
-        user = user.getCurrentUser();
         users.add(user);
         System.out.println("UserManager/User Created: " + user + " Guid: " + user.userId);
 
@@ -86,19 +85,16 @@ public class UserManager {
 
         for(User user: users){
             if(user.getUserId()== guid){
+                System.out.println("UserManager/getUser()Guid: " + user.userId);
+                System.out.println("UserManager/getUser()Email: " + user.userEmail);
+                System.out.println("UserManager/getUser()Uname: " + user.userName);
+                //System.out.println("UserManager/getUser(): " + user.userLastName);
+                //System.out.println("UserManager/getUser(): " + user.userFirstName);
+                System.out.println("UserManager/getUser()Uname2: " + users.get(0).userName);
                 return user;
             }
         }
-        //User user = new User();
-        //user = user.getUser(guid);
-
-        System.out.println("UserManager/getUser()Guid: " + user.userId);
-        System.out.println("UserManager/getUser()Email: " + user.getUserEmail());
-        System.out.println("UserManager/getUser()Uname: " + user.userName);
-        //System.out.println("UserManager/getUser(): " + user.userLastName);
-        //System.out.println("UserManager/getUser(): " + user.userFirstName);
-        System.out.println("UserManager/getUser()Uname2: " + users.get(0).userName);
-
+        System.out.println("UserManager/getUser() NO USER FOUND");
         return null;
     }
 

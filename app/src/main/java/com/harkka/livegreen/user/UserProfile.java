@@ -86,6 +86,10 @@ public class UserProfile{
     // Makes db insert of user
     public void insertDBUserProfile() {
         UserEntity userEntity = UserEntity.getInstance();
+        System.out.println("User/insertDBUserProfile/userFName: "+ userFirstName);
+        System.out.println("User/insertDBUserProfile/userLName: "+ userLastName);
+        System.out.println("User/insertDBUserProfile/userAge: "+ userAge);
+        System.out.println("User/insertDBUserProfile/userLocation: "+ userLocation);
 
         userEntity.setFirstName(userFirstName);
         userEntity.setLastName(userLastName);
