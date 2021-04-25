@@ -102,7 +102,6 @@ public class ProfileFragment extends Fragment {
         userDao = userDatabase.userDao();
         dataDao = userDatabase.dataDao();
 
-        //TODO enable userManager works correctly
         handle_profileview_login_state();
         return root;
     }
@@ -113,7 +112,7 @@ public class ProfileFragment extends Fragment {
         Context context = getContext();
 
         //checks if the user is logged
-        if(userManager.getCurrentUser() == null){
+        if(userManager.getCurrentUser() != null){
             //Change button to user logged in state
             login_button.setText(getText(R.string.log_out));
             login_button.setBackgroundColor(login_button.getContext().getResources().getColor(R.color.red));

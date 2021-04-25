@@ -17,6 +17,8 @@ import com.harkka.livegreen.user.UserManager;
 
 import java.util.concurrent.TimeUnit;
 
+import static com.harkka.livegreen.roomdb.UserEntity.userEntity;
+
 public class CreateUser2 extends AppCompatActivity {
 
     //database for users
@@ -96,6 +98,7 @@ public class CreateUser2 extends AppCompatActivity {
         user.setUserName(username);
         user.setUserEmail(email);
         user.setUserPasswd(password);
+
         UserProfile userProfile = userManager.createUserProfile(user.getUserId());
         userProfile.setUserProfile(user.getUserId(), SFirstName, SLastName, iAge, SLocation);
 
@@ -103,8 +106,23 @@ public class CreateUser2 extends AppCompatActivity {
         user.insertDBUser();
         userProfile.insertDBUserProfile();
 
+
         // Insert userEntity to db
-        new Thread(() -> userDao.registerUser(UserEntity.getInstance())).start();
+        new Thread(() -> {
+            UserEntity userEntity = UserEntity.getInstance();
+            System.out.println("#######################################");
+            System.out.println("UserEntityData");
+            System.out.println(userEntity.getId());
+            System.out.println(userEntity.getUserId());
+            System.out.println(userEntity.getUserName());
+            System.out.println(userEntity.getEmail());
+            System.out.println(userEntity.getPassword());
+            System.out.println(userEntity.getFirstName());
+            System.out.println(userEntity.getLastName());
+            System.out.println(userEntity.getAge());
+            System.out.println(userEntity.getLocation());
+            userDao.registerUser(userEntity);
+        }).start();
 
         // Tell the user account was created successfully
         Toast.makeText(getApplicationContext(), "Account created", Toast.LENGTH_SHORT).show();

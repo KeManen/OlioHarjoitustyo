@@ -1,5 +1,6 @@
 package com.harkka.livegreen.ui.home;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.LayoutInflater;
@@ -20,7 +21,16 @@ import com.google.android.material.slider.LabelFormatter;
 import com.google.android.material.slider.Slider;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.harkka.livegreen.R;
+import com.harkka.livegreen.entry.Entry;
+import com.harkka.livegreen.entry.EntryManager;
+import com.harkka.livegreen.roomdb.DataDao;
+import com.harkka.livegreen.roomdb.DataEntity;
+import com.harkka.livegreen.roomdb.UserDao;
+import com.harkka.livegreen.roomdb.UserDatabase;
+import com.harkka.livegreen.roomdb.UserEntity;
+import com.harkka.livegreen.user.User;
 import com.harkka.livegreen.user.UserManager;
+import com.harkka.livegreen.user.UserProfile;
 
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
@@ -44,6 +54,14 @@ public class HomeFragment extends Fragment {
     private Slider sliderVege;
     private SwitchMaterial ecofriendlySwitch;
     private Button buttonSubmit;
+
+    // TODO remove when insert to db works
+    // Variables for data entity management
+    private UserDatabase userDatabase;
+    private UserDao userDao;
+    private DataDao dataDao;
+    private UUID auxGuid;
+    private DataEntity[] dataEntities;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -69,29 +87,31 @@ public class HomeFragment extends Fragment {
 
             System.out.println("Button is working");
             String ecoFriendlyFood;
-            double baseValue = 0;
+            double baseValueMeat = 0;
+            double baseValueDairy = 0;
+            double baseValueVege = 0;
 
             // Check whether to use EcoFriendly food values
             if (ecofriendlySwitch.isChecked()) {
                 ecoFriendlyFood = "lowCarbonPreference=true&query";
-                baseValue = 23.39 + 31.68 + 323.15;
+                baseValueMeat = 23.39;
+                baseValueDairy = 31.68;
+                baseValueVege = 323.15;
             } else {
                 ecoFriendlyFood = "lowCarbonPreference=false&query";
-                baseValue = 24.62 + 33.35 + 340.15;
+                baseValueMeat = 24.62;
+                baseValueDairy = 33.35;
+                baseValueVege = 340.15;
             }
 
-            // takes values from sliders + format to String to use in URL
+            // takes values from sliders + format to String to use in URL (0-200)
             String meatInput = String.format("%.0f", sliderMeat.getValue());
             String dairyInput = String.format("%.0f", sliderDairy.getValue());
             String vegeInput = String.format("%.0f", sliderVege.getValue());
-            // Finnish daily average consumptions are:
-            // meat - 260g, dairy - 440g, vege - 585g
-            // https://www.luke.fi/uutinen/mita-suomessa-syotiin-vuonna-2019/
-
-            //debug prints
-            System.out.println(meatInput);
-            System.out.println(dairyInput);
-            System.out.println(vegeInput);
+            // takes values from sliders to set to database
+            String meatGrams = String.format("%.0f",(sliderMeat.getValue() / 100) * 260);
+            String dairyGrams = String.format("%.0f",(sliderDairy.getValue() / 100) * 440);
+            String vegeGrams = String.format("%.0f",(sliderVege.getValue() / 100) * 585);
 
             try {
 
@@ -106,7 +126,6 @@ public class HomeFragment extends Fragment {
                         "&query.fishLevel="+ meatInput +"&query." + "porkPoultryLevel="+ meatInput +"&query.dairyLevel="
                         + dairyInput +"&query.cheeseLevel="+ dairyInput + "&query.riceLevel="+ vegeInput +
                         "&query.eggLevel=" + dairyInput + "&query.winterSaladLevel="+vegeInput;
-
                 System.out.println(urlString);
 
                 // get document, parse and normalize it
@@ -121,7 +140,7 @@ public class HomeFragment extends Fragment {
                 String meat = doc.getElementsByTagName("Meat").item(0).getTextContent();
                 String vege = doc.getElementsByTagName("Plant").item(0).getTextContent();
 
-                // here format the values to floats and get the total consumption
+                // here format the values to doubles and get the total CO2/kg/year
                 // decrease the site default values from new values
                 double total = 0;
                 double dairy2 = Double.parseDouble(dairy);
@@ -131,18 +150,48 @@ public class HomeFragment extends Fragment {
                 try {
                     total = dairy2 + meat2 + vege2;
                     //         System.out.println(total +" total value is here before decreasing sites defaults");
-                    total = total - baseValue;
+                    total = total - baseValueMeat - baseValueDairy - baseValueVege;
                     //          System.out.println(total +" total value without sites year defaults");
                 } catch (NumberFormatException e) {
                     System.out.println("Could not parse");
                 }
 
+                // from year amount to day's value
                 total = (total / 365);
-                System.out.println("This is the correct value of today's inputs " + total + "kg without formatting");
                 String result = String.format("%.2f", total);
                 System.out.println("This is the correct value of today's inputs " + result + "kg of CO2");
-                // TODO result data to database
-                // TODO with timestamp?
+
+
+                //TODO remove when insert to db works
+
+                Context context = getContext();
+                UserManager um = UserManager.getInstance();
+                EntryManager em = EntryManager.getInstance();
+                DataEntity dataEntity = DataEntity.getInstance();
+                UserEntity userEntity = UserEntity.getInstance();
+                UUID uGuid = um.getCurrentUserUUID();
+
+                // New entry object for data transfer and insert to DB
+                Entry entry = null;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    entry = em.createEntry(uGuid);
+                }
+
+                // Entry data insert
+                entry.insertDBEntry(); // Prepare Entry object for db insert, copy data to DataEntity
+                new Thread(() -> {
+                    System.out.println("IN DB Entry***************" + dataEntity.getEntryId().toString() + "************");
+                    DataEntity.getInstance().setTotalResult(result);
+                    dataEntity.setTotalResult(result);
+                    dataEntity.setMeatUsed(meatGrams);
+                    dataEntity.setDairyUsed(dairyGrams);
+                    dataEntity.setVegeUsed(vegeGrams);
+                    dataDao.insertDataEntities(dataEntity); // Do the thing
+                    System.out.println("IN DB Entry***************" +"************");
+                }).start();
+
+               // TODO ENDS Here
+
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -153,10 +202,8 @@ public class HomeFragment extends Fragment {
             } finally {
                 System.out.println("At the end");
             }
-
         });
 
         return root;
     }
-
 }
