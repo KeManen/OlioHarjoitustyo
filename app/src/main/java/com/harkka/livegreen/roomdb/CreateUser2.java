@@ -179,7 +179,7 @@ public class CreateUser2 extends AppCompatActivity {
         }
 
         // User is created. Move to Login fragment here and close current fragment
-        //startActivity(new Intent(CreateUser2.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+        startActivity(new Intent(CreateUser2.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
 
     }
 }
