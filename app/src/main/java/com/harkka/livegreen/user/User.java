@@ -37,12 +37,10 @@ public class User {
 
     public User getCurrentUser() {
         User user = new User();
-        if (user != null) {
-            user.userId = userId;
-            user.userEmail = userEmail;
-            user.userName = userName;
-            user.userPasswd = userPasswd;
-        }
+        user.userId = userId;
+        user.userEmail = userEmail;
+        user.userName = userName;
+        user.userPasswd = userPasswd;
         return user;
     }
 
