@@ -80,6 +80,9 @@ public class UserManager {
     public void setCurrentUser(UUID uuid){
         this.user = this.getUser(uuid);
     }
+    public void noCurrentUser(){
+        this.user = null;
+    }
 
     public User getUser(UUID guid) {
 

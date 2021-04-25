@@ -106,6 +106,28 @@ public class CreateUser2 extends AppCompatActivity {
         user.insertDBUser();
         userProfile.insertDBUserProfile();
 
+        /* DEBUGS
+        /////////////////////////////////////////////////
+        DataDao dataDao = UserDatabase.getUserDatabase(getApplicationContext()).dataDao();
+        DataEntity dataEntity = DataEntity.getInstance();
+        dataEntity.setEntryId(user.getUserId());
+        dataEntity.setDairyUsed("100");
+        System.out.println("##########################################");
+
+        new Thread(()-> {
+            System.out.println("dairy in: " + dataEntity.getDairyUsed());
+            dataDao.insertDataEntity(dataEntity);
+            DataEntity deFromDB = dataDao.loadDataEntityByEntryId(user.getUserId().toString());
+            System.out.println("out: "+ deFromDB.getDairyUsed());
+        }).start();
+
+        new Thread(()-> {
+            System.out.println("username in: " + userEntity.getUserName());
+            userDao.insertUserEntity(userEntity);
+            UserEntity ueFromDB = userDao.loadUserEntityByUserId(user.getUserId().toString());
+            System.out.println("username out: "+ ueFromDB.getUserName());
+        }).start();
+        */
 
         // Insert userEntity to db
         new Thread(() -> {
@@ -120,7 +142,30 @@ public class CreateUser2 extends AppCompatActivity {
             System.out.println("CreateUser2/userEntity/age: "+userEntity.getAge());
             System.out.println("CreateUser2/userEntity/location: "+userEntity.getLocation());
 
-            userDao.registerUser(userEntity);
+            userDao.insertUserEntity(userEntity);
+
+            UserEntity getter = userDao.loadUserEntityByUserId(userEntity.getUserId().toString());
+            System.out.println("#######################################");
+            System.out.println("CreateUser2/getter/userid: "+getter.getUserId());
+            System.out.println("CreateUser2/getter/username: "+getter.getUserName());
+            System.out.println("CreateUser2/getter/email: "+getter.getEmail());
+            System.out.println("CreateUser2/getter/password: "+getter.getPassword());
+            System.out.println("CreateUser2/getter/firstname: "+getter.getFirstName());
+            System.out.println("CreateUser2/getter/lastname: "+getter.getLastName());
+            System.out.println("CreateUser2/getter/age: "+getter.getAge());
+            System.out.println("CreateUser2/getter/location: "+getter.getLocation());
+
+
+            UserEntity ueFromDB = userDao.login(userEntity.getUserName(), userEntity.getPassword());
+            System.out.println("#######################################");
+            System.out.println("CreateUser2/fromDB/userid: "+ueFromDB.getUserId());
+            System.out.println("CreateUser2/fromDB/username: "+ueFromDB.getUserName());
+            System.out.println("CreateUser2/fromDB/email: "+ueFromDB.getEmail());
+            System.out.println("CreateUser2/fromDB/password: "+ueFromDB.getPassword());
+            System.out.println("CreateUser2/fromDB/firstname: "+ueFromDB.getFirstName());
+            System.out.println("CreateUser2/fromDB/lastname: "+ueFromDB.getLastName());
+            System.out.println("CreateUser2/fromDB/age: "+ueFromDB.getAge());
+            System.out.println("CreateUser2/fromDB/location: "+ueFromDB.getLocation());
         }).start();
 
         // Tell the user account was created successfully
@@ -134,6 +179,7 @@ public class CreateUser2 extends AppCompatActivity {
         }
 
         // User is created. Move to Login fragment here and close current fragment
-        startActivity(new Intent(CreateUser2.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+        //startActivity(new Intent(CreateUser2.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+
     }
 }
