@@ -1,9 +1,11 @@
 package com.harkka.livegreen.ui.testi;
 
+import androidx.annotation.RequiresApi;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -165,6 +167,7 @@ public class TestFragment extends Fragment {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void pushTestButtonLoadDB(View v) {
         UUID uGuid = null;
 

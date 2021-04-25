@@ -28,7 +28,7 @@ public interface UserDao {
 
     // Load user by id
     @Query("SELECT * FROM users WHERE userId = :userId")
-    public UserEntity[] loadUserEntityByUserId(String userId);
+    public UserEntity loadUserEntityByUserId(String userId);
 
     // Find user in login by userid and password
     @Query("SELECT * from users where userId=(:userId) and password=(:password)")

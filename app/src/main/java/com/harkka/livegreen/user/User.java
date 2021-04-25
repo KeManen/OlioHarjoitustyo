@@ -1,6 +1,9 @@
 package com.harkka.livegreen.user;
 
+import com.harkka.livegreen.roomdb.DataDao;
 import com.harkka.livegreen.roomdb.DataEntity;
+import com.harkka.livegreen.roomdb.UserDao;
+import com.harkka.livegreen.roomdb.UserDatabase;
 import com.harkka.livegreen.roomdb.UserEntity;
 
 import java.util.UUID;
@@ -15,8 +18,15 @@ public class User {
     private String classString = "User Class: ";
     boolean userLogged = true;
 
+    // Variables for data entity management
+    private UserDatabase userDatabase;
+    private UserDao userDao;
+    private UserEntity userEntity = UserEntity.getInstance(); // Singleton for UserEntity class usage
 
-    public User() {
+    public User() { CreateUser(); } //TODO: This to be just empty default constructor
+
+    // Method to create a new user and initialize user Id
+    public void CreateUser() {
         userId =  getGuid();
         userLogged = true;
         System.out.println(userLogged);
@@ -24,20 +34,30 @@ public class User {
     }
 
     public User getCurrentUser() {
-        user.userId = userId;
-        user.userEmail = userEmail;
-        user.userName = userName;
-        user.userPasswd = userPasswd;
+        if (user != null) {
+            user.userId = userId;
+            user.userEmail = userEmail;
+            user.userName = userName;
+            user.userPasswd = userPasswd;
+        }
         return user;
     }
 
 
     public User getUser(UUID guid) {
-        User user = new User(); // Todo: Implement fetch from UserDB
-        user.userId = userId;
-        user.userEmail = userEmail;
-        user.userName = userName;
-        user.userPasswd = userPasswd;
+        User user = new User(); // Todo: THIS HAS TO BE VERIFIED !!!!
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("****************** User fetch by id " + guid + "******************");
+                userEntity = userDao.loadUserEntityByUserId(guid.toString());
+             }
+        }).start();
+        user.userId = userEntity.getUserId();
+        user.userEmail = userEntity.getEmail();
+        user.userName = userEntity.getUserName();
+        user.userPasswd = userEntity.getPassword();
+
         return user;
     }
 
@@ -59,6 +79,8 @@ public class User {
     public String getUserPasswd(){
         return userPasswd;
     }
+
+   public void setUserId ( UUID uuid ) { userId = uuid; }
 
     public void setUserEmail( String uEmail) {
         userEmail = uEmail;

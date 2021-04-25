@@ -24,6 +24,7 @@ public class Entry {
     private float dairyConsumption;
     private float meatConsumption;
     private float vegeConsumption;
+    private float totalResult;
 
     public Entry() {}
 
@@ -72,6 +73,10 @@ public class Entry {
         return vegeConsumption;
     }
 
+    public float getTotalResult() {
+        return totalResult;
+    }
+
     // Set methods
 
     public void setDateTime(LocalDateTime localDateTime) {
@@ -104,6 +109,11 @@ public class Entry {
         System.out.println(classString + "vegeConsumption set to " + vegeConsumption);
     }
 
+    public void setTotalResult(float totalResult) {
+        this.totalResult = totalResult;
+        System.out.println(classString + "totalResult set to " + totalResult);
+    }
+
     // Entry management
 /*
     // TODO: This is db interface method
@@ -124,6 +134,7 @@ public class Entry {
             entry[i].userGuid = Float.parseFloat(entity.getDairyUsed());
             entry[i].userGuid = Float.parseFloat(entity.getMeatUsed());
             entry[i].userGuid = Float.parseFloat(entity.getVegeUsed());
+            entry[i].userGuid = Float.parseFloat(entity.getTotalResult());
             i++;
         };
 
@@ -149,7 +160,7 @@ public class Entry {
         dataEntity.setDairyUsed(String.valueOf(dairyConsumption));
         dataEntity.setMeatUsed(String.valueOf(meatConsumption));
         dataEntity.setVegeUsed(String.valueOf(vegeConsumption));
-
+        dataEntity.setTotalResult(String.valueOf(totalResult));
     }
 
     // TODO: This is db interface method
@@ -160,6 +171,7 @@ public class Entry {
     // 2: Dairy consumption
     // 3: Meat consumption
     // 4: Vegetables consumption
+    // 5: Total calculated consumption
 
     public void insertDBEntry(int entryType) {
         DataEntity dataEntity = DataEntity.getInstance();
@@ -184,6 +196,10 @@ public class Entry {
             case 4:
                 dataEntity.setVegeUsed(String.valueOf(vegeConsumption));
                 System.out.println(classString + "vegeConsumption " + vegeConsumption + " with guid " + entryGuid + " inserted in database!");
+            case 5:
+                dataEntity.setTotalResult(String.valueOf(totalResult));
+                System.out.println(classString + "totalResult " + totalResult + " with guid " + entryGuid + " inserted in database!");
+                break;
             default:
                 break;
         }

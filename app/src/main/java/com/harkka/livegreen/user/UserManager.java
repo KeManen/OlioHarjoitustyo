@@ -31,7 +31,7 @@ public class UserManager {
     // Todo: Return values to be agreed!
     public UUID createUser() {
 
-        user = new User();
+        user = new User(); // TODO This to changed to User CreateUser()
         users.add(user);
         System.out.println("UserManager/User Created: " + user);
 
@@ -68,8 +68,9 @@ public class UserManager {
     }
 
     public UUID getCurrentUserUUID() { return user.getUserId(); }
-
-//    public User getCurrentUser() { return user.getCurrentUser(); }
+/*
+   public User getCurrentUser() { return user.getCurrentUser(); }
+   */
 
     public User getCurrentUser(){
         return user;
