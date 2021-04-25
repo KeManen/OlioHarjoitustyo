@@ -33,6 +33,6 @@ public interface DataDao {
     public DataEntity[] loadAllDataEntitiesByUserId(String userId);
 
     @Query("SELECT * FROM data WHERE entryId = :entryId")
-    public DataEntity[] loadDataEntityByEntryId(String entryId);
+    public DataEntity loadDataEntityByEntryId(String entryId);
 
 }

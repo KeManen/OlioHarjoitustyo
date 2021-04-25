@@ -230,9 +230,9 @@ public class TestFragment extends Fragment {
                 @Override
                 public void run() {
                     System.out.println("******************" + auxGuid.toString() + "******************");
-                    dataEntities = dataDao.loadDataEntityByEntryId(auxGuid.toString());
+                    dataEntity = dataDao.loadDataEntityByEntryId(auxGuid.toString());
                     System.out.println(testString + " " + dataEntity);
-                    System.out.println(testString + " Height: " + dataEntities[0].getHeight());
+                    System.out.println(testString + " Height: " + dataEntity.getHeight());
                    // System.out.println(testString + dataEntity.getUserId() + " EntryId: " + dataEntity.getEntryId());
                 }
             }).start();
