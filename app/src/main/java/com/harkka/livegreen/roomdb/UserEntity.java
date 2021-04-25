@@ -59,7 +59,7 @@ public class UserEntity {
     }
 
     public void setUserName(String userName) {
-        this.userId = userName;
+        this.userName = userName;
     }
 
     public String getPassword() {

@@ -33,7 +33,7 @@ public class UserManager {
         user = new User(); // TODO This to be changed to User CreateUser(), remove when not needed
         user.createUser();
         users.add(user);
-        System.out.println("UserManager/User Created: " + user);
+        System.out.println("UserManager/User Created: " + user + " Guid: " + user.userId);
 
         return user.userId;
     }

@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {UserEntity.class, DataEntity.class}, version = 5)
+@Database(entities = {UserEntity.class, DataEntity.class}, version = 1)
 public abstract class UserDatabase extends RoomDatabase {
 
     // creating the user database
@@ -17,7 +17,7 @@ public abstract class UserDatabase extends RoomDatabase {
     private static final String dbName = "user";
     private static UserDatabase userDatabase;
 
-    // TODo: to be checked if works correctly, looks like it
+/*
 
     // Migration from 1 to 2, Room 2.2.0, User Entity changes, userId and userName changed
     static final Migration MIGRATION_1_2 = new Migration(1, 2) {
@@ -111,17 +111,17 @@ public abstract class UserDatabase extends RoomDatabase {
             database.execSQL("ALTER TABLE new_data RENAME TO data");
         }
     };
-
+*/
     public static synchronized UserDatabase getUserDatabase(Context context) {
         if (userDatabase == null) {
         // Migration build
-            userDatabase = Room.databaseBuilder(context, UserDatabase.class, dbName)
+/*            userDatabase = Room.databaseBuilder(context, UserDatabase.class, dbName)
                     .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5).build();
-
-            /* Original build
+*/
+            // Original build
             userDatabase = Room.databaseBuilder(context, UserDatabase.class, dbName)
                     .fallbackToDestructiveMigration().build();
-            */
+
         }
         return userDatabase;
     }
