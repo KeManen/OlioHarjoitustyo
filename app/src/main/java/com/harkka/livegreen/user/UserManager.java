@@ -76,6 +76,9 @@ public class UserManager {
         return user;
     }
 
+    public void setCurrentUser(UUID uuid){
+        this.user = this.getUser(uuid);
+    }
 
     public User getUser(UUID guid) {
 

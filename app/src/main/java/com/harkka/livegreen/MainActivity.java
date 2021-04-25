@@ -68,10 +68,10 @@ public class MainActivity extends AppCompatActivity {
         if(userManager.getCurrentUser() == null){
             System.out.println("Back to login");
             startActivity(new Intent(getBaseContext(), LoginActivity.class));
-        } else {
-            System.out.println("Welcome back!");
-            Toast.makeText(getApplicationContext(), "Welcome back !", Toast.LENGTH_SHORT).show();
         }
+
+        System.out.println("Welcome back!");
+        Toast.makeText(getApplicationContext(), "Welcome back !", Toast.LENGTH_SHORT).show();
     }
 
 }

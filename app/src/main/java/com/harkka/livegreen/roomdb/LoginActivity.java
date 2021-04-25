@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.harkka.livegreen.MainActivity;
 import com.harkka.livegreen.R;
+import com.harkka.livegreen.user.UserManager;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -57,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
             new Thread(() -> {
                 UserEntity userEntity = userDao.login(userIdText, passwordText);
 
-                if (userEntity == null) {
+                if (userEntity.getUserId() == null) {
                     // In case of user not found:
                     runOnUiThread(() -> {
                         System.out.println("Invalid credentials");
@@ -65,8 +66,22 @@ public class LoginActivity extends AppCompatActivity {
                     });
                     return;
                 }
+                System.out.println("#######################################");
+                System.out.println("UserEntityData");
+                System.out.println(userEntity.getId());
+                System.out.println(userEntity.getUserId());
+                System.out.println(userEntity.getUserName());
+                System.out.println(userEntity.getEmail());
+                System.out.println(userEntity.getPassword());
+                System.out.println(userEntity.getFirstName());
+                System.out.println(userEntity.getLastName());
+                System.out.println(userEntity.getAge());
+                System.out.println(userEntity.getLocation());
 
                 System.out.println("login successful");
+                //set current user to logged in user
+                UserManager userManager = UserManager.getInstance();
+                userManager.setCurrentUser(userEntity.getUserId());
 
                 //move to main activity and remove this view from backtrace for ux reasons
                 startActivity(new Intent(getApplicationContext(), MainActivity.class)
