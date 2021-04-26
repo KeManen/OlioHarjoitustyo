@@ -11,12 +11,11 @@ import java.util.UUID;
 public class User {
 
 //    public User user;
-    public UUID userId;
-    public String userEmail = null;
-    public String userName = null;
-    public String userPasswd = null;
+    private UUID userId;
+    private String userEmail = null;
+    private String userName = null;
+    private String userPasswd = null;
     private String classString = "User Class: ";
-    boolean userLogged = true;
 
     // Variables for data entity management
     private UserDatabase userDatabase;
@@ -30,7 +29,6 @@ public class User {
     // Method to create a new user and initialize user Id
     public void createUser() {
         userId =  getGuid();
-        userLogged = true;
         //UserProfile uProfile = new UserProfile();
     }
 
@@ -103,13 +101,6 @@ public class User {
         System.out.println(classString + " GetGuid()/Guid: " + guid);
 
         return guid;
-    }
-
-    // User log in status
-    public boolean getUserIsLogged() { return userLogged; }
-
-    public void setUserIsLogged(boolean logged) {
-        userLogged = logged;
     }
 
     // Get user rank for gamification purposes

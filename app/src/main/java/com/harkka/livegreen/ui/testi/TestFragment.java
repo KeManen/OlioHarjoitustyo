@@ -42,7 +42,7 @@ public class TestFragment extends Fragment {
 
 
     // Variables for user management
-    UserManager uManager = UserManager.getInstance(); // Singleton for User class usage
+    UserManager uManager = UserManager.getInstance(getContext()); // Singleton for User class usage
 
     // Todo: Entrymanager test code 1
     // Variables for entry management
@@ -129,10 +129,10 @@ public class TestFragment extends Fragment {
             testButton.setText("Clicked");
 
 
-        uGuid = uManager.createUser(); // New user creation
+        uGuid = uManager.createUser().getUserId(); // New user creation
         System.out.println(testString + ": " + uGuid);
 
-        if (uManager.user.getUserIsLogged()) {
+        if (uManager.getCurrentUser() != null) {
             // To be used for fetching existing user by guid
             //uManager.getUser(uGuid);
 
@@ -184,11 +184,11 @@ public class TestFragment extends Fragment {
             testButton.setText("LDB Clicked");
 
 
-        uGuid = uManager.createUser(); // New user creation
+        uGuid = uManager.createUser().getUserId(); // New user creation
         //uGuid = uManager.getCurrentUserUUID();
         System.out.println(testString + ": " + uGuid);
 
-        if (uManager.user.getUserIsLogged()) {
+        if (uManager.getCurrentUser() != null) {
             // To be used for fetching existing user by guid
             //uManager.getUser(uGuid);
 

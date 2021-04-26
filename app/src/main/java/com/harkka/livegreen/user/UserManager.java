@@ -1,85 +1,51 @@
 package com.harkka.livegreen.user;
 
-import android.os.Build;
+import android.content.Context;
 
-import androidx.annotation.RequiresApi;
-
-import com.harkka.livegreen.roomdb.UserDao;
 import com.harkka.livegreen.roomdb.UserDatabase;
 import com.harkka.livegreen.roomdb.UserEntity;
 
-import java.util.ArrayList;
 import java.util.UUID;
 
 public class UserManager {
 
     //User storage;
-    public ArrayList<User> users = new ArrayList<>();
-    public User user;
-    public UserProfile uProfile;
-    public UserEntity uEntity = UserEntity.getInstance();
+    private User user;
+    private UserProfile userProfile;
+    private final UserDatabase userDatabase;
+    private final UserEntity userEntity;
 
-    public static UserManager userManager = new UserManager(); // Singleton!!!
+    private static UserManager userManager; // Singleton!!!
 
-    public static UserManager getInstance() {
+    public static UserManager getInstance(Context context) {
+        if (userManager == null){
+            userManager = new UserManager(context);
+        }
         return userManager;
     } // Singleton!!!
 
-
-
-    // TODO load users from db to manager
-    private UserManager() {
+    private UserManager(Context context) {
+        userEntity = UserEntity.getInstance();
+        userDatabase = UserDatabase.getUserDatabase(context);
     }
 
-    //Todo: Necessary methods for Main - to be decided
-
-    // For testing - At least
-    // Todo: Return values to be agreed!
-    public UUID createUser() {
-        user = new User(); // TODO This to be changed to User CreateUser(), remove when not needed
-        user.createUser();
-        users.add(user);
-        System.out.println("UserManager/User Created: " + user + " Guid: " + user.userId);
-
-        return user.userId;
-    }
-/* TODO: not needed, UserEntity is used by singleton method -> remove!
-    public UserEntity createUserEntity() {
-
-        uEntity = new UserEntity();
-        System.out.println("UserManager/User Created: " + uEntity.toString());
-
-        return uEntity;
-    }
-*/
-
-/*
-    public UUID createUser( String userName ) {
-
+    public User createUser() {
         user = new User();
-        user.userName = userName;
-        users.add(user);
-        System.out.println("UserManager/User Created: " + userName);
+        user.createUser();
+        System.out.println("UserManager/User Created: " + user + " Guid: " + user.getUserId());
 
-        return user.userId;
+        return user;
     }
-*/
 
     public UserProfile createUserProfile( UUID uGuid ) {
+        userProfile = new UserProfile(uGuid);
 
-        uProfile = new UserProfile(uGuid);
-
-        return uProfile;
-
+        return userProfile;
     }
 
     public UUID getCurrentUserUUID() { return user.getUserId(); }
-/*
-   public User getCurrentUser() { return user.getCurrentUser(); }
-   */
 
     public User getCurrentUser(){
-        //return user.getCurrentUser(); //TODO: To be verified, NULL handler missing
         return user;
     }
 
@@ -88,66 +54,67 @@ public class UserManager {
     }
 
     public void setCurrentUser(UserEntity userEntity){
-        User user = new User();
-        user.setUserId(userEntity.getUserId());
-        user.setUserName(userEntity.getUserName());
-        user.setUserPasswd(userEntity.getPassword());
-        user.setUserEmail(userEntity.getEmail());
+        User newUser = new User();
+        newUser.setUserId(userEntity.getUserId());
+        newUser.setUserName(userEntity.getUserName());
+        newUser.setUserPasswd(userEntity.getPassword());
+        newUser.setUserEmail(userEntity.getEmail());
 
-        this.user = this.getUser(userEntity.getUserId());
+        this.user = newUser;
+        this.userProfile = getUserProfile(user.getUserId());
     }
 
     public void noCurrentUser(){
         this.user = null;
+        this.userProfile = null;
     }
 
     public User getUser(UUID guid) {
-        System.out.println("UserManager/getUser()users: "+users.toString());
-        for(User user: users){
-            if(user.getUserId()== guid){
-                System.out.println("UserManager/getUser()Guid: " + user.userId);
-                System.out.println("UserManager/getUser()Email: " + user.userEmail);
-                System.out.println("UserManager/getUser()Uname: " + user.userName);
-                //System.out.println("UserManager/getUser(): " + user.userLastName);
-                //System.out.println("UserManager/getUser(): " + user.userFirstName);
-                System.out.println("UserManager/getUser()Uname2: " + users.get(0).userName);
-                return user;
-            }
+        UserEntity tempUserEntity = userDatabase.userDao().loadUserEntityByUserId(guid.toString());
+
+        if(tempUserEntity==null){
+            return null;
         }
-        System.out.println("UserManager/getUser() NO USER FOUND");
-        return null;
+
+        User newUser = new User();
+        newUser.setUserId(tempUserEntity.getUserId());
+        newUser.setUserName(tempUserEntity.getUserName());
+        newUser.setUserPasswd(tempUserEntity.getPassword());
+        newUser.setUserEmail(tempUserEntity.getEmail());
+        return newUser;
     }
+
+    public UserProfile getCurrentUserProfile() {
+        System.out.println("UserManager/getCurrentUserProfile()Guid: " + userProfile.getUserId());
+        System.out.println("UserManager/getCurrentUserProfile()Lname: " + userProfile.getUserLastName());
+        System.out.println("UserManager/getCurrentUserProfile()Fname: " + userProfile.getUserFirstName());
+        System.out.println("UserManager/getCurrentUserProfile()Age: " + userProfile.getUserAge());
+        System.out.println("UserManager/getCurrentUserProfile()Loc: " + userProfile.getUserLocation());
+
+        return userProfile;
+    }
+
 
     public UserProfile getUserProfile(UUID guid) {
+        UserEntity tempUserEntity = userDatabase.userDao().loadUserEntityByUserId(guid.toString());
 
-        //Todo: Implement fetch form ArrayList
-        //UserProfile uProfile = new UserProfile();
-
-        System.out.println("UserManager/getUserProfile()Guid: " + uProfile.userGuid);
-        System.out.println("UserManager/getUserProfile()Lname: " + uProfile.userLastName);
-        System.out.println("UserManager/getUserProfile()Fname: " + uProfile.userFirstName);
-        System.out.println("UserManager/getUserProfile()Age: " + uProfile.userAge);
-        System.out.println("UserManager/getUserProfile()Loc: " + uProfile.userLocation);
-
-        return uProfile;
-    }
-
-    // Todo: Proto using user, not userprofile
-
-
-    public void setUserProfile(UUID uGuid, String fName, String lName, int age, String location) {
-        user.userId = uGuid;
-        if (!fName.isEmpty() && !lName.isEmpty()) {
-
-            System.out.println("UserManager/setUserProfile/Fname: " + fName);
-            System.out.println("UserManager/setUserProfile/Lname: " + lName);
-            System.out.println("UserManager/setUserProfile/Age: " + age);
-            System.out.println("UserManager/setUserProfile/Loc: " + location);
-
-            UserProfile userProfile = new UserProfile(uGuid, fName, lName, age, location);
+        if(tempUserEntity==null){
+            return null;
         }
-        // Todo: update ArrayList / DB
+        UserProfile newUserProfile = new UserProfile();
+        newUserProfile.setUserProfile(tempUserEntity.getUserId(),
+                tempUserEntity.getFirstName(),
+                tempUserEntity.getLastName(),
+                Integer.parseInt(tempUserEntity.getAge()),
+                tempUserEntity.getLocation());
+
+
+        System.out.println("UserManager/getUserProfile()Guid: " + newUserProfile.getUserId());
+        System.out.println("UserManager/getUserProfile()Lname: " + newUserProfile.getUserLastName());
+        System.out.println("UserManager/getUserProfile()Fname: " + newUserProfile.getUserFirstName());
+        System.out.println("UserManager/getUserProfile()Age: " + newUserProfile.getUserAge());
+        System.out.println("UserManager/getUserProfile()Loc: " + newUserProfile.getUserLocation());
+
+        return newUserProfile;
     }
-
-
 }

@@ -5,11 +5,11 @@ import com.harkka.livegreen.roomdb.UserEntity;
 import java.util.UUID;
 
 public class UserProfile{
-    public UUID userGuid;
-    public String userFirstName = "";
-    public String userLastName = "";
-    public int userAge;
-    public String userLocation = "";
+    private UUID userGuid;
+    private String userFirstName = "";
+    private String userLastName = "";
+    private int userAge;
+    private String userLocation = "";
 
     public UserProfile() {}
 
@@ -69,7 +69,7 @@ public class UserProfile{
         userLocation = location;
     }
 
-
+    //TODO Implement?
     public UserProfile getUserProfile(UUID uGuid) {
         UserProfile uProfile = null;
 
@@ -80,6 +80,26 @@ public class UserProfile{
         uProfile.userLocation = userLocation;
 
         return uProfile;
+    }
+
+    public UUID getUserId() {
+        return userGuid;
+    }
+
+    public String getUserFirstName() {
+        return userFirstName;
+    }
+
+    public String getUserLastName() {
+        return userLastName;
+    }
+
+    public int getUserAge() {
+        return userAge;
+    }
+
+    public String getUserLocation() {
+        return userLocation;
     }
 
     // TODO: This is db interface method

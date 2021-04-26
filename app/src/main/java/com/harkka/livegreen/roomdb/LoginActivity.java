@@ -79,9 +79,10 @@ public class LoginActivity extends AppCompatActivity {
 
                 System.out.println("login successful");
                 //set current user to logged in user
-                UserManager userManager = UserManager.getInstance();
+                UserManager userManager = UserManager.getInstance(getApplicationContext());
                 System.out.println("loggedUserEntity/userId: "+ userEntity.getUserId());
-                userManager.setCurrentUser(userEntity.getUserId());
+
+                userManager.setCurrentUser(userEntity);
 
                 //move to main activity and remove this view from backtrace for ux reasons
                 startActivity(new Intent(getApplicationContext(), MainActivity.class)

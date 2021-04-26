@@ -166,7 +166,7 @@ public class HomeFragment extends Fragment {
                 //TODO remove when insert to db works
 
                 Context context = getContext();
-                UserManager um = UserManager.getInstance();
+                UserManager um = UserManager.getInstance(getContext());
                 EntryManager em = EntryManager.getInstance();
                 DataEntity dataEntity = DataEntity.getInstance();
                 UserEntity userEntity = UserEntity.getInstance();

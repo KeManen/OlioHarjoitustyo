@@ -94,7 +94,7 @@ public class ProfileFragment extends Fragment {
         ecorankPicture = root.findViewById(R.id.imageViewEcorank);
         profileName = root.findViewById(R.id.textViewProfileName);
 
-        userManager = UserManager.getInstance();
+        userManager = UserManager.getInstance(getContext());
 
         // Database and Dao initialization
         Context context = this.getContext();
@@ -136,7 +136,7 @@ public class ProfileFragment extends Fragment {
             }
 
             //set username
-            profileName.setText(user.userName);
+            profileName.setText(user.getUserName());
 
             //TODO set userpicture
             //profilePicture.setImageResource();
@@ -221,13 +221,13 @@ public class ProfileFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void submitData() {
         Context context = getContext();
-        UserManager um = UserManager.getInstance();
+        UserManager um = UserManager.getInstance(getContext());
         EntryManager em = EntryManager.getInstance();
         DataEntity dataEntity = DataEntity.getInstance();
         UserEntity userEntity = UserEntity.getInstance();
 
         // Todo: This is for prototyping, user is not initialized so do it here. Initialization missing in app start! TO BE FIXED AND REMOVED
-        UUID uGuid = um.createUser();
+        UUID uGuid = um.createUser().getUserId();
         User user = um.getCurrentUser();
         UserProfile userProfile = um.createUserProfile(uGuid);
         //uGuid = um.getCurrentUserUUID();

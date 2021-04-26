@@ -18,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity {
-
     private AppBarConfiguration mAppBarConfiguration;
     private UserManager userManager;
 
@@ -26,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.Theme_LiveGreen_NoActionBar);
 
-        userManager = UserManager.getInstance();
+        userManager = UserManager.getInstance(getBaseContext());
 
         handle_loginprompt();
 

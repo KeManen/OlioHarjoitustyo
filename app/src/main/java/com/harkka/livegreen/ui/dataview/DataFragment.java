@@ -47,7 +47,7 @@ public class DataFragment extends Fragment {
 
     // TODO remove when works
     // Variables for user management
-    UserManager uManager = UserManager.getInstance(); // Singleton for User class usage
+    UserManager uManager = UserManager.getInstance(getContext()); // Singleton for User class usage
     // Variables for entry management
     EntryManager entryManager = EntryManager.getInstance(); // Singleton for Entry class usage
     UserDatabase userDatabase;
@@ -74,7 +74,7 @@ public class DataFragment extends Fragment {
         dataDao = userDatabase.dataDao();
         String testString = "123 ";
         UUID uGuid = null;
-        uGuid = uManager.createUser(); // New user creation
+        uGuid = uManager.createUser().getUserId(); // New user creation
         uGuid = uManager.getCurrentUserUUID();
         System.out.println(testString + ": " + uGuid);
         auxGuid = uGuid;

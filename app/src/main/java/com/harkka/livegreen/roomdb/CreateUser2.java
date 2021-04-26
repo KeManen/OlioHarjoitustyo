@@ -37,7 +37,7 @@ public class CreateUser2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_user2);
         userDao = UserDatabase.getUserDatabase(getApplicationContext()).userDao();
-        userManager = UserManager.getInstance();
+        userManager = UserManager.getInstance(getApplicationContext());
 
         // Integrate components
         firstName = findViewById(R.id.firstName);
@@ -94,7 +94,7 @@ public class CreateUser2 extends AppCompatActivity {
         String SLocation = location.getText().toString().trim();
 
         // Create new user and profile and insert data
-        User user = userManager.getUser(userManager.createUser());
+        User user = userManager.createUser();
         user.setUserName(username);
         user.setUserEmail(email);
         user.setUserPasswd(password);
@@ -106,28 +106,7 @@ public class CreateUser2 extends AppCompatActivity {
         user.insertDBUser();
         userProfile.insertDBUserProfile();
 
-        /* DEBUGS
-        /////////////////////////////////////////////////
-        DataDao dataDao = UserDatabase.getUserDatabase(getApplicationContext()).dataDao();
-        DataEntity dataEntity = DataEntity.getInstance();
-        dataEntity.setEntryId(user.getUserId());
-        dataEntity.setDairyUsed("100");
-        System.out.println("##########################################");
 
-        new Thread(()-> {
-            System.out.println("dairy in: " + dataEntity.getDairyUsed());
-            dataDao.insertDataEntity(dataEntity);
-            DataEntity deFromDB = dataDao.loadDataEntityByEntryId(user.getUserId().toString());
-            System.out.println("out: "+ deFromDB.getDairyUsed());
-        }).start();
-
-        new Thread(()-> {
-            System.out.println("username in: " + userEntity.getUserName());
-            userDao.insertUserEntity(userEntity);
-            UserEntity ueFromDB = userDao.loadUserEntityByUserId(user.getUserId().toString());
-            System.out.println("username out: "+ ueFromDB.getUserName());
-        }).start();
-        */
 
         // Insert userEntity to db
         new Thread(() -> {
