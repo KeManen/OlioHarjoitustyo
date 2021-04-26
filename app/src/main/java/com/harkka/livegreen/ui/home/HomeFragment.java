@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -76,9 +77,9 @@ public class HomeFragment extends Fragment {
         buttonSubmit = root.findViewById(R.id.buttonSubmit);
 
         //set labels to be grams, numbers are from national average
-        sliderMeat.setLabelFormatter(value -> Math.round(260*(value/100))+"g");
-        sliderDairy.setLabelFormatter(value -> Math.round(440*(value/100))+"g");
-        sliderVege.setLabelFormatter(value -> Math.round(585*(value/100))+"g");
+        sliderMeat.setLabelFormatter(value -> Math.round(260 * (value / 100)) + "g");
+        sliderDairy.setLabelFormatter(value -> Math.round(440 * (value / 100)) + "g");
+        sliderVege.setLabelFormatter(value -> Math.round(585 * (value / 100)) + "g");
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -108,10 +109,10 @@ public class HomeFragment extends Fragment {
             String meatInput = String.format("%.0f", sliderMeat.getValue());
             String dairyInput = String.format("%.0f", sliderDairy.getValue());
             String vegeInput = String.format("%.0f", sliderVege.getValue());
-            // takes values from sliders to set to database
-            String meatGrams = String.format("%.0f",(sliderMeat.getValue() / 100) * 260);
-            String dairyGrams = String.format("%.0f",(sliderDairy.getValue() / 100) * 440);
-            String vegeGrams = String.format("%.0f",(sliderVege.getValue() / 100) * 585);
+            // takes values from sliders to set to database as grams
+            String meatGrams = String.format("%.0f", (sliderMeat.getValue() / 100) * 260);
+            String dairyGrams = String.format("%.0f", (sliderDairy.getValue() / 100) * 440);
+            String vegeGrams = String.format("%.0f", (sliderVege.getValue() / 100) * 585);
 
             try {
 
@@ -122,10 +123,10 @@ public class HomeFragment extends Fragment {
                 // dairy = eggs, milk etc.
                 // vege = fruits, cheese, grain
                 String urlString = "https://ilmastodieetti.ymparisto.fi/ilmastodieetti/calculatorapi/" +
-                        "v1/FoodCalculator?query.diet=omnivore&query."+ ecoFriendlyFood +".beefLevel="+ meatInput +
-                        "&query.fishLevel="+ meatInput +"&query." + "porkPoultryLevel="+ meatInput +"&query.dairyLevel="
-                        + dairyInput +"&query.cheeseLevel="+ dairyInput + "&query.riceLevel="+ vegeInput +
-                        "&query.eggLevel=" + dairyInput + "&query.winterSaladLevel="+vegeInput;
+                        "v1/FoodCalculator?query.diet=omnivore&query." + ecoFriendlyFood + ".beefLevel=" + meatInput +
+                        "&query.fishLevel=" + meatInput + "&query." + "porkPoultryLevel=" + meatInput + "&query.dairyLevel="
+                        + dairyInput + "&query.cheeseLevel=" + dairyInput + "&query.riceLevel=" + vegeInput +
+                        "&query.eggLevel=" + dairyInput + "&query.winterSaladLevel=" + vegeInput;
                 System.out.println(urlString);
 
                 // get document, parse and normalize it
@@ -140,7 +141,7 @@ public class HomeFragment extends Fragment {
                 String meat = doc.getElementsByTagName("Meat").item(0).getTextContent();
                 String vege = doc.getElementsByTagName("Plant").item(0).getTextContent();
 
-                // here format the values to doubles and get the total CO2/kg/year
+                // format the CO2 values to doubles and get the total CO2/kg/year
                 // decrease the site default values from new values
                 double total = 0;
                 double dairy2 = Double.parseDouble(dairy);
@@ -156,7 +157,7 @@ public class HomeFragment extends Fragment {
                     System.out.println("Could not parse");
                 }
 
-                // from year amount to day's value
+                // from year amount to day's value --> to String
                 total = (total / 365);
                 String result = String.format("%.2f", total);
                 System.out.println("This is the correct value of today's inputs " + result + "kg of CO2");
@@ -181,16 +182,20 @@ public class HomeFragment extends Fragment {
                 entry.insertDBEntry(); // Prepare Entry object for db insert, copy data to DataEntity
                 new Thread(() -> {
                     System.out.println("IN DB Entry***************" + dataEntity.getEntryId().toString() + "************");
-                    DataEntity.getInstance().setTotalResult(result);
                     dataEntity.setTotalResult(result);
+                    System.out.println(result);
                     dataEntity.setMeatUsed(meatGrams);
+                    System.out.println(meatGrams);
                     dataEntity.setDairyUsed(dairyGrams);
+                    System.out.println(dairyGrams);
                     dataEntity.setVegeUsed(vegeGrams);
+                    System.out.println(vegeGrams);
+                    System.out.println("IN DB Entry***************" + "************");
                     dataDao.insertDataEntities(dataEntity); // Do the thing
-                    System.out.println("IN DB Entry***************" +"************");
+                    System.out.println("IN DB Entry***************" + "************");
                 }).start();
 
-               // TODO ENDS Here
+                // TODO ENDS Here
 
 
             } catch (IOException e) {
