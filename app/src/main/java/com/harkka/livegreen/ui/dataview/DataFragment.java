@@ -73,7 +73,6 @@ public class DataFragment extends Fragment {
         uGuid = uManager.createUser(); // New user creation
         uGuid = uManager.getCurrentUserUUID();
         System.out.println(testString + ": " + uGuid);
-        auxGuid = uGuid;
 
         // get date as number of the month
         Calendar c = Calendar.getInstance();
@@ -89,7 +88,7 @@ public class DataFragment extends Fragment {
         // TODO remove when works
 
         //System.out.println(dataEntity.getUserId() + " EntryId: " + dataEntity.getEntryId());
-        Entry entry = null;
+ /*       Entry entry = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             entry = entryManager.createEntry(uGuid);
         }
@@ -98,15 +97,28 @@ public class DataFragment extends Fragment {
         entry = entryManager.getEntry();
 
         System.out.println(testString + " " + entry.getWeight() + "************");
+*/
+        //TODO: Here a test insert method void testInsertData(int type)
+        testInsertTestData(0, uGuid);
+        testInsertTestData(1, uGuid);
+
+        auxGuid = uGuid;
 
         new Thread(() -> {
-            userDatabase.userDao().loadUserEntityByUserId(String.valueOf(auxGuid));
+            //userDatabase.userDao().loadUserEntityByUserId(String.valueOf(uGuid));
             String testString2 = "12321";
-            System.out.println("******************" + auxGuid.toString() + "******************");
-        //    dataEntities = dataDao.loadDataEntityByEntryId(uGuid.toString());
-            System.out.println(testString2 + " " + dataEntity);
-            System.out.println(testString2 + dataEntities[0].getTotalResult());
-            System.out.println(testString2 + dataEntity.getTotalResult() + dataEntity.getDateTime());
+            System.out.println("In new Thread - Load entities ******************" + auxGuid.toString() + "******************");
+            dataEntities = dataDao.loadAllDataEntitiesByUserId(auxGuid.toString());
+            //dataEntity = dataDao.loadDataEntityByEntryId(auxGuid.toString());
+            //System.out.println(testString2 + " " + dataEntity);
+            //System.out.println(testString2 + dataEntity.getTotalResult() + dataEntity.getDateTime());
+            if (!dataEntities.equals(null)) {
+                System.out.println(testString2 + " " + dataEntities);
+                System.out.println(testString2 + dataEntities[0].getTotalResult() + dataEntities[0].getDateTime());
+            }
+            else{
+                System.out.println("DataEntities says: null!");
+            }
         }).start();
 
         // TODO ends here
@@ -203,4 +215,47 @@ public class DataFragment extends Fragment {
         barChart2.animateY(2000);
         return root;
     }
+
+    // Test methods
+
+    private void testInsertTestData(int type, UUID uGuid) {
+
+        switch (type) {
+            case 0:
+                System.out.println("THIS IS TEST SECTION FOR USER INSERT");
+
+                break;
+            case 1:
+                System.out.println("THIS IS TEST SECTION FOR ENTRY DATA INSERT");
+                // TODO: THIS SECTION HANDLES DATA ENTRY IN DB --->
+
+                Entry entry = entryManager.createEntry(uGuid);
+                //auxGuid = entry.getEntryGuid();
+                //entry.setUserGuid(uManager.getCurrentUserUUID());;
+                //entry.setEntryGuid(entryGuid);
+                //entry.setDateTime(LocalDateTime.now());
+                entry.setWeight(Float.parseFloat("80"));
+                entry.setHeight(Float.parseFloat("1.8"));
+                entry.setDairyConsumption(Float.parseFloat("80"));
+                entry.setMeatConsumption(Float.parseFloat("80"));
+                entry.setVegeConsumption(Float.parseFloat("80"));
+                entry.setTotalResult(Float.parseFloat("800"));
+                entry.insertDBEntry();
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        System.out.println("IN TEST ***************" + DataEntity.getInstance().getEntryId().toString() + "************");
+                        dataDao.insertDataEntity(dataEntity);
+                    }
+                }).start();
+
+                // TODO: <--- ENDS HERE
+                break;
+            default:
+                break;
+        }
+
+    }
+
 }

@@ -37,7 +37,7 @@ public class UserManager {
 
         return user.userId;
     }
-
+/* TODO: not needed, UserEntity is used by singleton method -> remove!
     public UserEntity createUserEntity() {
 
         uEntity = new UserEntity();
@@ -45,7 +45,7 @@ public class UserManager {
 
         return uEntity;
     }
-
+*/
 
 /*
     public UUID createUser( String userName ) {

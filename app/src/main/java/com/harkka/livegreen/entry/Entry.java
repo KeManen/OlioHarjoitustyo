@@ -33,6 +33,8 @@ public class Entry {
         entry = new Entry();
 
         entryDateTime = LocalDateTime.now();
+        System.out.println(entryDateTime);
+        System.out.println(entryDateTime.toString());
         userGuid = uGuid;
         entryGuid = getGuid();
 
@@ -78,6 +80,10 @@ public class Entry {
     }
 
     // Set methods
+
+    public void setUserGuid(UUID uGuid) { this.userGuid = uGuid; }
+
+    public void setEntryGuid(UUID eGuid){ this.entryGuid = eGuid;}
 
     public void setDateTime(LocalDateTime localDateTime) {
         this.entryDateTime = localDateTime;

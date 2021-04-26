@@ -51,7 +51,7 @@
     <string name="create_account">Create account</string>
     <string name="return_hint">Return</string>
     <string name="enter_firstname_hint">Enter firstname</string>
-    <string name="enter_surname_hint">Enter surname</string>
+    <string name="enter_surname_hint">Enter lastname</string>
     <string name="enter_age_hint">Enter age</string>
     <string name="enter_location_hint">Enter location</string>
     <string name="continue_hint">Continue</string>

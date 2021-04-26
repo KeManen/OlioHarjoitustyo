@@ -205,18 +205,15 @@ public class TestFragment extends Fragment {
             Entry entry = entryManager.createEntry(uGuid);
             auxGuid = entry.getEntryGuid();
 
-            System.out.println(testString + " " + entry.getEntryGuid().toString() + "************");
-
             entry.setWeight(Float.parseFloat("80"));
             entry.setHeight(Float.parseFloat("80"));
             entry.setDairyConsumption(Float.parseFloat("80"));
             entry.setMeatConsumption(Float.parseFloat("80"));
             entry.setVegeConsumption(Float.parseFloat("80"));
+            entry.setTotalResult(Float.parseFloat("80"));
             entry.insertDBEntry();
 
-            System.out.println(testString + "OUT **************" + dataEntity.getEntryId().toString() + "************");
-
-            new Thread(new Runnable() {
+        new Thread(new Runnable() {
                 @Override
                 public void run() {
                     System.out.println(testString + "IN ***************" + dataEntity.getEntryId().toString() + "************");

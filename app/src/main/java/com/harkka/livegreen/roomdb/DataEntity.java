@@ -7,6 +7,9 @@ import androidx.room.PrimaryKey;
 
 import com.harkka.livegreen.entry.EntryManager;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
@@ -81,24 +84,39 @@ public class DataEntity {
     }
 
     public LocalDateTime getDateTime() {
-        DateTimeFormatter formatter = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        }
+
+        System.out.println("DataEntity: localDateTime (String) = " + dateTime);
+
         LocalDateTime localDateTime = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            localDateTime = LocalDateTime.parse(dateTime, formatter);
+            localDateTime = LocalDateTime.parse(dateTime);
+        }
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//        LocalDateTime localDateTime = LocalDateTime.parse(dateTime, formatter);
+
+        return localDateTime;
+    }
+/*
+    public LocalDateTime getDateTime() {
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime localDateTime = null;
+        try {
+            localDateTime = formatter.parse(dateTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
         return localDateTime;
     }
+*/
 
     public void setDateTime(LocalDateTime localDateTime) {
         this.dateTime = localDateTime.toString();
+        System.out.println(" DataEntity localDateTime: " + this.dateTime);
     }
 
     public String getWeight() { return weight; }
 
-    public void setWeight(String weight) { this.weight = weight; System.out.println(" DataEntity Weigth " + this.weight); }
+    public void setWeight(String weight) { this.weight = weight; }
 
     public String getHeight() { return height; }
 
