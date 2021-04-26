@@ -116,8 +116,10 @@ public class ProfileFragment extends Fragment {
             //Change button to user logged in state
             login_button.setText(getText(R.string.log_out));
             login_button.setBackgroundColor(login_button.getContext().getResources().getColor(R.color.red));
-            login_button.setOnClickListener(v -> handle_profileview_login_state());
-
+            login_button.setOnClickListener(v -> {
+                userManager.noCurrentUser();
+                handle_profileview_login_state();
+            });
 
             //show profileinput card
             card.setVisibility(View.VISIBLE);
@@ -271,24 +273,18 @@ public class ProfileFragment extends Fragment {
 
         // Entry data insert
         entry.insertDBEntry(); // Prepare Entry object for db insert, copy data to DataEntity
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("IN DB Entry***************" + dataEntity.getEntryId().toString() + "************");
-                dataDao.insertDataEntity(dataEntity); // Do the thing
-            }
+        new Thread(() -> {
+            System.out.println("IN DB Entry***************" + dataEntity.getEntryId().toString() + "************");
+            dataDao.insertDataEntity(dataEntity); // Do the thing
         }).start();
 
         // User data insert
         user.insertDBUser(); // Prepare User object for db insert, copy data to DataEntity
         userProfile.insertDBUserProfile(); // Prepare UserProfile object for db insert, copy data to DataEntity
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("IN DB User ***************" + dataEntity.getEntryId().toString() + "************");
-                // User and UserProfile are both included in UserEntity
-                userDao.insertUserEntity(userEntity);
-            }
+        new Thread(() -> {
+            System.out.println("IN DB User ***************" + dataEntity.getEntryId().toString() + "************");
+            // User and UserProfile are both included in UserEntity
+            userDao.insertUserEntity(userEntity);
         }).start();
 
         // Sleep for 1second so user has time to read previous Toast message

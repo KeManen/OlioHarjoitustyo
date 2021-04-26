@@ -4,6 +4,8 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import com.harkka.livegreen.roomdb.UserDao;
+import com.harkka.livegreen.roomdb.UserDatabase;
 import com.harkka.livegreen.roomdb.UserEntity;
 
 import java.util.ArrayList;
@@ -23,7 +25,11 @@ public class UserManager {
         return userManager;
     } // Singleton!!!
 
-    private UserManager() {}
+
+
+    // TODO load users from db to manager
+    private UserManager() {
+    }
 
     //Todo: Necessary methods for Main - to be decided
 
@@ -80,9 +86,12 @@ public class UserManager {
     public void setCurrentUser(UUID uuid){
         this.user = this.getUser(uuid);
     }
+    public void noCurrentUser(){
+        this.user = null;
+    }
 
     public User getUser(UUID guid) {
-
+        System.out.println("UserManager/getUser()users: "+users.toString());
         for(User user: users){
             if(user.getUserId()== guid){
                 System.out.println("UserManager/getUser()Guid: " + user.userId);

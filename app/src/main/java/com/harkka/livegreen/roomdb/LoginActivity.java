@@ -66,20 +66,21 @@ public class LoginActivity extends AppCompatActivity {
                     });
                     return;
                 }
+
                 System.out.println("#######################################");
-                System.out.println("UserEntityData");
-                System.out.println(userEntity.getUserId());
-                System.out.println(userEntity.getUserName());
-                System.out.println(userEntity.getEmail());
-                System.out.println(userEntity.getPassword());
-                System.out.println(userEntity.getFirstName());
-                System.out.println(userEntity.getLastName());
-                System.out.println(userEntity.getAge());
-                System.out.println(userEntity.getLocation());
+                System.out.println("LoginActivity/userEntity/userid: "+userEntity.getUserId());
+                System.out.println("LoginActivity/userEntity/username: "+userEntity.getUserName());
+                System.out.println("LoginActivity/userEntity/email: "+userEntity.getEmail());
+                System.out.println("LoginActivity/userEntity/password: "+userEntity.getPassword());
+                System.out.println("LoginActivity/userEntity/firstname: "+userEntity.getFirstName());
+                System.out.println("LoginActivity/userEntity/lastname: "+userEntity.getLastName());
+                System.out.println("LoginActivity/userEntity/age: "+userEntity.getAge());
+                System.out.println("LoginActivity/userEntity/location: "+userEntity.getLocation());
 
                 System.out.println("login successful");
                 //set current user to logged in user
                 UserManager userManager = UserManager.getInstance();
+                System.out.println("loggedUserEntity/userId: "+ userEntity.getUserId());
                 userManager.setCurrentUser(userEntity.getUserId());
 
                 //move to main activity and remove this view from backtrace for ux reasons

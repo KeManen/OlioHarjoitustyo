@@ -30,16 +30,16 @@ public interface UserDao {
     @Query("SELECT * FROM users WHERE userId = :userId")
     public UserEntity loadUserEntityByUserId(String userId);
 
-    // Find user in login by userid and password
-    @Query("SELECT * from users where userId=(:userId) and password=(:password)")
-    UserEntity login(String userId, String password);
+    // Find user in login by username and password
+    @Query("SELECT * FROM users WHERE userName=:username AND password=:password")
+    UserEntity login(String username, String password);
 
     // Check if user exists
-    @Query("SELECT userId from users where userId=(:userId)")
-    String doesContainName(String userId);
+    @Query("SELECT userName FROM users WHERE userName=:username")
+    String doesContainName(String username);
 
     // Check if email exists
-    @Query("SELECT email from users where email=(:email)")
+    @Query("SELECT email FROM users WHERE email=:email")
     String doesContainEmail(String email);
 
     /*
