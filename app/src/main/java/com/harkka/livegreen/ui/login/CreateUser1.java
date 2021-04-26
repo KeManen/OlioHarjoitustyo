@@ -103,7 +103,7 @@ public class CreateUser1 extends AppCompatActivity {
 
         //if sql search comes back with null it doesn't change the string
         new Thread(() -> usernames[1] = userDao.doesContainName(usernames[0])).start();
-        return usernames[1] == "";
+        return usernames[1].equals("");
 
     }
 
@@ -115,7 +115,7 @@ public class CreateUser1 extends AppCompatActivity {
 
         //if sql search comes back with null it doesn't change the string
         new Thread(() -> emails[1] = userDao.doesContainName(emails[0])).start();
-        return emails[1] == "";
+        return emails[1].equals("");
     }
 
     // isEmailFormatted
