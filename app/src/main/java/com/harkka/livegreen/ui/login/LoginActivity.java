@@ -15,6 +15,8 @@ import com.harkka.livegreen.roomdb.UserDatabase;
 import com.harkka.livegreen.roomdb.UserEntity;
 import com.harkka.livegreen.user.UserManager;
 
+import com.harkka.livegreen.logic.Scrambler;
+
 public class LoginActivity extends AppCompatActivity {
 
     // Integrate components
@@ -59,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
 
             // Check database for existing user
             new Thread(() -> {
-                UserEntity userEntity = userDao.login(userIdText, passwordText);
+                UserEntity userEntity = userDao.login(userIdText, Scrambler.scrambledPassword(passwordText));
 
                 if (userEntity == null) {
                     // In case of user not found:
