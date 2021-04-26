@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/green_dark"
-    tools:context="com.harkka.livegreen.roomdb.CreateUser1">
+    tools:context="com.harkka.livegreen.ui.login.CreateUser1">
 
     <ImageView
         android:id="@+id/imageView2"

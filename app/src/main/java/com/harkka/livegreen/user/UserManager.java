@@ -5,6 +5,7 @@ import android.content.Context;
 import com.harkka.livegreen.roomdb.UserDatabase;
 import com.harkka.livegreen.roomdb.UserEntity;
 
+
 import java.util.UUID;
 
 public class UserManager {

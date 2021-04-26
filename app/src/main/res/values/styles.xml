@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="sliderlabel" parent="Widget.MaterialComponents.Tooltip">
         <item name="android:textAppearance">@style/TextAppearance.App.Tooltip</item>
@@ -13,5 +13,9 @@
     <style name="roundedImageViewRounded">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="splashScreenTheme" parent="@style/Theme.LiveGreen">
+        <item name="android:windowBackground">@drawable/launch_screen</item>
     </style>
 </resources>

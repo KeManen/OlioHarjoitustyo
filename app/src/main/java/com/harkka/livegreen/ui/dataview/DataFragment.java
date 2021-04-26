@@ -1,23 +1,16 @@
 package com.harkka.livegreen.ui.dataview;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.view.contentcapture.DataShareWriteAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
@@ -29,18 +22,13 @@ import com.harkka.livegreen.entry.Entry;
 import com.harkka.livegreen.entry.EntryManager;
 import com.harkka.livegreen.roomdb.DataDao;
 import com.harkka.livegreen.roomdb.DataEntity;
-import com.harkka.livegreen.roomdb.LoginActivity;
 import com.harkka.livegreen.roomdb.UserDao;
 import com.harkka.livegreen.roomdb.UserDatabase;
 import com.harkka.livegreen.roomdb.UserEntity;
-import com.harkka.livegreen.ui.home.HomeFragment;
-import com.harkka.livegreen.user.User;
 import com.harkka.livegreen.user.UserManager;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 

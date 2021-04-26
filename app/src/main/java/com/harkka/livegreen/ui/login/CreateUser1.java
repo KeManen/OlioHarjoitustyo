@@ -1,16 +1,16 @@
-package com.harkka.livegreen.roomdb;
+package com.harkka.livegreen.ui.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.harkka.livegreen.R;
-import com.harkka.livegreen.user.UserManager;
+import com.harkka.livegreen.roomdb.UserDao;
+import com.harkka.livegreen.roomdb.UserDatabase;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -103,7 +103,7 @@ public class CreateUser1 extends AppCompatActivity {
 
         //if sql search comes back with null it doesn't change the string
         new Thread(() -> usernames[1] = userDao.doesContainName(usernames[0])).start();
-        return usernames[1] == "";
+        return usernames[1].equals("");
 
     }
 
@@ -115,7 +115,7 @@ public class CreateUser1 extends AppCompatActivity {
 
         //if sql search comes back with null it doesn't change the string
         new Thread(() -> emails[1] = userDao.doesContainName(emails[0])).start();
-        return emails[1] == "";
+        return emails[1].equals("");
     }
 
     // isEmailFormatted
@@ -133,8 +133,15 @@ public class CreateUser1 extends AppCompatActivity {
         return password.getText().toString().equals(password2.getText().toString());
     }
 
-    //TODO IMPLEMENT PASSWORD reqs
+    // isPasswordFormatted()
+    // checks if the password has at least
+    // one number, special, lower, upper character and length of >12
     private Boolean isPasswordFormatted(){
+        /*
+        String passwordText = password.getText().toString().trim();
+        Pattern textPattern = Pattern.compile("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\\W)[^\\s]{12,}$");
+        return textPattern.matcher(passwordText).matches();
+        */
         return true;
     }
 

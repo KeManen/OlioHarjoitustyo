@@ -1,4 +1,4 @@
-package com.harkka.livegreen.roomdb;
+package com.harkka.livegreen.ui.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,7 +10,12 @@ import android.widget.Toast;
 
 import com.harkka.livegreen.MainActivity;
 import com.harkka.livegreen.R;
+import com.harkka.livegreen.roomdb.UserDao;
+import com.harkka.livegreen.roomdb.UserDatabase;
+import com.harkka.livegreen.roomdb.UserEntity;
 import com.harkka.livegreen.user.UserManager;
+
+import com.harkka.livegreen.logic.Scrambler;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -56,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
 
             // Check database for existing user
             new Thread(() -> {
-                UserEntity userEntity = userDao.login(userIdText, passwordText);
+                UserEntity userEntity = userDao.login(userIdText, Scrambler.scrambledPassword(passwordText));
 
                 if (userEntity == null) {
                     // In case of user not found:

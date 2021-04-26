@@ -1,4 +1,4 @@
-package com.harkka.livegreen.roomdb;
+package com.harkka.livegreen.ui.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,13 +11,15 @@ import android.widget.Toast;
 
 import com.harkka.livegreen.MainActivity;
 import com.harkka.livegreen.R;
+import com.harkka.livegreen.logic.Scrambler;
+import com.harkka.livegreen.roomdb.UserDao;
+import com.harkka.livegreen.roomdb.UserDatabase;
+import com.harkka.livegreen.roomdb.UserEntity;
 import com.harkka.livegreen.user.User;
 import com.harkka.livegreen.user.UserProfile;
 import com.harkka.livegreen.user.UserManager;
 
 import java.util.concurrent.TimeUnit;
-
-import static com.harkka.livegreen.roomdb.UserEntity.userEntity;
 
 public class CreateUser2 extends AppCompatActivity {
 
@@ -97,7 +99,7 @@ public class CreateUser2 extends AppCompatActivity {
         User user = userManager.createUser();
         user.setUserName(username);
         user.setUserEmail(email);
-        user.setUserPasswd(password);
+        user.setUserPasswd(Scrambler.scrambledPassword(password));
 
         UserProfile userProfile = userManager.createUserProfile(user.getUserId());
         userProfile.setUserProfile(user.getUserId(), SFirstName, SLastName, iAge, SLocation);
@@ -105,8 +107,6 @@ public class CreateUser2 extends AppCompatActivity {
         // insert userdata to userEntity
         user.insertDBUser();
         userProfile.insertDBUserProfile();
-
-
 
         // Insert userEntity to db
         new Thread(() -> {
@@ -122,7 +122,7 @@ public class CreateUser2 extends AppCompatActivity {
             System.out.println("CreateUser2/userEntity/location: "+userEntity.getLocation());
 
             userDao.insertUserEntity(userEntity);
-
+            /*
             UserEntity getter = userDao.loadUserEntityByUserId(userEntity.getUserId().toString());
             System.out.println("#######################################");
             System.out.println("CreateUser2/getter/userid: "+getter.getUserId());
@@ -134,7 +134,6 @@ public class CreateUser2 extends AppCompatActivity {
             System.out.println("CreateUser2/getter/age: "+getter.getAge());
             System.out.println("CreateUser2/getter/location: "+getter.getLocation());
 
-
             UserEntity ueFromDB = userDao.login(userEntity.getUserName(), userEntity.getPassword());
             System.out.println("#######################################");
             System.out.println("CreateUser2/fromDB/userid: "+ueFromDB.getUserId());
@@ -145,6 +144,7 @@ public class CreateUser2 extends AppCompatActivity {
             System.out.println("CreateUser2/fromDB/lastname: "+ueFromDB.getLastName());
             System.out.println("CreateUser2/fromDB/age: "+ueFromDB.getAge());
             System.out.println("CreateUser2/fromDB/location: "+ueFromDB.getLocation());
+            */
         }).start();
 
         // Tell the user account was created successfully
