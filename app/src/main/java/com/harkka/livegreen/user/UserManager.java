@@ -17,7 +17,7 @@ public class UserManager {
     public ArrayList<User> users = new ArrayList<>();
     public User user;
     public UserProfile uProfile;
-    public UserEntity uEntity;
+    public UserEntity uEntity = UserEntity.getInstance();
 
     public static UserManager userManager = new UserManager(); // Singleton!!!
 
@@ -86,6 +86,17 @@ public class UserManager {
     public void setCurrentUser(UUID uuid){
         this.user = this.getUser(uuid);
     }
+
+    public void setCurrentUser(UserEntity userEntity){
+        User user = new User();
+        user.setUserId(userEntity.getUserId());
+        user.setUserName(userEntity.getUserName());
+        user.setUserPasswd(userEntity.getPassword());
+        user.setUserEmail(userEntity.getEmail());
+
+        this.user = this.getUser(userEntity.getUserId());
+    }
+
     public void noCurrentUser(){
         this.user = null;
     }

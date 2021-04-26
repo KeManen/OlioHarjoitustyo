@@ -101,7 +101,7 @@ public class DataFragment extends Fragment {
         entry = entryManager.getEntry();
 
         System.out.println(testString + " " + entry.getWeight() + "************");
-*/
+
         //TODO: Here a test insert method void testInsertData(int type)
         testInsertTestData(0, uGuid);
         testInsertTestData(1, uGuid);
