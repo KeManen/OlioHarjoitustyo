@@ -6,7 +6,7 @@ import android.view.Menu;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
-import com.harkka.livegreen.roomdb.LoginActivity;
+import com.harkka.livegreen.ui.login.LoginActivity;
 import com.harkka.livegreen.user.UserManager;
 
 import androidx.navigation.NavController;

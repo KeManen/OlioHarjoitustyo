@@ -1,4 +1,4 @@
-package com.harkka.livegreen.roomdb;
+package com.harkka.livegreen.ui.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,9 @@ import android.widget.Toast;
 
 import com.harkka.livegreen.MainActivity;
 import com.harkka.livegreen.R;
+import com.harkka.livegreen.roomdb.UserDao;
+import com.harkka.livegreen.roomdb.UserDatabase;
+import com.harkka.livegreen.roomdb.UserEntity;
 import com.harkka.livegreen.user.UserManager;
 
 public class LoginActivity extends AppCompatActivity {

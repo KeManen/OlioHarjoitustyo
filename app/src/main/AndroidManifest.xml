@@ -20,9 +20,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".roomdb.LoginActivity" />
-        <activity android:name=".roomdb.CreateUser1" />
-        <activity android:name=".roomdb.CreateUser2" />
+        <activity android:name=".ui.login.LoginActivity" />
+        <activity android:name=".ui.login.CreateUser1" />
+        <activity android:name=".ui.login.CreateUser2" />
     </application>
 
 </manifest>

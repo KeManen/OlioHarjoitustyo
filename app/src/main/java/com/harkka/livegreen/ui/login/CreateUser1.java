@@ -1,16 +1,16 @@
-package com.harkka.livegreen.roomdb;
+package com.harkka.livegreen.ui.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.harkka.livegreen.R;
-import com.harkka.livegreen.user.UserManager;
+import com.harkka.livegreen.roomdb.UserDao;
+import com.harkka.livegreen.roomdb.UserDatabase;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
