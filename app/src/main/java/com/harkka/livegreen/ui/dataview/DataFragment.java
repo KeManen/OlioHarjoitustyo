@@ -82,12 +82,9 @@ public class DataFragment extends Fragment {
             entry = entryManager.createEntry(uGuid);
         }
         entryManager.setEntry(entry);
-        entry = entryManager.getEntry();
         auxGuid = uGuid;
 
         new Thread(() -> {
-            //userDatabase.userDao().loadUserEntityByUserId(String.valueOf(uGuid));
-            String testString2 = "12321";
             System.out.println("In new Thread - Load entities ******************" + auxGuid.toString() + "******************");
             dataEntities = dataDao.loadAllDataEntitiesByUserId(auxGuid.toString());
         }).start();
@@ -99,9 +96,8 @@ public class DataFragment extends Fragment {
             e.printStackTrace();
         }
 
+        // check whether database is has no objects
         if (dataEntities[0].getTotalResult() != null) {
-            // clear old values from arraylist
-            emissions.clear();
 
             // TODO ends here
 
@@ -117,8 +113,10 @@ public class DataFragment extends Fragment {
             totalGrams2 = Float.parseFloat(dataEntities[5].getDairyUsed()) + Float.parseFloat(dataEntities[5].getMeatUsed()) + Float.parseFloat(dataEntities[5].getVegeUsed());
             System.out.println("################# " + totalGrams2 + " #################");
 
-
-            for (int i = 0; i < 15; i++) {
+            // clear old values from arraylist
+            emissions.clear();
+            //add values from database
+            for (int i = 0; i < dataEntities.length ; i++) {
 
                 float totalGrams3 = Float.parseFloat(dataEntities[i].getDairyUsed()) + Float.parseFloat(dataEntities[i].getMeatUsed()) + Float.parseFloat(dataEntities[i].getVegeUsed());
                 System.out.println("Total FOOD USED IN GRAMS: " + totalGrams3);
@@ -159,7 +157,8 @@ public class DataFragment extends Fragment {
             String testString2 = "321 ";
             // clear old values from arraylist
             foodUsage.clear();
-            for (int i = 0; i < 15; i++) {
+            // add values from database
+            for (int i = 0; i < dataEntities.length ; i++) {
 
 
                 System.out.println("Total DAIRY: " + i + "  " + Float.parseFloat(dataEntities[i].getDairyUsed()) + " --------------DAIRY-------------");
