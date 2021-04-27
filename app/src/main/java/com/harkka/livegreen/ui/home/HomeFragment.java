@@ -127,10 +127,7 @@ public class HomeFragment extends Fragment {
 
                 // get the document builder
                 DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-
-                // meat = chicken + beef + pork
-                // dairy = eggs, milk etc.
-                // vege = fruits, cheese, grain
+                // add slider values to the URL
                 String urlString = "https://ilmastodieetti.ymparisto.fi/ilmastodieetti/calculatorapi/" +
                         "v1/FoodCalculator?query.diet=omnivore&query." + ecoFriendlyFood + ".beefLevel=" + meatInput +
                         "&query.fishLevel=" + meatInput + "&query." + "porkPoultryLevel=" + meatInput + "&query.dairyLevel="
@@ -159,9 +156,7 @@ public class HomeFragment extends Fragment {
 
                 try {
                     total = dairy2 + meat2 + vege2;
-                    //         System.out.println(total +" total value is here before decreasing sites defaults");
                     total = total - baseValueMeat - baseValueDairy - baseValueVege;
-                    //          System.out.println(total +" total value without sites year defaults");
                 } catch (NumberFormatException e) {
                     System.out.println("Could not parse");
                 }
@@ -171,49 +166,7 @@ public class HomeFragment extends Fragment {
                 String result = String.format("%.2f", total);
                 System.out.println("This is the correct value of today's inputs " + result + "kg of CO2");
 
-
-                //TODO remove when insert to db works
-/*
-                Context context = getContext();
-                UserManager userManager = UserManager.getInstance(getContext());
-                EntryManager entryManager = EntryManager.getInstance();
-                DataEntity dataEntity = DataEntity.getInstance();
-                UserEntity userEntity = UserEntity.getInstance();
-
-                UUID uGuid = null;
-                //uGuid = uManager.createUser().getUserId(); // New user creation
-                uGuid = userManager.getCurrentUserUUID();
-                System.out.println("TEST TEST TEST : " + uGuid);
-
-                // New entry object for data transfer and insert to DB
-                Entry entry = null;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    entry = entryManager.createEntry(uGuid);
-                }
-                testInsertTestData(1, uGuid);
-
-                auxGuid = uGuid;
-
-                // Entry data insert. Prepare Entry object for db insert, copy data to DataEntity
-                new Thread(() -> {
-                    System.out.println("IN DB Entry***************" + dataEntity.getEntryId().toString() + "************");
-                    dataEntity.setTotalResult(result);
-                    System.out.println(result);
-                    dataEntity.setMeatUsed(meatGrams);
-                    System.out.println(meatGrams);
-                    dataEntity.setDairyUsed(dairyGrams);
-                    System.out.println(dairyGrams);
-                    dataEntity.setVegeUsed(vegeGrams);
-                    System.out.println(vegeGrams);
-                    System.out.println("IN DB Entry***************" + "************");
-                    dataDao.insertDataEntities(dataEntity); // Do the thing
-                    System.out.println("IN DB Entry***************" + "************");
-                }).start();
-*/
-                // TODO ENDS Here
-
-                //TODO REMOVE NOT USED STUFF
-
+                // initialize needed methods
                 Context context = this.getContext();
                 userDatabase = UserDatabase.getUserDatabase(context.getApplicationContext());
                 userDao = userDatabase.userDao();
@@ -225,8 +178,8 @@ public class HomeFragment extends Fragment {
                 System.out.println(testString + ": " + uGuid);
 
                 System.out.println("THIS IS TEST SECTION FOR ENTRY DATA INSERT");
-                // TODO: THIS SECTION HANDLES DATA ENTRY IN DB --->
 
+                // THIS SECTION HANDLES DATA ENTRY IN DB --->
                 Entry entry = null;
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                     entry = entryManager.createEntry(uGuid);
@@ -247,14 +200,16 @@ public class HomeFragment extends Fragment {
                 }
 
                 entry.setDairyConsumption(Float.parseFloat(dairyGrams));
-                System.out.println("111111111111111111111111111111111111111111  " + dairyGrams +"g");
                 entry.setMeatConsumption(Float.parseFloat(meatGrams));
-                System.out.println("111111111111111111111111111111111111111111  " + meatGrams +"g");
                 entry.setVegeConsumption(Float.parseFloat(vegeGrams));
-                System.out.println("111111111111111111111111111111111111111111  " + vegeGrams +"g");
                 entry.setTotalResult(Float.parseFloat(result));
-                System.out.println("111111111111111111111111111111111111111111  " + result +"kg of CO2");
                 entry.insertDBEntry();
+                /*
+                System.out.println("111111111111111111111111111111111111111111  " + dairyGrams +"g");
+                System.out.println("111111111111111111111111111111111111111111  " + meatGrams +"g");
+                System.out.println("111111111111111111111111111111111111111111  " + vegeGrams +"g");
+                System.out.println("111111111111111111111111111111111111111111  " + result +"kg of CO2");
+                 */
 
                 new Thread(new Runnable() {
                     @Override

@@ -34,7 +34,6 @@ import java.util.concurrent.TimeUnit;
 
 public class DataFragment extends Fragment {
 
-    // TODO remove when works
     // Variables for user management
     UserManager uManager = UserManager.getInstance(getContext()); // Singleton for User class usage
     // Variables for entry management
@@ -42,10 +41,7 @@ public class DataFragment extends Fragment {
     UserDatabase userDatabase;
     UserDao userDao;
     DataDao dataDao;
-    UserEntity userEntity = UserEntity.getInstance();
-    DataEntity dataEntity = DataEntity.getInstance();
     UUID auxGuid;
-    UUID entryGuid;
     DataEntity[] dataEntities;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -55,28 +51,16 @@ public class DataFragment extends Fragment {
 
         // initialize components
         BarChart barChart = root.findViewById(R.id.barChart);
-        ArrayList<BarEntry> emissions = new ArrayList<>();
+        ArrayList<BarEntry> foodUsage = new ArrayList<>();
         Context context = this.getContext();
 
         //Todo for test use
         userDatabase = UserDatabase.getUserDatabase(context.getApplicationContext());
         userDao = userDatabase.userDao();
         dataDao = userDatabase.dataDao();
-        String testString = "123 ";
         UUID uGuid = null;
-        //uGuid = uManager.createUser().getUserId(); // New user creation
         uGuid = uManager.getCurrentUserUUID();
-        System.out.println(testString + ": " + uGuid);
 
-
-        // get date as number of the month
-        Calendar c = Calendar.getInstance();
-        int wantedDate = c.get(Calendar.DAY_OF_MONTH);
-        System.out.println("Wanted date: " + wantedDate);
-
-        // TODO remove when works
-
-        //System.out.println(dataEntity.getUserId() + " EntryId: " + dataEntity.getEntryId());
         Entry entry = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             entry = entryManager.createEntry(uGuid);
@@ -99,20 +83,18 @@ public class DataFragment extends Fragment {
         // check whether database is empty
         if (dataEntities[0].getTotalResult() != null) {
 
-            // TODO ends here
             // clear old values from arraylist
-            emissions.clear();
+            foodUsage.clear();
             //add values from database
             for (int i = 0; i < dataEntities.length; i++) {
 
                 float totalGrams = Float.parseFloat(dataEntities[i].getDairyUsed()) + Float.parseFloat(dataEntities[i].getMeatUsed()) + Float.parseFloat(dataEntities[i].getVegeUsed());
                 System.out.println("Total FOOD USED IN GRAMS: " + totalGrams);
-                emissions.add(new BarEntry(i, totalGrams));
-
+                foodUsage.add(new BarEntry(i, totalGrams));
             }
 
             // create dataset using library and specify text size and colors
-            BarDataSet barDataSet = new BarDataSet(emissions, "");
+            BarDataSet barDataSet = new BarDataSet(foodUsage, "");
             barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
             barDataSet.setValueTextColor(Color.WHITE);
             barDataSet.setValueTextSize(16f);
@@ -122,50 +104,27 @@ public class DataFragment extends Fragment {
             // format the bar chart here
             barChart.setFitBars(true);
             barChart.setData(barData);
-            barChart.getDescription().setText("Daily emissions");
+            barChart.getDescription().setText("Food usage");
             barChart.animateY(2000);
 
-            /////////////////////////////////////////////////////////////////
-            //////////////////     Draw second chart       //////////////////
-            /////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////
+        //////////////////     Draw second chart       //////////////////
+        /////////////////////////////////////////////////////////////////
 
             // initialize components
             BarChart barChart2 = root.findViewById(R.id.barChart2);
-            ArrayList<BarEntry> foodUsage = new ArrayList<>();
+            ArrayList<BarEntry> emissions = new ArrayList<>();
 
-            // get date as number of the month
-            Calendar c2 = Calendar.getInstance();
-            int wantedDate2 = c2.get(Calendar.DAY_OF_MONTH);
-            System.out.println("Wanted date 2: " + wantedDate2);
-
-            //TODO add data inserts from database
-            //TODO format is day as integer, food usage as grams
-
-            String testString2 = "321 ";
             // clear old values from arraylist
-            foodUsage.clear();
+            emissions.clear();
             // add values from database
             for (int i = 0; i < dataEntities.length; i++) {
 
-
-                System.out.println("Total DAIRY: " + i + "  " + Float.parseFloat(dataEntities[i].getDairyUsed()) + " --------------DAIRY-------------");
-                System.out.println("Total MEAT: " + i + "  " + Float.parseFloat(dataEntities[i].getMeatUsed()) + " --------------MEAT-------------");
-                System.out.println("Total VEGE: " + i + "  " + Float.parseFloat(dataEntities[i].getVegeUsed()) + " -------------VEGE--------------");
-
-                float totalGrams3 = Float.parseFloat(dataEntities[i].getDairyUsed()) + Float.parseFloat(dataEntities[i].getMeatUsed()) + Float.parseFloat(dataEntities[i].getVegeUsed());
-                System.out.println("Total FOOD USED IN GRAMS: " + totalGrams3);
-
-                foodUsage.add(new BarEntry(i, Float.parseFloat(dataEntities[i].getTotalResult())));
+                emissions.add(new BarEntry(i, Float.parseFloat(dataEntities[i].getTotalResult())));
             }
 
-            System.out.println("START OF FOODUSAGE ARRAYLIS   -   foodUsage");
-            System.out.println(foodUsage);
-            System.out.println("END OF FOODUSAGE ARRAYLIS   -   foodUsage");
-
-            //TODO remove these when works
-
             // create dataset using library and specify text size and colors
-            BarDataSet barDataSet2 = new BarDataSet(foodUsage, "");
+            BarDataSet barDataSet2 = new BarDataSet(emissions, "");
             barDataSet2.setColors(ColorTemplate.MATERIAL_COLORS);
             barDataSet2.setValueTextColor(Color.WHITE);
             barDataSet2.setValueTextSize(16f);
@@ -175,7 +134,7 @@ public class DataFragment extends Fragment {
             // format the bar chart here
             barChart2.setFitBars(true);
             barChart2.setData(barData2);
-            barChart2.getDescription().setText("Food usage");
+            barChart2.getDescription().setText("Daily emissions");
             barChart2.animateY(2000);
 
         } else {
@@ -183,8 +142,4 @@ public class DataFragment extends Fragment {
         }
         return root;
     }
-
-    // Test methods
-
-
 }
