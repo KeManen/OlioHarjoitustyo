@@ -229,8 +229,6 @@ public class HomeFragment extends Fragment {
                 }
                 Toast.makeText(getContext(), "Data insert complete", Toast.LENGTH_SHORT).show();
 
-                //TODO ENDS HERE
-
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (SAXException e) {

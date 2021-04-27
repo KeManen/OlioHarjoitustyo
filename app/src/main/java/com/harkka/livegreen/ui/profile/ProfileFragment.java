@@ -197,6 +197,23 @@ public class ProfileFragment extends Fragment {
             OutputStreamWriter osw = new OutputStreamWriter(context.openFileOutput(dataFile, Context.MODE_PRIVATE));
 
             //TODO add what to write into log file here
+            // dataEntity insert needed
+/*
+            int number = 1;
+            for (int i = 0; i <= dataEntities.length; i++) {
+
+                osw.write("Input"+ number + "DAIRY: " + Float.parseFloat(dataEntities[i].getDairyUsed()) + "g\n");
+                osw.write("Input " + number + " MEAT: " + Float.parseFloat(dataEntities[i].getMeatUsed()) + "g\n");
+                osw.write("Input " + number + " VEGE: " + Float.parseFloat(dataEntities[i].getVegeUsed()) + "g\n");
+                float totalGrams3 = Float.parseFloat(dataEntities[i].getDairyUsed()) + Float.parseFloat(dataEntities[i]
+                        .getMeatUsed()) + Float.parseFloat(dataEntities[i].getVegeUsed());
+                osw.write("Input " + number + " Total food usage in grams: " + totalGrams3 + "\n");
+                osw.write("Input " + number + " Generated " + Float.parseFloat(dataEntities[i].getTotalResult()) + "kg's of CO2 \n");
+                osw.write("\n");
+                number ++;
+            }
+*/
+
             System.out.println("Datafile write ok...");
 
             osw.close();
