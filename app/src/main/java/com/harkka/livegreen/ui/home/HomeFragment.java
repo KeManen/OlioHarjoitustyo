@@ -260,8 +260,8 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void run() {
                         dataDao.insertDataEntity(dataEntity);
-                        System.out.println("IN TEST ***************" + DataEntity.getInstance().getEntryId().toString() + "************");
-                        System.out.println("IN TEST ***************" + dataEntity.getTotalResult() + "************ TOTAL RESULT");
+                        System.out.println("IN TEST *************** " + DataEntity.getInstance().getEntryId().toString() + " ************");
+                        System.out.println("IN TEST *************** " + dataEntity.getTotalResult() + "kg of CO2 ************ TOTAL RESULT");
                     }
                 }).start();
 

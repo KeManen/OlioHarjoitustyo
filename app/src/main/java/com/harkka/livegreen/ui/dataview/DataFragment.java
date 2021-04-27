@@ -74,28 +74,15 @@ public class DataFragment extends Fragment {
         int wantedDate = c.get(Calendar.DAY_OF_MONTH);
         System.out.println("Wanted date: " + wantedDate);
 
-        if(dataEntity.getTotalResult() != null) {
-            // clear old values from arraylist
-            emissions.clear();
-
-
-            // TODO remove when works
+        // TODO remove when works
 
         //System.out.println(dataEntity.getUserId() + " EntryId: " + dataEntity.getEntryId());
         Entry entry = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             entry = entryManager.createEntry(uGuid);
         }
-        System.out.println(testString + "***" + entry.getWeight() + "****");
         entryManager.setEntry(entry);
         entry = entryManager.getEntry();
-
-        System.out.println(testString + " " + entry.getWeight() + "************");
-
-        //TODO: Here a test insert method void testInsertData(int type)
-        //testInsertTestData(0, uGuid);
-        testInsertTestData(1, uGuid);
-
         auxGuid = uGuid;
 
         new Thread(() -> {
@@ -103,47 +90,41 @@ public class DataFragment extends Fragment {
             String testString2 = "12321";
             System.out.println("In new Thread - Load entities ******************" + auxGuid.toString() + "******************");
             dataEntities = dataDao.loadAllDataEntitiesByUserId(auxGuid.toString());
-            //dataEntity = dataDao.loadDataEntityByEntryId(auxGuid.toString());
-            //System.out.println(testString2 + " " + dataEntity);
-            //System.out.println(testString2 + dataEntity.getTotalResult() + dataEntity.getDateTime());
- //           if (!dataEntities.equals(null)) {
-                System.out.println(testString2 + " " + dataEntities);
-                System.out.println(testString2 + " " + dataEntities[0].getMeatUsed());
-                System.out.println(testString2 + " " + dataEntities[0].getTotalResult() + " " + dataEntities[0].getDateTime());
- //           }
- //           else{
- //               System.out.println("DataEntities says: null!");
- //           }
         }).start();
 
-            // Sleep for 1second so db thread has time to finalize load
-            try {
-                TimeUnit.SECONDS.sleep(1);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        // Sleep for 1second so db thread has time to finalize load
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-         // TODO ends here
+        if (dataEntities[0].getTotalResult() != null) {
+            // clear old values from arraylist
+            emissions.clear();
+
+            // TODO ends here
+
+            float totalGrams = 0f;
+            totalGrams = Float.parseFloat(dataEntities[0].getDairyUsed()) + Float.parseFloat(dataEntities[0].getMeatUsed()) + Float.parseFloat(dataEntities[0].getVegeUsed());
+            System.out.println(Float.parseFloat(dataEntities[0].getDairyUsed()) + " --------------DAIRY-------------");
+            System.out.println(Float.parseFloat(dataEntities[0].getMeatUsed()) + " --------------MEAT-------------");
+            System.out.println(Float.parseFloat(dataEntities[0].getVegeUsed()) + " -------------VEGE--------------");
+
+            System.out.println("################# " + totalGrams + " #################");
+
+            float totalGrams2 = 0f;
+            totalGrams2 = Float.parseFloat(dataEntities[5].getDairyUsed()) + Float.parseFloat(dataEntities[5].getMeatUsed()) + Float.parseFloat(dataEntities[5].getVegeUsed());
+            System.out.println("################# " + totalGrams2 + " #################");
 
 
             for (int i = 0; i < 15; i++) {
-                System.out.println(testString);
+
+                float totalGrams3 = Float.parseFloat(dataEntities[i].getDairyUsed()) + Float.parseFloat(dataEntities[i].getMeatUsed()) + Float.parseFloat(dataEntities[i].getVegeUsed());
+                System.out.println("Total FOOD USED IN GRAMS: " + totalGrams3);
+                emissions.add(new BarEntry(i, totalGrams3));
+
             }
-
-            // test emissions for a week
-            //TODO remove these when works
-
-            //emissions.add(new BarEntry(1, Float.parseFloat(dataEntities[0].getDairyUsed())));
-            //emissions.add(new BarEntry(2, Float.parseFloat(dataEntities[0].getMeatUsed())));
-            //emissions.add(new BarEntry(3, Float.parseFloat(dataEntities[0].getVegeUsed())));
-            emissions.add(new BarEntry(1, Float.parseFloat(dataEntity.getDairyUsed())));
-            emissions.add(new BarEntry(2, Float.parseFloat(dataEntity.getMeatUsed())));
-            emissions.add(new BarEntry(3, Float.parseFloat(dataEntity.getVegeUsed())));
-            emissions.add(new BarEntry(4, 180));
-            emissions.add(new BarEntry(10, 400));
-            emissions.add(new BarEntry(11, 320));
-            emissions.add(new BarEntry(12, 620));
-
 
             // create dataset using library and specify text size and colors
             BarDataSet barDataSet = new BarDataSet(emissions, "");
@@ -179,34 +160,23 @@ public class DataFragment extends Fragment {
             // clear old values from arraylist
             foodUsage.clear();
             for (int i = 0; i < 15; i++) {
-                String totalFoodUsage;
-                totalFoodUsage = DataEntity.getInstance().getVegeUsed() + DataEntity.getInstance().getMeatUsed() + DataEntity.getInstance().getDairyUsed();
-                System.out.println("Total foodusage: " + totalFoodUsage);
 
-                //     foodUsage.add(new BarEntry(totalFoodUsage , dateTime));
-                System.out.println(testString2);
+
+                System.out.println("Total DAIRY: " + i + "  " + Float.parseFloat(dataEntities[i].getDairyUsed()) + " --------------DAIRY-------------");
+                System.out.println("Total MEAT: " + i + "  " + Float.parseFloat(dataEntities[i].getMeatUsed()) + " --------------MEAT-------------");
+                System.out.println("Total VEGE: " + i + "  " + Float.parseFloat(dataEntities[i].getVegeUsed()) + " -------------VEGE--------------");
+
+                float totalGrams3 = Float.parseFloat(dataEntities[i].getDairyUsed()) + Float.parseFloat(dataEntities[i].getMeatUsed()) + Float.parseFloat(dataEntities[i].getVegeUsed());
+                System.out.println("Total FOOD USED IN GRAMS: " + totalGrams3);
+
+                foodUsage.add(new BarEntry(i, Float.parseFloat(dataEntities[i].getTotalResult())));
             }
 
+            System.out.println("START OF FOODUSAGE ARRAYLIS   -   foodUsage");
+            System.out.println(foodUsage);
+            System.out.println("END OF FOODUSAGE ARRAYLIS   -   foodUsage");
 
             //TODO remove these when works
-            //test CO2/kg per day for 2 weeks
-
-            //foodUsage.add(new BarEntry(1, 5));
-            foodUsage.add(new BarEntry(1, Float.parseFloat(dataEntities[0].getTotalResult())));
-            foodUsage.add(new BarEntry(2, 9));
-            foodUsage.add(new BarEntry(3, 5));
-            foodUsage.add(new BarEntry(4, 4));
-            foodUsage.add(new BarEntry(5, 5));
-            foodUsage.add(new BarEntry(6, 9));
-            foodUsage.add(new BarEntry(7, 5));
-            foodUsage.add(new BarEntry(8, 4));
-            foodUsage.add(new BarEntry(9, 3));
-            foodUsage.add(new BarEntry(10, 4));
-            foodUsage.add(new BarEntry(11, 3));
-            foodUsage.add(new BarEntry(12, 4));
-            foodUsage.add(new BarEntry(13, 5));
-            foodUsage.add(new BarEntry(14, 9));
-
 
             // create dataset using library and specify text size and colors
             BarDataSet barDataSet2 = new BarDataSet(foodUsage, "");
@@ -229,47 +199,5 @@ public class DataFragment extends Fragment {
 
     // Test methods
 
-    private void testInsertTestData(int type, UUID uGuid) {
-        UUID entryGuid;
-        switch (type) {
-            case 0:
-                System.out.println("THIS IS TEST SECTION FOR USER INSERT");
-
-                break;
-            case 1:
-                System.out.println("THIS IS TEST SECTION FOR ENTRY DATA INSERT");
-                // TODO: THIS SECTION HANDLES DATA ENTRY IN DB --->
-
-                Entry entry = entryManager.createEntry(uGuid);
-                entryGuid = entry.getEntryGuid();
-                entry.setUserGuid(uManager.getCurrentUserUUID());;
-                entry.setEntryGuid(entryGuid);
-                //entry.setDateTime(LocalDateTime.now());
-                entry.setWeight(Float.parseFloat("80"));
-                entry.setHeight(Float.parseFloat("1.8"));
-                entry.setDairyConsumption(Float.parseFloat("100"));
-                entry.setMeatConsumption(Float.parseFloat("150"));
-                entry.setVegeConsumption(Float.parseFloat("80"));
-                entry.setTotalResult(Float.parseFloat("13"));
-                entry.insertDBEntry();
-
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        System.out.println("IN TEST ***************" + DataEntity.getInstance().getEntryId().toString() + "************");
-                        dataDao.insertDataEntity(dataEntity);
-                        System.out.println("IN TEST ***************" + dataEntity.getEntryId().toString() + "************");
-                        System.out.println("IN TEST ***************" + dataEntity.getTotalResult() + "************");
-                        System.out.println("IN TEST ***************" + dataEntity.getDateTime().toString() + "************");
-                    }
-                }).start();
-
-                // TODO: <--- ENDS HERE
-                break;
-            default:
-                break;
-        }
-
-    }
 
 }
