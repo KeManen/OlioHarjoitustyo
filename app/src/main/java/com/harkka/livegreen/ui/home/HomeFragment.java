@@ -1,6 +1,7 @@
 package com.harkka.livegreen.ui.home;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.LayoutInflater;
@@ -37,7 +38,9 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -57,12 +60,18 @@ public class HomeFragment extends Fragment {
     private Button buttonSubmit;
 
     // TODO remove when insert to db works
-    // Variables for data entity management
-    private UserDatabase userDatabase;
-    private UserDao userDao;
-    private DataDao dataDao;
-    private UUID auxGuid;
-    private DataEntity[] dataEntities;
+    // Variables for user management
+    UserManager userManager = UserManager.getInstance(getContext()); // Singleton for User class usage
+    // Variables for entry management
+    EntryManager entryManager = EntryManager.getInstance(); // Singleton for Entry class usage
+    UserDatabase userDatabase;
+    UserDao userDao;
+    DataDao dataDao;
+    UserEntity userEntity = UserEntity.getInstance();
+    DataEntity dataEntity = DataEntity.getInstance();
+    UUID auxGuid;
+    UUID entryGuid;
+    DataEntity[] dataEntities;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -164,22 +173,28 @@ public class HomeFragment extends Fragment {
 
 
                 //TODO remove when insert to db works
-
+/*
                 Context context = getContext();
-                UserManager um = UserManager.getInstance(getContext());
-                EntryManager em = EntryManager.getInstance();
+                UserManager userManager = UserManager.getInstance(getContext());
+                EntryManager entryManager = EntryManager.getInstance();
                 DataEntity dataEntity = DataEntity.getInstance();
                 UserEntity userEntity = UserEntity.getInstance();
-                UUID uGuid = um.getCurrentUserUUID();
+
+                UUID uGuid = null;
+                //uGuid = uManager.createUser().getUserId(); // New user creation
+                uGuid = userManager.getCurrentUserUUID();
+                System.out.println("TEST TEST TEST : " + uGuid);
 
                 // New entry object for data transfer and insert to DB
                 Entry entry = null;
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    entry = em.createEntry(uGuid);
+                    entry = entryManager.createEntry(uGuid);
                 }
+                testInsertTestData(1, uGuid);
 
-                // Entry data insert
-                entry.insertDBEntry(); // Prepare Entry object for db insert, copy data to DataEntity
+                auxGuid = uGuid;
+
+                // Entry data insert. Prepare Entry object for db insert, copy data to DataEntity
                 new Thread(() -> {
                     System.out.println("IN DB Entry***************" + dataEntity.getEntryId().toString() + "************");
                     dataEntity.setTotalResult(result);
@@ -194,9 +209,72 @@ public class HomeFragment extends Fragment {
                     dataDao.insertDataEntities(dataEntity); // Do the thing
                     System.out.println("IN DB Entry***************" + "************");
                 }).start();
-
+*/
                 // TODO ENDS Here
 
+                //TODO REMOVE NOT USED STUFF
+
+                Context context = this.getContext();
+                userDatabase = UserDatabase.getUserDatabase(context.getApplicationContext());
+                userDao = userDatabase.userDao();
+                dataDao = userDatabase.dataDao();
+                String testString = "123 ";
+                UUID uGuid = null;
+                //uGuid = uManager.createUser().getUserId(); // New user creation
+                uGuid = userManager.getCurrentUserUUID();
+                System.out.println(testString + ": " + uGuid);
+
+                System.out.println("THIS IS TEST SECTION FOR ENTRY DATA INSERT");
+                // TODO: THIS SECTION HANDLES DATA ENTRY IN DB --->
+
+                Entry entry = null;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    entry = entryManager.createEntry(uGuid);
+                }
+                System.out.println(testString + "***" + entry.getTotalResult() + "****");
+                entryManager.setEntry(entry);
+                entry = entryManager.getEntry();
+
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    entry = entryManager.createEntry(uGuid);
+                }
+                entryGuid = entry.getEntryGuid();
+                entry.setUserGuid(userManager.getCurrentUserUUID());
+                ;
+                entry.setEntryGuid(entryGuid);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    entry.setDateTime(LocalDateTime.now());
+                }
+
+                entry.setDairyConsumption(Float.parseFloat(dairyGrams));
+                System.out.println("111111111111111111111111111111111111111111  " + dairyGrams +"g");
+                entry.setMeatConsumption(Float.parseFloat(meatGrams));
+                System.out.println("111111111111111111111111111111111111111111  " + meatGrams +"g");
+                entry.setVegeConsumption(Float.parseFloat(vegeGrams));
+                System.out.println("111111111111111111111111111111111111111111  " + vegeGrams +"g");
+                entry.setTotalResult(Float.parseFloat(result));
+                System.out.println("111111111111111111111111111111111111111111  " + result +"kg of CO2");
+                entry.insertDBEntry();
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        dataDao.insertDataEntity(dataEntity);
+                        System.out.println("IN TEST ***************" + DataEntity.getInstance().getEntryId().toString() + "************");
+                        System.out.println("IN TEST ***************" + dataEntity.getTotalResult() + "************ TOTAL RESULT");
+                    }
+                }).start();
+
+                // give thread 1 second to process data transfer
+                Toast.makeText(getContext(), "Processing data", Toast.LENGTH_SHORT).show();
+                try {
+                    TimeUnit.SECONDS.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Toast.makeText(getContext(), "Data insert complete", Toast.LENGTH_SHORT).show();
+
+                //TODO ENDS HERE
 
             } catch (IOException e) {
                 e.printStackTrace();
