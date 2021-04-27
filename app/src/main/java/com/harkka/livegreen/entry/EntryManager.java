@@ -55,23 +55,27 @@ public class EntryManager {
         switch(entryType){
             case 0:
                 entry.setWeight(newEntry);
-                //entryManager.entry.insertDBEntry(entryType);
+                entryManager.entry.insertDBEntry(entryType);
                 break;
             case 1:
                 entryManager.entry.setHeight(newEntry);
-                //entryManager.entry.insertDBEntry(entryType);
+                entryManager.entry.insertDBEntry(entryType);
                 break;
             case 2:
                 entryManager.entry.setDairyConsumption(newEntry);
-                //entryManager.entry.insertDBEntry(entryType);
+                entryManager.entry.insertDBEntry(entryType);
                 break;
             case 3:
                 entryManager.entry.setMeatConsumption(newEntry);
-                //entryManager.entry.insertDBEntry(entryType);
+                entryManager.entry.insertDBEntry(entryType);
                 break;
             case 4:
                 entryManager.entry.setVegeConsumption(newEntry);
-                //entryManager.entry.insertDBEntry(entryType);
+                entryManager.entry.insertDBEntry(entryType);
+                break;
+            case 5:
+                entryManager.entry.setTotalResult(newEntry);
+                entryManager.entry.insertDBEntry(entryType);
                 break;
             default:
                 break;
@@ -96,6 +100,9 @@ public class EntryManager {
                 break;
             case 4:
                 ret = entryManager.entry.getVegeConsumption();
+                break;
+            case 5:
+                ret = entryManager.entry.getTotalResult();
                 break;
             default:
                 break;

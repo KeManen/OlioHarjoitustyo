@@ -30,6 +30,7 @@ import com.harkka.livegreen.user.UserManager;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class DataFragment extends Fragment {
 
@@ -44,6 +45,7 @@ public class DataFragment extends Fragment {
     UserEntity userEntity = UserEntity.getInstance();
     DataEntity dataEntity = DataEntity.getInstance();
     UUID auxGuid;
+    UUID entryGuid;
     DataEntity[] dataEntities;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -62,15 +64,15 @@ public class DataFragment extends Fragment {
         dataDao = userDatabase.dataDao();
         String testString = "123 ";
         UUID uGuid = null;
-        uGuid = uManager.createUser().getUserId(); // New user creation
+        //uGuid = uManager.createUser().getUserId(); // New user creation
         uGuid = uManager.getCurrentUserUUID();
         System.out.println(testString + ": " + uGuid);
-        auxGuid = uGuid;
+
 
         // get date as number of the month
         Calendar c = Calendar.getInstance();
         int wantedDate = c.get(Calendar.DAY_OF_MONTH);
-        System.out.println(wantedDate);
+        System.out.println("Wanted date: " + wantedDate);
 
         if(dataEntity.getTotalResult() != null) {
             // clear old values from arraylist
@@ -91,7 +93,7 @@ public class DataFragment extends Fragment {
         System.out.println(testString + " " + entry.getWeight() + "************");
 
         //TODO: Here a test insert method void testInsertData(int type)
-        testInsertTestData(0, uGuid);
+        //testInsertTestData(0, uGuid);
         testInsertTestData(1, uGuid);
 
         auxGuid = uGuid;
@@ -104,16 +106,24 @@ public class DataFragment extends Fragment {
             //dataEntity = dataDao.loadDataEntityByEntryId(auxGuid.toString());
             //System.out.println(testString2 + " " + dataEntity);
             //System.out.println(testString2 + dataEntity.getTotalResult() + dataEntity.getDateTime());
-            if (!dataEntities.equals(null)) {
+ //           if (!dataEntities.equals(null)) {
                 System.out.println(testString2 + " " + dataEntities);
-                System.out.println(testString2 + dataEntities[0].getTotalResult() + dataEntities[0].getDateTime());
-            }
-            else{
-                System.out.println("DataEntities says: null!");
-            }
+                System.out.println(testString2 + " " + dataEntities[0].getMeatUsed());
+                System.out.println(testString2 + " " + dataEntities[0].getTotalResult() + " " + dataEntities[0].getDateTime());
+ //           }
+ //           else{
+ //               System.out.println("DataEntities says: null!");
+ //           }
         }).start();
 
-            // TODO ends here
+            // Sleep for 1second so db thread has time to finalize load
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+         // TODO ends here
 
 
             for (int i = 0; i < 15; i++) {
@@ -122,15 +132,18 @@ public class DataFragment extends Fragment {
 
             // test emissions for a week
             //TODO remove these when works
-            /*
-            emissions.add(new BarEntry(1, 50));
-            emissions.add(new BarEntry(2, 220));
-            emissions.add(new BarEntry(3, 700));
+
+            //emissions.add(new BarEntry(1, Float.parseFloat(dataEntities[0].getDairyUsed())));
+            //emissions.add(new BarEntry(2, Float.parseFloat(dataEntities[0].getMeatUsed())));
+            //emissions.add(new BarEntry(3, Float.parseFloat(dataEntities[0].getVegeUsed())));
+            emissions.add(new BarEntry(1, Float.parseFloat(dataEntity.getDairyUsed())));
+            emissions.add(new BarEntry(2, Float.parseFloat(dataEntity.getMeatUsed())));
+            emissions.add(new BarEntry(3, Float.parseFloat(dataEntity.getVegeUsed())));
             emissions.add(new BarEntry(4, 180));
             emissions.add(new BarEntry(10, 400));
             emissions.add(new BarEntry(11, 320));
             emissions.add(new BarEntry(12, 620));
-             */
+
 
             // create dataset using library and specify text size and colors
             BarDataSet barDataSet = new BarDataSet(emissions, "");
@@ -157,7 +170,7 @@ public class DataFragment extends Fragment {
             // get date as number of the month
             Calendar c2 = Calendar.getInstance();
             int wantedDate2 = c2.get(Calendar.DAY_OF_MONTH);
-            System.out.println(wantedDate2);
+            System.out.println("Wanted date 2: " + wantedDate2);
 
             //TODO add data inserts from database
             //TODO format is day as integer, food usage as grams
@@ -168,7 +181,7 @@ public class DataFragment extends Fragment {
             for (int i = 0; i < 15; i++) {
                 String totalFoodUsage;
                 totalFoodUsage = DataEntity.getInstance().getVegeUsed() + DataEntity.getInstance().getMeatUsed() + DataEntity.getInstance().getDairyUsed();
-                System.out.println(totalFoodUsage);
+                System.out.println("Total foodusage: " + totalFoodUsage);
 
                 //     foodUsage.add(new BarEntry(totalFoodUsage , dateTime));
                 System.out.println(testString2);
@@ -177,8 +190,9 @@ public class DataFragment extends Fragment {
 
             //TODO remove these when works
             //test CO2/kg per day for 2 weeks
-            /*
-            foodUsage.add(new BarEntry(1, 5));
+
+            //foodUsage.add(new BarEntry(1, 5));
+            foodUsage.add(new BarEntry(1, Float.parseFloat(dataEntities[0].getTotalResult())));
             foodUsage.add(new BarEntry(2, 9));
             foodUsage.add(new BarEntry(3, 5));
             foodUsage.add(new BarEntry(4, 4));
@@ -192,7 +206,7 @@ public class DataFragment extends Fragment {
             foodUsage.add(new BarEntry(12, 4));
             foodUsage.add(new BarEntry(13, 5));
             foodUsage.add(new BarEntry(14, 9));
-            */
+
 
             // create dataset using library and specify text size and colors
             BarDataSet barDataSet2 = new BarDataSet(foodUsage, "");
@@ -216,7 +230,7 @@ public class DataFragment extends Fragment {
     // Test methods
 
     private void testInsertTestData(int type, UUID uGuid) {
-
+        UUID entryGuid;
         switch (type) {
             case 0:
                 System.out.println("THIS IS TEST SECTION FOR USER INSERT");
@@ -227,16 +241,16 @@ public class DataFragment extends Fragment {
                 // TODO: THIS SECTION HANDLES DATA ENTRY IN DB --->
 
                 Entry entry = entryManager.createEntry(uGuid);
-                //auxGuid = entry.getEntryGuid();
-                //entry.setUserGuid(uManager.getCurrentUserUUID());;
-                //entry.setEntryGuid(entryGuid);
-                //entry.setDateTime(LocalDateTime.now());
+                entryGuid = entry.getEntryGuid();
+                entry.setUserGuid(uManager.getCurrentUserUUID());;
+                entry.setEntryGuid(entryGuid);
+                entry.setDateTime(LocalDateTime.now());
                 entry.setWeight(Float.parseFloat("80"));
                 entry.setHeight(Float.parseFloat("1.8"));
-                entry.setDairyConsumption(Float.parseFloat("80"));
-                entry.setMeatConsumption(Float.parseFloat("80"));
+                entry.setDairyConsumption(Float.parseFloat("100"));
+                entry.setMeatConsumption(Float.parseFloat("150"));
                 entry.setVegeConsumption(Float.parseFloat("80"));
-                entry.setTotalResult(Float.parseFloat("800"));
+                entry.setTotalResult(Float.parseFloat("13"));
                 entry.insertDBEntry();
 
                 new Thread(new Runnable() {
@@ -244,6 +258,9 @@ public class DataFragment extends Fragment {
                     public void run() {
                         System.out.println("IN TEST ***************" + DataEntity.getInstance().getEntryId().toString() + "************");
                         dataDao.insertDataEntity(dataEntity);
+                        System.out.println("IN TEST ***************" + dataEntity.getEntryId().toString() + "************");
+                        System.out.println("IN TEST ***************" + dataEntity.getTotalResult() + "************");
+                        System.out.println("IN TEST ***************" + dataEntity.getDateTime().toString() + "************");
                     }
                 }).start();
 

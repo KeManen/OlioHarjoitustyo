@@ -157,7 +157,14 @@ public class Entry {
     // Makes db insert of entry
     public void insertDBEntry() {
         DataEntity dataEntity = DataEntity.getInstance();
-        
+
+        System.out.println(classString + " - insertDBEntry");
+        System.out.println(classString + " - userGuid: " + userGuid);
+        System.out.println(classString + " - entryGuid: " + entryGuid);
+        System.out.println(classString + " - DateTime: " + entryDateTime);
+        System.out.println(classString + " - meatConsumption: " + meatConsumption);
+        System.out.println(classString + " - totalResult: " + totalResult);
+
         dataEntity.setUserId(userGuid);
         dataEntity.setEntryId(entryGuid);
         dataEntity.setDateTime(entryDateTime);

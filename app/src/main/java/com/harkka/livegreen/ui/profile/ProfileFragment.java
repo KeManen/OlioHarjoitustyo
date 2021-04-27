@@ -277,7 +277,7 @@ public class ProfileFragment extends Fragment {
         user.insertDBUser(); // Prepare User object for db insert, copy data to DataEntity
         userProfile.insertDBUserProfile(); // Prepare UserProfile object for db insert, copy data to DataEntity
         new Thread(() -> {
-            System.out.println("IN DB User ***************" + dataEntity.getEntryId().toString() + "************");
+            System.out.println("IN DB User ***************" + dataEntity.getUserId().toString() + "************");
             // User and UserProfile are both included in UserEntity
             userDao.insertUserEntity(userEntity);
         }).start();
