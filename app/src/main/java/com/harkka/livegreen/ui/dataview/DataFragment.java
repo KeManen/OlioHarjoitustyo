@@ -96,31 +96,18 @@ public class DataFragment extends Fragment {
             e.printStackTrace();
         }
 
-        // check whether database is has no objects
+        // check whether database is empty
         if (dataEntities[0].getTotalResult() != null) {
 
             // TODO ends here
-
-            float totalGrams = 0f;
-            totalGrams = Float.parseFloat(dataEntities[0].getDairyUsed()) + Float.parseFloat(dataEntities[0].getMeatUsed()) + Float.parseFloat(dataEntities[0].getVegeUsed());
-            System.out.println(Float.parseFloat(dataEntities[0].getDairyUsed()) + " --------------DAIRY-------------");
-            System.out.println(Float.parseFloat(dataEntities[0].getMeatUsed()) + " --------------MEAT-------------");
-            System.out.println(Float.parseFloat(dataEntities[0].getVegeUsed()) + " -------------VEGE--------------");
-
-            System.out.println("################# " + totalGrams + " #################");
-
-            float totalGrams2 = 0f;
-            totalGrams2 = Float.parseFloat(dataEntities[5].getDairyUsed()) + Float.parseFloat(dataEntities[5].getMeatUsed()) + Float.parseFloat(dataEntities[5].getVegeUsed());
-            System.out.println("################# " + totalGrams2 + " #################");
-
             // clear old values from arraylist
             emissions.clear();
             //add values from database
-            for (int i = 0; i < dataEntities.length ; i++) {
+            for (int i = 0; i < dataEntities.length; i++) {
 
-                float totalGrams3 = Float.parseFloat(dataEntities[i].getDairyUsed()) + Float.parseFloat(dataEntities[i].getMeatUsed()) + Float.parseFloat(dataEntities[i].getVegeUsed());
-                System.out.println("Total FOOD USED IN GRAMS: " + totalGrams3);
-                emissions.add(new BarEntry(i, totalGrams3));
+                float totalGrams = Float.parseFloat(dataEntities[i].getDairyUsed()) + Float.parseFloat(dataEntities[i].getMeatUsed()) + Float.parseFloat(dataEntities[i].getVegeUsed());
+                System.out.println("Total FOOD USED IN GRAMS: " + totalGrams);
+                emissions.add(new BarEntry(i, totalGrams));
 
             }
 
@@ -158,7 +145,7 @@ public class DataFragment extends Fragment {
             // clear old values from arraylist
             foodUsage.clear();
             // add values from database
-            for (int i = 0; i < dataEntities.length ; i++) {
+            for (int i = 0; i < dataEntities.length; i++) {
 
 
                 System.out.println("Total DAIRY: " + i + "  " + Float.parseFloat(dataEntities[i].getDairyUsed()) + " --------------DAIRY-------------");
@@ -190,6 +177,7 @@ public class DataFragment extends Fragment {
             barChart2.setData(barData2);
             barChart2.getDescription().setText("Food usage");
             barChart2.animateY(2000);
+
         } else {
             Toast.makeText(getContext(), "Insert data first", Toast.LENGTH_SHORT).show();
         }
