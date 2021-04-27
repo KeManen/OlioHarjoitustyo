@@ -99,7 +99,7 @@ public class CreateUser2 extends AppCompatActivity {
         User user = userManager.createUser();
         user.setUserName(username);
         user.setUserEmail(email);
-        user.setUserPasswd(Scrambler.scrambledPassword(password));
+        user.setUserPasswd(Scrambler.scrambledPassword(password, username));
 
         UserProfile userProfile = userManager.createUserProfile(user.getUserId());
         userProfile.setUserProfile(user.getUserId(), SFirstName, SLastName, iAge, SLocation);

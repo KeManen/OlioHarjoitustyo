@@ -244,7 +244,7 @@ public class DataFragment extends Fragment {
                 entryGuid = entry.getEntryGuid();
                 entry.setUserGuid(uManager.getCurrentUserUUID());;
                 entry.setEntryGuid(entryGuid);
-                entry.setDateTime(LocalDateTime.now());
+                //entry.setDateTime(LocalDateTime.now());
                 entry.setWeight(Float.parseFloat("80"));
                 entry.setHeight(Float.parseFloat("1.8"));
                 entry.setDairyConsumption(Float.parseFloat("100"));

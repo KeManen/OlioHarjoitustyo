@@ -1,17 +1,16 @@
 package com.harkka.livegreen.logic;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 
 public class Scrambler {
 
     //scrambledPassword
     //returns sha512 and salt scrambled password
-    public static String scrambledPassword(String passwordToHash){
+    public static String scrambledPassword(String passwordToHash, String seed){
         String generatedPassword = null;
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-512");
-            md.update(getSalt());
+            md.update(getSalt(seed));
             byte[] bytes = md.digest(passwordToHash.getBytes());
             StringBuilder sb = new StringBuilder();
             for (byte aByte : bytes) {
@@ -26,10 +25,16 @@ public class Scrambler {
     }
     //getSalt
     //returns salt
-    private static byte[] getSalt() throws NoSuchAlgorithmException{
-        SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
+    private static byte[] getSalt(String seed) throws NoSuchAlgorithmException {
+        /*SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
         byte[] salt = new byte[16];
         sr.nextBytes(salt);
         return salt;
+         */
+
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        return md.digest(seed.getBytes());
+
+
     }
 }

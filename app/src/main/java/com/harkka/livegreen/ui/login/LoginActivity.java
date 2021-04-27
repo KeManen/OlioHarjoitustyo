@@ -61,7 +61,9 @@ public class LoginActivity extends AppCompatActivity {
 
             // Check database for existing user
             new Thread(() -> {
-                UserEntity userEntity = userDao.login(userIdText, Scrambler.scrambledPassword(passwordText));
+                System.out.println("inputted password: "+passwordText);
+                System.out.println("scrambled password: "+Scrambler.scrambledPassword(passwordText, userIdText));
+                UserEntity userEntity = userDao.login(userIdText, Scrambler.scrambledPassword(passwordText, userIdText));
 
                 if (userEntity == null) {
                     // In case of user not found:
