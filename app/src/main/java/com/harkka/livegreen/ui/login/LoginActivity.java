@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.harkka.livegreen.MainActivity;
 import com.harkka.livegreen.R;
+import com.harkka.livegreen.iohandler.IOHandler;
 import com.harkka.livegreen.roomdb.UserDao;
 import com.harkka.livegreen.roomdb.UserDatabase;
 import com.harkka.livegreen.roomdb.UserEntity;
@@ -39,7 +40,6 @@ public class LoginActivity extends AppCompatActivity {
         notYetUser = findViewById(R.id.notYetUser);
         userId = findViewById(R.id.userId);
         password = findViewById(R.id.password);
-
 
         login.setOnClickListener(v -> {
             // get inputs
@@ -90,6 +90,13 @@ public class LoginActivity extends AppCompatActivity {
                 System.out.println("loggedUserEntity/userId: "+ userEntity.getUserId());
 
                 userManager.setCurrentUser(userEntity);
+
+                // Write user login into user log
+                // Wake IOHandler
+                System.out.println("Login IOHandler start");
+                IOHandler ioHandler = IOHandler.getInstance();
+                int login = 1;
+                ioHandler.doFileAction(getApplicationContext(), userEntity.getUserId(), userEntity.getUserName(), login);
 
                 //move to main activity and remove this view from backtrace for ux reasons
                 startActivity(new Intent(getApplicationContext(), MainActivity.class)

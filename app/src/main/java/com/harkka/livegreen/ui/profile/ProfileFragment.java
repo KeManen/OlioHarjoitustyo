@@ -23,6 +23,7 @@ import com.harkka.livegreen.calculable.BMI;
 import com.harkka.livegreen.calculable.Calculable;
 import com.harkka.livegreen.entry.Entry;
 import com.harkka.livegreen.entry.EntryManager;
+import com.harkka.livegreen.iohandler.IOHandler;
 import com.harkka.livegreen.roomdb.DataDao;
 import com.harkka.livegreen.roomdb.DataEntity;
 import com.harkka.livegreen.ui.login.LoginActivity;
@@ -112,6 +113,14 @@ public class ProfileFragment extends Fragment {
             login_button.setText(getText(R.string.log_out));
             login_button.setBackgroundColor(login_button.getContext().getResources().getColor(R.color.red));
             login_button.setOnClickListener(v -> {
+
+                // Write user logout into user log
+                // Wake IOHandler
+                System.out.println("Logout IOHandler start");
+                IOHandler ioHandler = IOHandler.getInstance();
+                int logout = 2;
+                ioHandler.doFileAction(context, userManager.getCurrentUserUUID(), userManager.getCurrentUser().getUserName(), logout);
+
                 userManager.noCurrentUser();
                 handle_profileview_login_state();
             });
@@ -149,6 +158,7 @@ public class ProfileFragment extends Fragment {
             ecorankPicture.setImageResource(R.drawable.eco_0);
             profilePicture.setImageResource(R.drawable.unlogged_profilepicture);
             profileName.setText(R.string.profilename);
+
         }
     }
 
@@ -173,16 +183,17 @@ public class ProfileFragment extends Fragment {
 
     // User and Data export to file when Export button is pushed
     public void exportFiles() {
-        String userFile = "UserLog.txt";
+//        String userFile = "UserLog.txt";
         String dataFile = "DataLog.txt";
 
         Context context = getContext();
-
+/*
+        // This is not needed. User log entries are written automatically in Create Account, Login and Logout actions
         // Write userdata to log file
         try {
             OutputStreamWriter osw = new OutputStreamWriter(context.openFileOutput(userFile, Context.MODE_PRIVATE));
 
-            //TODO add what to write into log file here
+
             System.out.println("Userfile write ok...");
 
             osw.close();
@@ -191,7 +202,7 @@ public class ProfileFragment extends Fragment {
         } finally {
             Toast.makeText(context.getApplicationContext(), "First file ready", Toast.LENGTH_SHORT).show();
         }
-
+*/
         // Write inputdata to log file
         try {
             OutputStreamWriter osw = new OutputStreamWriter(context.openFileOutput(dataFile, Context.MODE_PRIVATE));

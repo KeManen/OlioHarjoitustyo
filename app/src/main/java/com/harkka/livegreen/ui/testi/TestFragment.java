@@ -26,6 +26,7 @@ import com.harkka.livegreen.calculable.Calculable;
 import com.harkka.livegreen.R;
 import com.harkka.livegreen.entry.Entry;
 import com.harkka.livegreen.entry.EntryManager;
+import com.harkka.livegreen.iohandler.IOHandler;
 import com.harkka.livegreen.roomdb.DataDao;
 import com.harkka.livegreen.roomdb.DataEntity;
 import com.harkka.livegreen.roomdb.UserDao;
@@ -35,6 +36,7 @@ import com.harkka.livegreen.user.UserManager;
 
 import java.util.ArrayList;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class TestFragment extends Fragment {
     //Todo: remove if not really needed
@@ -120,6 +122,9 @@ public class TestFragment extends Fragment {
 
         TextView textViewTest = v.findViewById(R.id.textViewTest);
         EditText editTextTest = v.findViewById(R.id.editTextTextMultiLineTest);
+        Context context = this.getContext();
+
+
 
         testButton = v.findViewById(R.id.buttonTest);
         testInt++;
@@ -128,7 +133,35 @@ public class TestFragment extends Fragment {
         } else
             testButton.setText("Clicked");
 
+        System.out.println(testString + "File directory is " + context.getFilesDir());
+        UUID testGuid = uManager.getCurrentUserUUID();
+        String testUserName = "TestUser";
+        // Action: Create = 0, Login = 1, Logout = 2
+        int create = 0;
+        int login = 1;
+        int logout = 2;
 
+        IOHandler ioHandler = IOHandler.getInstance();
+
+/*        ioHandler.doFileAction(context, testGuid, testUserName, create);
+        // Sleep for 1second so user has time to read previous Toast message
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+*/
+        ioHandler.doFileAction(context, testGuid, testUserName, login);
+        // Sleep for 1second so user has time to read previous Toast message
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        ioHandler.doFileAction(context, testGuid, testUserName, logout);
+
+/*
         uGuid = uManager.createUser().getUserId(); // New user creation
         System.out.println(testString + ": " + uGuid);
 
@@ -167,7 +200,7 @@ public class TestFragment extends Fragment {
            value = bmi.calculateBMI(value1, value2);
            System.out.println("BMI: " + value );
         }
-    }
+*/    }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void pushTestButtonLoadDB(View v) {

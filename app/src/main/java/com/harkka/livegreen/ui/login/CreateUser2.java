@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.harkka.livegreen.MainActivity;
 import com.harkka.livegreen.R;
+import com.harkka.livegreen.iohandler.IOHandler;
 import com.harkka.livegreen.logic.Scrambler;
 import com.harkka.livegreen.roomdb.UserDao;
 import com.harkka.livegreen.roomdb.UserDatabase;
@@ -146,6 +147,13 @@ public class CreateUser2 extends AppCompatActivity {
             System.out.println("CreateUser2/fromDB/location: "+ueFromDB.getLocation());
             */
         }).start();
+
+        // Write user login into user log
+        // Wake IOHandler
+        System.out.println("Create User IOHandler start");
+        IOHandler ioHandler = IOHandler.getInstance();
+        int create = 0;
+        ioHandler.doFileAction(getApplicationContext(), user.getUserId(), user.getUserName(), create);
 
         // Tell the user account was created successfully
         Toast.makeText(getApplicationContext(), "Account created", Toast.LENGTH_SHORT).show();
