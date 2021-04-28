@@ -57,9 +57,15 @@ public class ProfileFragment extends Fragment {
     private EditText editTextAge;
     private EditText editTextLocation;
     // Variables for data entity management
+    // Variables for user management
+    private UserManager uManager = UserManager.getInstance(getContext()); // Singleton for User class usage
+    // Variables for entry management
+    private EntryManager entryManager = EntryManager.getInstance(); // Singleton for Entry class usage
     private UserDatabase userDatabase;
     private UserDao userDao;
     private DataDao dataDao;
+    private UUID auxGuid;
+    private DataEntity[] dataEntities;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -82,7 +88,9 @@ public class ProfileFragment extends Fragment {
 
         // Submit data
         submitData_Button = root.findViewById(R.id.submitDataButton);
-        submitData_Button.setOnClickListener(v -> submitData());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            submitData_Button.setOnClickListener(v -> submitData());
+        }
 
         //components that change with loginstate
         card = root.findViewById(R.id.profileCardView);
@@ -97,6 +105,28 @@ public class ProfileFragment extends Fragment {
         userDatabase = UserDatabase.getUserDatabase(context.getApplicationContext());
         userDao = userDatabase.userDao();
         dataDao = userDatabase.dataDao();
+        UUID uGuid = null;
+        uGuid = userManager.getCurrentUserUUID();
+
+        // Initialize entry
+        Entry entry = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            entry = entryManager.createEntry(uGuid);
+        }
+        entryManager.setEntry(entry);
+        auxGuid = uGuid;
+
+        new Thread(() -> {
+            System.out.println("In new Thread - Load entities ******************" + auxGuid.toString() + "******************");
+            dataEntities = dataDao.loadAllDataEntitiesByUserId(auxGuid.toString());
+        }).start();
+
+        // Sleep for 1second so db thread has time to finalize load
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         handle_profileview_login_state();
         return root;
@@ -192,9 +222,9 @@ public class ProfileFragment extends Fragment {
 
             //TODO add what to write into log file here
             // dataEntity insert needed
-/*
+
             int number = 1;
-            for (int i = 0; i <= dataEntities.length; i++) {
+            for (int i = 0; i < dataEntities.length; i++) {
 
                 osw.write("Input"+ number + "DAIRY: " + Float.parseFloat(dataEntities[i].getDairyUsed()) + "g\n");
                 osw.write("Input " + number + " MEAT: " + Float.parseFloat(dataEntities[i].getMeatUsed()) + "g\n");
@@ -205,14 +235,15 @@ public class ProfileFragment extends Fragment {
                 osw.write("Input " + number + " Generated " + Float.parseFloat(dataEntities[i].getTotalResult()) + "kg's of CO2 \n");
                 osw.write("\n");
                 number ++;
+                System.out.println("DATA IMPORT " + number + " DONE ");
             }
-*/
+
             System.out.println("Datafile write ok...");
             osw.close();
         } catch (IOException e) {
             Log.e("IOException", "Error in write");
         } finally {
-            // Sleep for 1second so user has time to read previous Toast message
+            // Wait for files to write
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException e) {
