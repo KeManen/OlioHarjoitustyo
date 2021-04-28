@@ -137,12 +137,10 @@ public class CreateUser1 extends AppCompatActivity {
     // checks if the password has at least
     // one number, special, lower, upper character and length of >12
     private Boolean isPasswordFormatted(){
-        /*
         String passwordText = password.getText().toString().trim();
         Pattern textPattern = Pattern.compile("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\\W)[^\\s]{12,}$");
         return textPattern.matcher(passwordText).matches();
-        */
-        return true;
+
     }
 
     // isEmpty
