@@ -80,66 +80,60 @@ public class DataFragment extends Fragment {
             e.printStackTrace();
         }
 
-        // check whether database is empty
-        if (dataEntities[0].getTotalResult() != null) {
+        // clear old values from arraylist
+        foodUsage.clear();
+        //add values from database
+        for (int i = 0; i < dataEntities.length; i++) {
 
-            // clear old values from arraylist
-            foodUsage.clear();
-            //add values from database
-            for (int i = 0; i < dataEntities.length; i++) {
+            float totalGrams = Float.parseFloat(dataEntities[i].getDairyUsed()) + Float.parseFloat(dataEntities[i].getMeatUsed()) + Float.parseFloat(dataEntities[i].getVegeUsed());
+            System.out.println("Total FOOD USED IN GRAMS: " + totalGrams);
+            foodUsage.add(new BarEntry(i, totalGrams));
+        }
 
-                float totalGrams = Float.parseFloat(dataEntities[i].getDairyUsed()) + Float.parseFloat(dataEntities[i].getMeatUsed()) + Float.parseFloat(dataEntities[i].getVegeUsed());
-                System.out.println("Total FOOD USED IN GRAMS: " + totalGrams);
-                foodUsage.add(new BarEntry(i, totalGrams));
-            }
+        // create dataset using library and specify text size and colors
+        BarDataSet barDataSet = new BarDataSet(foodUsage, "");
+        barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+        barDataSet.setValueTextColor(Color.WHITE);
+        barDataSet.setValueTextSize(16f);
 
-            // create dataset using library and specify text size and colors
-            BarDataSet barDataSet = new BarDataSet(foodUsage, "");
-            barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
-            barDataSet.setValueTextColor(Color.WHITE);
-            barDataSet.setValueTextSize(16f);
-
-            // fill the bardata with arraylist data
-            BarData barData = new BarData(barDataSet);
-            // format the bar chart here
-            barChart.setFitBars(true);
-            barChart.setData(barData);
-            barChart.getDescription().setText("Food usage");
-            barChart.animateY(2000);
+        // fill the bardata with arraylist data
+        BarData barData = new BarData(barDataSet);
+        // format the bar chart here
+        barChart.setFitBars(true);
+        barChart.setData(barData);
+        barChart.getDescription().setText("Food usage");
+        barChart.animateY(2000);
 
         /////////////////////////////////////////////////////////////////
         //////////////////     Draw second chart       //////////////////
         /////////////////////////////////////////////////////////////////
 
-            // initialize components
-            BarChart barChart2 = root.findViewById(R.id.barChart2);
-            ArrayList<BarEntry> emissions = new ArrayList<>();
+        // initialize components
+        BarChart barChart2 = root.findViewById(R.id.barChart2);
+        ArrayList<BarEntry> emissions = new ArrayList<>();
 
-            // clear old values from arraylist
-            emissions.clear();
-            // add values from database
-            for (int i = 0; i < dataEntities.length; i++) {
+        // clear old values from arraylist
+        emissions.clear();
+        // add values from database
+        for (int i = 0; i < dataEntities.length; i++) {
 
-                emissions.add(new BarEntry(i, Float.parseFloat(dataEntities[i].getTotalResult())));
-            }
-
-            // create dataset using library and specify text size and colors
-            BarDataSet barDataSet2 = new BarDataSet(emissions, "");
-            barDataSet2.setColors(ColorTemplate.MATERIAL_COLORS);
-            barDataSet2.setValueTextColor(Color.WHITE);
-            barDataSet2.setValueTextSize(16f);
-
-            // fill the bardata with arraylist data
-            BarData barData2 = new BarData(barDataSet2);
-            // format the bar chart here
-            barChart2.setFitBars(true);
-            barChart2.setData(barData2);
-            barChart2.getDescription().setText("Daily emissions");
-            barChart2.animateY(2000);
-
-        } else {
-            Toast.makeText(getContext(), "Insert data first", Toast.LENGTH_SHORT).show();
+            emissions.add(new BarEntry(i, Float.parseFloat(dataEntities[i].getTotalResult())));
         }
+
+        // create dataset using library and specify text size and colors
+        BarDataSet barDataSet2 = new BarDataSet(emissions, "");
+        barDataSet2.setColors(ColorTemplate.MATERIAL_COLORS);
+        barDataSet2.setValueTextColor(Color.WHITE);
+        barDataSet2.setValueTextSize(16f);
+
+        // fill the bardata with arraylist data
+        BarData barData2 = new BarData(barDataSet2);
+        // format the bar chart here
+        barChart2.setFitBars(true);
+        barChart2.setData(barData2);
+        barChart2.getDescription().setText("Daily emissions");
+        barChart2.animateY(2000);
+
         return root;
     }
 }
