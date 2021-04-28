@@ -139,6 +139,10 @@ public class ProfileFragment extends Fragment {
 
         //checks if the user is logged
         if(userManager.getCurrentUser() != null){
+
+            System.out.println("****************"+ userManager.getCurrentUser().getUserId() + "**************");
+            System.out.println("****************"+ userManager.getCurrentUserUUID() + "**************");
+
             //Change button to user logged in state
             login_button.setText(getText(R.string.log_out));
             login_button.setBackgroundColor(login_button.getContext().getResources().getColor(R.color.red));
@@ -149,6 +153,7 @@ public class ProfileFragment extends Fragment {
                 System.out.println("Logout IOHandler start");
                 IOHandler ioHandler = IOHandler.getInstance();
                 int logout = 2;
+                System.out.println("****************"+ userManager.getCurrentUserUUID() + "**************");
                 ioHandler.doFileAction(context, userManager.getCurrentUserUUID(), userManager.getCurrentUser().getUserName(), logout);
 
                 userManager.noCurrentUser();
@@ -259,10 +264,10 @@ public class ProfileFragment extends Fragment {
         UserEntity userEntity = UserEntity.getInstance();
 
         // Todo: This is for prototyping, user is not initialized so do it here. Initialization missing in app start! TO BE FIXED AND REMOVED
-        UUID uGuid = um.createUser().getUserId();
+        //UUID uGuid = um.createUser().getUserId();
         User user = um.getCurrentUser();
+        UUID uGuid = um.getCurrentUserUUID();
         UserProfile userProfile = um.createUserProfile(uGuid);
-        //uGuid = um.getCurrentUserUUID();
 
         // New entry object for data transfer and insert to DB
         Entry entry = em.createEntry(uGuid);

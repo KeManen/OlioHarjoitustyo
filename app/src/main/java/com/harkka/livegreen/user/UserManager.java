@@ -76,14 +76,20 @@ public class UserManager {
         UserEntity tempUserEntity = userDatabase.userDao().loadUserEntityByUserId(guid.toString());
 
         if(tempUserEntity==null){
+            System.out.println(("**************** Anna mulle nullii! *****************"));
             return null;
         }
 
         User newUser = new User();
+        User testUser = new User();
         newUser.setUserId(tempUserEntity.getUserId());
+        System.out.println("**********" + tempUserEntity.getUserId().toString() + "****" + testUser.getUserId().toString() + "*************");
         newUser.setUserName(tempUserEntity.getUserName());
+        System.out.println("**********" + tempUserEntity.getUserName() + "****" + testUser.getUserName() + "*************");
         newUser.setUserPasswd(tempUserEntity.getPassword());
+        System.out.println("**********" + tempUserEntity.getPassword() + "****" + testUser.getUserPasswd() + "*************");
         newUser.setUserEmail(tempUserEntity.getEmail());
+        System.out.println("**********" + tempUserEntity.getEmail() + "****" + testUser.getUserEmail() + "*************");
         return newUser;
     }
 
