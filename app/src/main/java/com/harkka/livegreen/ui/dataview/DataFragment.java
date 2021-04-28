@@ -49,12 +49,12 @@ public class DataFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_data, container, false);
 
-        // initialize components
+        // Initialize components
         BarChart barChart = root.findViewById(R.id.barChart);
         ArrayList<BarEntry> foodUsage = new ArrayList<>();
         Context context = this.getContext();
 
-        //Todo for test use
+        // Initialize database and entry
         userDatabase = UserDatabase.getUserDatabase(context.getApplicationContext());
         userDao = userDatabase.userDao();
         dataDao = userDatabase.dataDao();

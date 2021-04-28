@@ -220,22 +220,19 @@ public class ProfileFragment extends Fragment {
         try {
             OutputStreamWriter osw = new OutputStreamWriter(context.openFileOutput(dataFile, Context.MODE_PRIVATE));
 
-            //TODO add what to write into log file here
-            // dataEntity insert needed
-
-            int number = 1;
+            int fileNum = 0;
             for (int i = 0; i < dataEntities.length; i++) {
 
-                osw.write("Input"+ number + "DAIRY: " + Float.parseFloat(dataEntities[i].getDairyUsed()) + "g\n");
-                osw.write("Input " + number + " MEAT: " + Float.parseFloat(dataEntities[i].getMeatUsed()) + "g\n");
-                osw.write("Input " + number + " VEGE: " + Float.parseFloat(dataEntities[i].getVegeUsed()) + "g\n");
+                osw.write("Input"+ fileNum + "DAIRY: " + Float.parseFloat(dataEntities[i].getDairyUsed()) + "g\n");
+                osw.write("Input " + fileNum + " MEAT: " + Float.parseFloat(dataEntities[i].getMeatUsed()) + "g\n");
+                osw.write("Input " + fileNum + " VEGE: " + Float.parseFloat(dataEntities[i].getVegeUsed()) + "g\n");
                 float totalGrams3 = Float.parseFloat(dataEntities[i].getDairyUsed()) + Float.parseFloat(dataEntities[i]
                         .getMeatUsed()) + Float.parseFloat(dataEntities[i].getVegeUsed());
-                osw.write("Input " + number + " Total food usage in grams: " + totalGrams3 + "\n");
-                osw.write("Input " + number + " Generated " + Float.parseFloat(dataEntities[i].getTotalResult()) + "kg's of CO2 \n");
+                osw.write("Input " + fileNum + " Total food usage in grams: " + totalGrams3 + "\n");
+                osw.write("Input " + fileNum + " Generated " + Float.parseFloat(dataEntities[i].getTotalResult()) + "kg's of CO2 \n");
                 osw.write("\n");
-                number ++;
-                System.out.println("DATA IMPORT " + number + " DONE ");
+                fileNum ++;
+                System.out.println("DATA EXPORT FILE " + fileNum + ". DONE ");
             }
 
             System.out.println("Datafile write ok...");
