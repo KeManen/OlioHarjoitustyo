@@ -8,6 +8,8 @@ import com.harkka.livegreen.roomdb.UserEntity;
 
 import java.util.UUID;
 
+// Handler class for User management
+
 public class UserManager {
 
     //User storage;
