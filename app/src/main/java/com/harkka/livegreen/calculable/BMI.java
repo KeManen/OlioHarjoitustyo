@@ -2,6 +2,7 @@ package com.harkka.livegreen.calculable;
 
 import static java.lang.Math.round;
 
+// BMI calculation function
 public class BMI implements Calculable {
     public static BMI bmi = new BMI();
 

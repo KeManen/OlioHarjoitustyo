@@ -132,6 +132,7 @@ public class IOHandler {
         return outFileString;
     }
 
+    //Read log file i a string for appending next log value
     public static String fromLogStream(InputStream in) throws IOException
     {
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));

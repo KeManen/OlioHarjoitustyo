@@ -332,7 +332,8 @@ public class ProfileFragment extends Fragment {
         float value = 0f;
         //BMI calculation
         if ( height > 0f && weight > 0f) {
-            Calculable bmi = new BMI();
+            //Calculable bmi = new BMI();
+            BMI bmi = new BMI();
             value = bmi.calculateBMI(height, weight);
             editTextBMI.setText(Float.toString(value));
             System.out.println("Profile Fragment - BMI: " + value);
