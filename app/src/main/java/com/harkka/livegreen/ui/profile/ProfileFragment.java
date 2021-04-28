@@ -128,7 +128,7 @@ public class ProfileFragment extends Fragment {
             //show profileinput card
             card.setVisibility(View.VISIBLE);
 
-            //get users rank and assing correct rankicon
+            //get users rank and assigning correct rank icon
             User user = userManager.getCurrentUser();
             switch(user.getRank()){
                 case 1: { ecorankPicture.setImageResource(R.drawable.eco_1); break; }
@@ -162,7 +162,7 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    //
+    // Update BMI when Height and Weight sunbmitted
     public void handle_profileview_datachanges(String s) {
         float height = 0f;
         float weight = 0f;
@@ -173,7 +173,7 @@ public class ProfileFragment extends Fragment {
             height = Float.parseFloat(editTextHeight.getText().toString());
         if(!editTextWeight.getText().toString().isEmpty())
             weight = Float.parseFloat(editTextWeight.getText().toString());
-        if (BMI(height, weight)){
+        if (calculateBMI(height, weight)){
             textView.setText(R.string.bmi);
         }
         else {
@@ -183,26 +183,9 @@ public class ProfileFragment extends Fragment {
 
     // User and Data export to file when Export button is pushed
     public void exportFiles() {
-//        String userFile = "UserLog.txt";
         String dataFile = "DataLog.txt";
 
         Context context = getContext();
-/*
-        // This is not needed. User log entries are written automatically in Create Account, Login and Logout actions
-        // Write userdata to log file
-        try {
-            OutputStreamWriter osw = new OutputStreamWriter(context.openFileOutput(userFile, Context.MODE_PRIVATE));
-
-
-            System.out.println("Userfile write ok...");
-
-            osw.close();
-        } catch (IOException e) {
-            Log.e("IOException", "Error in write");
-        } finally {
-            Toast.makeText(context.getApplicationContext(), "First file ready", Toast.LENGTH_SHORT).show();
-        }
-*/
         // Write inputdata to log file
         try {
             OutputStreamWriter osw = new OutputStreamWriter(context.openFileOutput(dataFile, Context.MODE_PRIVATE));
@@ -224,9 +207,7 @@ public class ProfileFragment extends Fragment {
                 number ++;
             }
 */
-
             System.out.println("Datafile write ok...");
-
             osw.close();
         } catch (IOException e) {
             Log.e("IOException", "Error in write");
@@ -288,9 +269,8 @@ public class ProfileFragment extends Fragment {
             System.out.println("Data submit Height ok...");
         }
 
-        // Todo: This calculation should be moved into code where values are entered, calculate automatically at the same time
         //BMI calculation
-        Boolean calculated = BMI(value1, value0);
+        Boolean calculated = calculateBMI(value1, value0);
 
         // Inserts into database
 
@@ -319,7 +299,7 @@ public class ProfileFragment extends Fragment {
         Toast.makeText(context.getApplicationContext(), "Data submitted", Toast.LENGTH_SHORT).show();
     }
 
-    public Boolean BMI(float height, float weight) {
+    public Boolean calculateBMI(float height, float weight) {
         Boolean ret = false;
         float value = 0f;
         //BMI calculation
