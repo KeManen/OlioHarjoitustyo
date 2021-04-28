@@ -228,7 +228,7 @@ public class ProfileFragment extends Fragment {
             int fileNum = 0;
             for (int i = 0; i < dataEntities.length; i++) {
 
-                osw.write("Input"+ fileNum + "DAIRY: " + Float.parseFloat(dataEntities[i].getDairyUsed()) + "g\n");
+                osw.write("Input "+ fileNum + "DAIRY: " + Float.parseFloat(dataEntities[i].getDairyUsed()) + "g\n");
                 osw.write("Input " + fileNum + " MEAT: " + Float.parseFloat(dataEntities[i].getMeatUsed()) + "g\n");
                 osw.write("Input " + fileNum + " VEGE: " + Float.parseFloat(dataEntities[i].getVegeUsed()) + "g\n");
                 float totalGrams3 = Float.parseFloat(dataEntities[i].getDairyUsed()) + Float.parseFloat(dataEntities[i]
