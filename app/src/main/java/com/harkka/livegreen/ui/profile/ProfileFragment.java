@@ -263,8 +263,6 @@ public class ProfileFragment extends Fragment {
         DataEntity dataEntity = DataEntity.getInstance();
         UserEntity userEntity = UserEntity.getInstance();
 
-        // Todo: This is for prototyping, user is not initialized so do it here. Initialization missing in app start! TO BE FIXED AND REMOVED
-        //UUID uGuid = um.createUser().getUserId();
         User user = um.getCurrentUser();
         UUID uGuid = um.getCurrentUserUUID();
         UserProfile userProfile = um.createUserProfile(uGuid);
