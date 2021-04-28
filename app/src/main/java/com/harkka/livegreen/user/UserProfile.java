@@ -4,6 +4,8 @@ import com.harkka.livegreen.roomdb.UserEntity;
 
 import java.util.UUID;
 
+// Class for user profile management
+
 public class UserProfile{
     private UUID userGuid;
     private String userFirstName = "";
@@ -69,7 +71,6 @@ public class UserProfile{
         userLocation = location;
     }
 
-    //TODO Implement?
     public UserProfile getUserProfile(UUID uGuid) {
         UserProfile uProfile = null;
 

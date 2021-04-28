@@ -8,6 +8,8 @@ import com.harkka.livegreen.roomdb.UserEntity;
 
 import java.util.UUID;
 
+// User class to manage users in the app
+
 public class User {
 
 //    public User user;
@@ -24,8 +26,6 @@ public class User {
 
     public User(){};
 
-    //public User() { createUser(); } //TODO: Original, remove when not needed
-
     // Method to create a new user and initialize user Id
     public void createUser() {
         userId =  getGuid();
@@ -40,7 +40,6 @@ public class User {
         user.userPasswd = userPasswd;
         return user;
     }
-
 
     public User getUser(UUID guid) {
         User user = new User();
@@ -116,7 +115,7 @@ public class User {
     public void loadUsers() {}
 
     // TODO: This is db interface method
-    // Makes db insert of user
+    // Makes db insert of user data
     public void insertDBUser() {
         UserEntity userEntity = UserEntity.getInstance();
         System.out.println("User/insertDBUser/userId: "+ userId);
