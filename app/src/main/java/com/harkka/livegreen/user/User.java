@@ -24,7 +24,7 @@ public class User {
     private UserDao userDao;
     private UserEntity userEntity = UserEntity.getInstance(); // Singleton for UserEntity class usage
 
-    public User(){};
+    public User(){}
 
     // Method to create a new user and initialize user Id
     public void createUser() {
@@ -59,7 +59,6 @@ public class User {
     }
 
     public UUID getUserId() {
-        // Todo: For cases User is not created or loaded
         if (userId == null)
             userId = getGuid();
         return userId;
@@ -110,11 +109,11 @@ public class User {
 
     // Entry management
 
-    // TODO: This is db interface method
+
     // Load all users
     public void loadUsers() {}
 
-    // TODO: This is db interface method
+
     // Makes db insert of user data
     public void insertDBUser() {
         UserEntity userEntity = UserEntity.getInstance();

@@ -29,8 +29,6 @@ public class EntryManager {
 
     private EntryManager() {}
 
-    //Todo: Necessary methods for Main - to be decided
-
     @RequiresApi(api = Build.VERSION_CODES.O)
     public Entry createEntry(UUID uGuid) {
 
@@ -53,8 +51,7 @@ public class EntryManager {
 
     // Setting single entry value into Entry class and for DB insert in DataEntity class
     public void setEntryValue( int entryType, float newEntry ) {
-        // Todo: in here entry type switch using ENUM
-        switch(entryType){
+          switch(entryType){
             case 0:
                 entry.setWeight(newEntry);
                 entryManager.entry.insertDBEntry(entryType);
@@ -85,7 +82,6 @@ public class EntryManager {
     }
 
     public float getEntryValue(int entryType) {
-        // Todo: in here entry type switch using ENUM
         float ret = 0;
         switch(entryType){
             case 0:

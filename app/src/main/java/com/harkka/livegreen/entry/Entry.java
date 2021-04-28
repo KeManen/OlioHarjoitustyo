@@ -123,7 +123,6 @@ public class Entry {
 
     // Entry management
 /*
-    // TODO: This is db interface method
     // Load all entries of a user
     public Entry[] loadUserEntries(UUID userGuid) {
         //DataEntity dataEntity = DataEntity.getInstance();
@@ -148,13 +147,13 @@ public class Entry {
         return entries;
     }
 
-    // TODO: This is db interface method
+
     // Load selected entry
     public Entry[] loadEntry(UUID entryGuid) {
         DataEntity dataEntity = DataEntity.getInstance();
     };
 */
-    // TODO: This is db interface method
+
     // Makes data insert into DataEntity class for DB insert
     public void insertDBEntry() {
         DataEntity dataEntity = DataEntity.getInstance();
@@ -177,7 +176,7 @@ public class Entry {
         dataEntity.setTotalResult(String.valueOf(totalResult));
     }
 
-    // TODO: This is db interface method
+
     // Makes db insert of current entry set by EntryManager.setEntryValue()
     // Entry types:
     // 0: Weight

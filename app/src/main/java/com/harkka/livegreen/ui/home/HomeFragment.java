@@ -59,7 +59,6 @@ public class HomeFragment extends Fragment {
     private SwitchMaterial ecofriendlySwitch;
     private Button buttonSubmit;
 
-    // TODO remove when insert to db works
     // Variables for user management
     UserManager userManager = UserManager.getInstance(getContext()); // Singleton for User class usage
     // Variables for entry management
@@ -172,7 +171,7 @@ public class HomeFragment extends Fragment {
                 userDao = userDatabase.userDao();
                 dataDao = userDatabase.dataDao();
                 String testString = "123 ";
-                UUID uGuid = null;
+                UUID uGuid;
                 //uGuid = uManager.createUser().getUserId(); // New user creation
                 uGuid = userManager.getCurrentUserUUID();
                 System.out.println(testString + ": " + uGuid);
@@ -193,7 +192,6 @@ public class HomeFragment extends Fragment {
                 }
                 entryGuid = entry.getEntryGuid();
                 entry.setUserGuid(userManager.getCurrentUserUUID());
-                ;
                 entry.setEntryGuid(entryGuid);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     entry.setDateTime(LocalDateTime.now());

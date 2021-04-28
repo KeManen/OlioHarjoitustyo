@@ -103,7 +103,6 @@ public class UserProfile{
         return userLocation;
     }
 
-    // TODO: This is db interface method
     // Makes db insert of user
     public void insertDBUserProfile() {
         UserEntity userEntity = UserEntity.getInstance();
