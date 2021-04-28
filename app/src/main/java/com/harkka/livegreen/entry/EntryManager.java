@@ -12,6 +12,7 @@ import com.harkka.livegreen.user.UserProfile;
 import java.util.ArrayList;
 import java.util.UUID;
 
+// Handler class for data entries
 public class EntryManager {
 
     public enum Entrytype {WEIGHT, HEIGHT, DAIRY, MEAT, VEGE, OTHER}
@@ -50,6 +51,7 @@ public class EntryManager {
         return entry.getCurrentEntry();
     }
 
+    // Setting single entry value into Entry class and for DB insert in DataEntity class
     public void setEntryValue( int entryType, float newEntry ) {
         // Todo: in here entry type switch using ENUM
         switch(entryType){

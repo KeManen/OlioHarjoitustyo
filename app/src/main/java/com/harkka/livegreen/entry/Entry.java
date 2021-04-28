@@ -11,6 +11,7 @@ import com.harkka.livegreen.roomdb.UserDao;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+// Data entry class for user input data
 public class Entry {
 
     private String classString = "Entry Class: ";
@@ -154,7 +155,7 @@ public class Entry {
     };
 */
     // TODO: This is db interface method
-    // Makes db insert of entry
+    // Makes data insert into DataEntity class for DB insert
     public void insertDBEntry() {
         DataEntity dataEntity = DataEntity.getInstance();
 
@@ -186,6 +187,7 @@ public class Entry {
     // 4: Vegetables consumption
     // 5: Total calculated consumption
 
+    // Data entry for DataEntity class for DB insert
     public void insertDBEntry(int entryType) {
         DataEntity dataEntity = DataEntity.getInstance();
 
@@ -220,7 +222,7 @@ public class Entry {
     }
 
     // Aux methods
-    // Create a new guid
+    // Create a new entry guid
     private UUID getGuid() {
         UUID guid = UUID.randomUUID();
         System.out.println(classString + " GetGuid()/Guid: " + guid);
