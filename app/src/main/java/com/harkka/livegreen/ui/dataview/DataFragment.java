@@ -35,26 +35,26 @@ import java.util.concurrent.TimeUnit;
 public class DataFragment extends Fragment {
 
     // Variables for user management
-    UserManager uManager = UserManager.getInstance(getContext()); // Singleton for User class usage
+    private UserManager uManager = UserManager.getInstance(getContext()); // Singleton for User class usage
     // Variables for entry management
-    EntryManager entryManager = EntryManager.getInstance(); // Singleton for Entry class usage
-    UserDatabase userDatabase;
-    UserDao userDao;
-    DataDao dataDao;
-    UUID auxGuid;
-    DataEntity[] dataEntities;
+    private EntryManager entryManager = EntryManager.getInstance(); // Singleton for Entry class usage
+    private UserDatabase userDatabase;
+    private UserDao userDao;
+    private DataDao dataDao;
+    private UUID auxGuid;
+    private DataEntity[] dataEntities;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_data, container, false);
 
-        // initialize components
+        // Initialize components
         BarChart barChart = root.findViewById(R.id.barChart);
         ArrayList<BarEntry> foodUsage = new ArrayList<>();
         Context context = this.getContext();
 
-        //Todo for test use
+        // Initialize database and entry
         userDatabase = UserDatabase.getUserDatabase(context.getApplicationContext());
         userDao = userDatabase.userDao();
         dataDao = userDatabase.dataDao();
