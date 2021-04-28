@@ -8,6 +8,8 @@ import androidx.room.PrimaryKey;
 
 import java.util.UUID;
 
+// RoomDB class for user management
+
 @Entity(tableName = "users")
 public class UserEntity {
 

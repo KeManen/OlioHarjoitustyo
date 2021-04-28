@@ -14,6 +14,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
+// RoomDB class for user data management
+
 @Entity(tableName = "data")
 public class DataEntity {
 
@@ -91,23 +93,9 @@ public class DataEntity {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             localDateTime = LocalDateTime.parse(dateTime);
         }
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-//        LocalDateTime localDateTime = LocalDateTime.parse(dateTime, formatter);
 
         return localDateTime;
     }
-/*
-    public LocalDateTime getDateTime() {
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime localDateTime = null;
-        try {
-            localDateTime = formatter.parse(dateTime);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return localDateTime;
-    }
-*/
 
     public void setDateTime(LocalDateTime localDateTime) {
         this.dateTime = localDateTime.toString();

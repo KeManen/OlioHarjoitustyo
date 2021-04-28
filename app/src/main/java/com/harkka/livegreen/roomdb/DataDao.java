@@ -7,6 +7,8 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
+// RoomDB operations for entry class
+
 @Dao
 public interface DataDao {
 

@@ -9,6 +9,10 @@ import androidx.room.RoomDatabase;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+// RoomDB management
+// Creation of the database
+// Migration examples for possible future use
+
 @Database(entities = {UserEntity.class, DataEntity.class}, version = 1)
 public abstract class UserDatabase extends RoomDatabase {
 

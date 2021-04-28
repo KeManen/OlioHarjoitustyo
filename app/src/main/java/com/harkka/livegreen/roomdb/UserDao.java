@@ -7,6 +7,8 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
+// RoomDB operations for user class
+
 @Dao
 public interface UserDao {
 
