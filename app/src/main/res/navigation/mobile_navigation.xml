@@ -45,5 +45,4 @@
         android:name="com.harkka.livegreen.ui.testi.TestFragment"
         android:label="TESTI"
         tools:layout="@layout/test_fragment" />
-
 </navigation>
