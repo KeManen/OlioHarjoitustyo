@@ -218,7 +218,7 @@ public class ProfileFragment extends Fragment {
 
     // User and Data export to file when Export button is pushed
     public void exportFiles() {
-        String dataFile = "DataLog.txt";
+        String dataFile = "LiveGreenDataLog.txt";
 
         Context context = getContext();
         // Write inputdata to log file
